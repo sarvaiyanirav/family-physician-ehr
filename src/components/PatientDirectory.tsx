@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Plus, FileText, ArrowRight, AlertTriangle, Activity } from 'lucide-react';
+import { Search, Plus, FileText, ArrowRight, AlertTriangle, Activity, Users, CalendarCheck, Clock, ShieldAlert } from 'lucide-react';
 import { Patient } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
 
@@ -18,6 +18,48 @@ export const PatientDirectory: React.FC<PatientDirectoryProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterMode, setFilterMode] = useState<'all' | 'today' | 'in_exam' | 'waiting' | 'chronic'>('all');
+
+  // Compute key summary statistics
+  const summaryStats = useMemo(() => {
+    const totalPatients = patients.length;
+    
+    // Encounters today / scheduled today
+    const scheduledToday = patients.filter(
+      (p) => p.visitStatus && p.visitStatus !== 'not_scheduled'
+    );
+    const inExamOrWaiting = patients.filter(
+      (p) => p.visitStatus === 'in_exam' || p.visitStatus === 'waiting'
+    ).length;
+    const completedToday = patients.filter(
+      (p) => p.visitStatus === 'completed'
+    ).length;
+
+    // Upcoming follow-ups: patients with follow-up directives in their plan
+    const upcomingFollowUps = patients.filter((p) => {
+      const latest = p.encounters[0];
+      return latest?.plan?.followUpIn && latest.plan.followUpIn !== 'PRN';
+    }).length;
+
+    // High risk / severe allergies safety watch
+    const highRiskSafetyCount = patients.filter(
+      (p) =>
+        p.allergies.some((a) => a.severity === 'severe_anaphylaxis') ||
+        p.clinicalAlerts.some((alert) =>
+          alert.toLowerCase().includes('risk') ||
+          alert.toLowerCase().includes('anticoagulant') ||
+          alert.toLowerCase().includes('anaphylaxis')
+        )
+    ).length;
+
+    return {
+      totalPatients,
+      todayTotal: scheduledToday.length,
+      inExamOrWaiting,
+      completedToday,
+      upcomingFollowUps,
+      highRiskSafetyCount,
+    };
+  }, [patients]);
 
   const filteredPatients = useMemo(() => {
     return patients.filter((patient) => {
@@ -91,6 +133,83 @@ export const PatientDirectory: React.FC<PatientDirectoryProps> = ({
             <Plus className="w-3.5 h-3.5" />
             <span>New Intake</span>
           </button>
+        </div>
+      </div>
+
+      {/* Top Summary Statistics Card */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Total Patients Stat */}
+        <div
+          onClick={() => setFilterMode('all')}
+          className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs hover:border-slate-300 transition-colors cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Total Rostered Patients
+            </span>
+            <span className="p-1.5 bg-slate-100 group-hover:bg-teal-50 rounded-md transition-colors">
+              <Users className="w-4 h-4 text-slate-600 group-hover:text-teal-700" />
+            </span>
+          </div>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl font-bold font-mono text-slate-900 tabular-nums">
+              {summaryStats.totalPatients}
+            </span>
+            <span className="text-xs text-slate-500">Active Dossiers</span>
+          </div>
+          <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Primary care cohort</span>
+            <span className="text-teal-700 font-medium group-hover:underline">View all</span>
+          </div>
+        </div>
+
+        {/* Encounters Today Stat */}
+        <div
+          onClick={() => setFilterMode('today')}
+          className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs hover:border-slate-300 transition-colors cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Today&apos;s Encounters
+            </span>
+            <span className="p-1.5 bg-slate-100 group-hover:bg-teal-50 rounded-md transition-colors">
+              <Activity className="w-4 h-4 text-slate-600 group-hover:text-teal-700" />
+            </span>
+          </div>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl font-bold font-mono text-slate-900 tabular-nums">
+              {summaryStats.todayTotal}
+            </span>
+            <span className="text-xs text-slate-500">Clinic Visits</span>
+          </div>
+          <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+            <span>
+              {summaryStats.inExamOrWaiting} in progress · {summaryStats.completedToday} complete
+            </span>
+            <span className="text-teal-700 font-medium group-hover:underline font-sans">Filter</span>
+          </div>
+        </div>
+
+        {/* Upcoming Follow-ups Stat */}
+        <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Upcoming Follow-ups
+            </span>
+            <span className="p-1.5 bg-slate-100 rounded-md">
+              <CalendarCheck className="w-4 h-4 text-slate-600" />
+            </span>
+          </div>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl font-bold font-mono text-slate-900 tabular-nums">
+              {summaryStats.upcomingFollowUps}
+            </span>
+            <span className="text-xs text-slate-500">Scheduled Recalls</span>
+          </div>
+          <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+            <span>Chronic disease & acute reviews</span>
+            <span className="text-slate-600">On Track</span>
+          </div>
         </div>
       </div>
 
