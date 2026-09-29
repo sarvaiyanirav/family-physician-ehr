@@ -137,7 +137,7 @@ export interface Encounter {
   vitals: Vitals;
   chiefComplaint: string;
   hpi: string; // History of Present Illness
-  reviewOfSystems: Record<string, string>;
+  reviewOfSystems?: Record<string, string>;
   physicalExam: Record<string, string>;
   assessment: {
     primaryDiagnosis: DiagnosisEntry;

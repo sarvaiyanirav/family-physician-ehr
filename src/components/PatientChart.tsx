@@ -18,10 +18,12 @@ import {
   Edit2,
   Syringe,
   FileCheck,
+  TrendingUp,
 } from 'lucide-react';
 import { Patient, Encounter, Medication, Problem, Allergy } from '../types/clinical';
 import { calculateAge, calculateBmi } from '../services/storageService';
 import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
+import { PediatricGrowthChart } from './PediatricGrowthChart';
 
 interface PatientChartProps {
   patient: Patient;
@@ -38,7 +40,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
   onUpdatePatient,
   onOpenCalculators,
 }) => {
-  const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'history' | 'preventive' | 'print'>('encounters');
+  const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'growth_chart' | 'history' | 'preventive' | 'print'>('encounters');
   const [selectedEncounterForView, setSelectedEncounterForView] = useState<Encounter | null>(
     patient.encounters[0] || null
   );
@@ -169,6 +171,20 @@ export const PatientChart: React.FC<PatientChartProps> = ({
         </button>
 
         <div className="flex items-center gap-2">
+          {age <= 20 && (
+            <button
+              onClick={() => setActiveTab('growth_chart')}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md shadow-xs transition-colors cursor-pointer border ${
+                activeTab === 'growth_chart'
+                  ? 'bg-teal-700 text-white border-teal-700'
+                  : 'text-teal-800 bg-teal-50 border-teal-200 hover:bg-teal-100'
+              }`}
+            >
+              <TrendingUp className="w-3.5 h-3.5" />
+              <span>Pediatric Growth Chart</span>
+            </button>
+          )}
+
           <button
             onClick={onOpenCalculators}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-md shadow-xs transition-colors cursor-pointer"
@@ -325,6 +341,22 @@ export const PatientChart: React.FC<PatientChartProps> = ({
           >
             Vitals & Flowsheet
           </button>
+          {age <= 20 && (
+            <button
+              onClick={() => setActiveTab('growth_chart')}
+              className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
+                activeTab === 'growth_chart'
+                  ? 'border-teal-700 text-teal-800 font-semibold'
+                  : 'border-transparent text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <TrendingUp className="w-3.5 h-3.5 text-teal-700" />
+              <span>Pediatric Growth Chart</span>
+              <span className="text-[10px] bg-teal-50 text-teal-800 font-bold px-1.5 py-0.5 rounded border border-teal-200">
+                CDC Curves
+              </span>
+            </button>
+          )}
           <button
             onClick={() => setActiveTab('history')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
@@ -845,14 +877,42 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                 Chronological vital signs captured across clinic encounters
               </p>
             </div>
-            <button
-              onClick={() => onStartEncounter()}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Capture New Vitals</span>
-            </button>
+            <div className="flex items-center gap-2">
+              {age <= 20 && (
+                <button
+                  onClick={() => setActiveTab('growth_chart')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+                >
+                  <TrendingUp className="w-3.5 h-3.5 text-teal-700" />
+                  <span>CDC Growth Chart</span>
+                </button>
+              )}
+              <button
+                onClick={() => onStartEncounter()}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Capture New Vitals</span>
+              </button>
+            </div>
           </div>
+
+          {age <= 20 && (
+            <div className="bg-teal-50/80 border border-teal-200 rounded-md p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-teal-950">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-teal-700 shrink-0" />
+                <span>
+                  <strong>Pediatric Anthropometrics Active:</strong> Plot stature, weight, and BMI percentiles (5th–95th) against standard CDC curves.
+                </span>
+              </div>
+              <button
+                onClick={() => setActiveTab('growth_chart')}
+                className="px-2.5 py-1 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded transition-colors cursor-pointer self-start sm:self-auto shrink-0"
+              >
+                View Pediatric Growth Chart →
+              </button>
+            </div>
+          )}
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-mono">
@@ -904,6 +964,14 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             </table>
           </div>
         </div>
+      )}
+
+      {/* TAB CONTENT: PEDIATRIC GROWTH CHART */}
+      {activeTab === 'growth_chart' && (
+        <PediatricGrowthChart
+          patient={patient}
+          onUpdatePatient={onUpdatePatient}
+        />
       )}
 
       {/* TAB CONTENT 4: ALLERGIES & HISTORY */}

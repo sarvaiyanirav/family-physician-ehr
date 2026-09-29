@@ -943,7 +943,308 @@ export const INITIAL_PATIENTS: Patient[] = [
       { id: 'imm-17', vaccineName: 'Influenza pediatric', dateAdministered: '2025-10-18', status: 'completed' }
     ],
     preventiveScreenings: [],
-    encounters: [],
+    encounters: [
+      {
+        id: 'enc-liam-8',
+        patientId: 'pat-005',
+        date: '2025-10-18T11:00:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '8-Year Well-Child Examination & school clearance.',
+        vitals: {
+          systolicBp: 102,
+          diastolicBp: 64,
+          heartRate: 84,
+          respiratoryRate: 20,
+          temperatureC: 36.7,
+          oxygenSaturation: 99,
+          heightCm: 131,
+          weightKg: 29.5,
+          bmi: 17.2,
+          painScore: 0
+        },
+        chiefComplaint: '8-year pediatric preventive health checkup.',
+        hpi: 'Liam attends 3rd grade. Active in youth soccer. No asthma symptoms. Peanut avoidance strictly observed.',
+        reviewOfSystems: {
+          Constitutional: 'Good appetite, sleeping 10 hours nightly.',
+          Respiratory: 'No cough, wheezing, or exertional shortness of breath.',
+          Dermatologic: 'Mild eczema patches on antecubital folds, well managed with moisturizer.'
+        },
+        physicalExam: {
+          General: 'Alert, interactive, pleasant 8-year-old boy in no distress.',
+          Cardiovascular: 'Regular rate and rhythm, no murmurs.',
+          Respiratory: 'Clear breath sounds bilaterally, no wheezes or rales.',
+          Abdomen: 'Soft, non-tender, no hepatosplenomegaly.',
+          Extremities: 'Normal range of motion and pediatric gait.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Encounter for routine child health examination without abnormal findings', isPrimary: true },
+          secondaryDiagnoses: [
+            { code: 'Z91.010', name: 'Allergy to peanuts', isPrimary: false },
+            { code: 'L20.9', name: 'Atopic dermatitis, unspecified', isPrimary: false }
+          ],
+          clinicalSummary: 'Normal development and growth along 55th percentile for stature and weight. Updated school epinephrine auto-injector action plan.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Continue strict peanut avoidance. Signed school sports physical form.',
+          followUpIn: '1 year (9-year well-child visit)',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        signedAt: '2025-10-18T11:45:00Z',
+        billingCode: '99393'
+      },
+      {
+        id: 'enc-liam-7',
+        patientId: 'pat-005',
+        date: '2024-09-25T14:00:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '7-Year Well-Child Examination.',
+        vitals: {
+          systolicBp: 100,
+          diastolicBp: 62,
+          heartRate: 86,
+          respiratoryRate: 20,
+          temperatureC: 36.6,
+          oxygenSaturation: 99,
+          heightCm: 125,
+          weightKg: 26.1,
+          bmi: 16.7,
+          painScore: 0
+        },
+        chiefComplaint: '7-year well-child checkup.',
+        hpi: 'Healthy 7-year-old boy with normal school progress and physical activity.',
+        physicalExam: {
+          General: 'Well nourished, playful, good eye contact.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Routine child health examination', isPrimary: true },
+          secondaryDiagnoses: [],
+          clinicalSummary: 'Normal growth and development.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Encourage 60 mins daily physical play. Dental checkup every 6 months.',
+          followUpIn: '1 year',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        billingCode: '99393'
+      },
+      {
+        id: 'enc-liam-6',
+        patientId: 'pat-005',
+        date: '2023-09-19T09:30:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '6-Year Well-Child Examination.',
+        vitals: {
+          systolicBp: 98,
+          diastolicBp: 60,
+          heartRate: 88,
+          respiratoryRate: 22,
+          temperatureC: 36.8,
+          oxygenSaturation: 99,
+          heightCm: 118,
+          weightKg: 22.8,
+          bmi: 16.4,
+          painScore: 0
+        },
+        chiefComplaint: '6-year well-child checkup and school readiness.',
+        hpi: 'Starting 1st grade. Immunizations complete.',
+        physicalExam: {
+          General: 'Active, healthy 6-year-old.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Routine child health examination', isPrimary: true },
+          secondaryDiagnoses: [],
+          clinicalSummary: 'Growth tracking along 50-60th percentile.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Bicycle helmet safety counseling.',
+          followUpIn: '1 year',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        billingCode: '99393'
+      },
+      {
+        id: 'enc-liam-5',
+        patientId: 'pat-005',
+        date: '2022-09-22T10:15:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '5-Year Kindergarten Entry Physical.',
+        vitals: {
+          systolicBp: 96,
+          diastolicBp: 58,
+          heartRate: 90,
+          respiratoryRate: 22,
+          temperatureC: 36.7,
+          oxygenSaturation: 99,
+          heightCm: 111,
+          weightKg: 20.0,
+          bmi: 16.2,
+          painScore: 0
+        },
+        chiefComplaint: '5-year checkup and kindergarten booster vaccines.',
+        hpi: 'Pre-kindergarten wellness exam.',
+        physicalExam: {
+          General: 'Well-developed 5-year-old.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Routine child health examination', isPrimary: true },
+          secondaryDiagnoses: [],
+          clinicalSummary: 'Appropriate cognitive, motor, and somatic growth.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Administered DTaP, MMR, IPV, and Varicella boosters.',
+          followUpIn: '1 year',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        billingCode: '99393'
+      },
+      {
+        id: 'enc-liam-4',
+        patientId: 'pat-005',
+        date: '2021-09-15T11:00:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '4-Year Well-Child Examination.',
+        vitals: {
+          systolicBp: 94,
+          diastolicBp: 58,
+          heartRate: 92,
+          respiratoryRate: 24,
+          temperatureC: 36.8,
+          oxygenSaturation: 99,
+          heightCm: 104,
+          weightKg: 17.4,
+          bmi: 16.1,
+          painScore: 0
+        },
+        chiefComplaint: '4-year well-child visit.',
+        hpi: 'Preschool child, speech clear, milestones on target.',
+        physicalExam: {
+          General: 'Happy, cooperative 4-year-old.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Routine child health check', isPrimary: true },
+          secondaryDiagnoses: [],
+          clinicalSummary: 'Normal development.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Limit screen time to under 1 hour daily.',
+          followUpIn: '1 year',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        billingCode: '99392'
+      },
+      {
+        id: 'enc-liam-3',
+        patientId: 'pat-005',
+        date: '2020-09-20T10:00:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '3-Year Well-Child Examination.',
+        vitals: {
+          systolicBp: 92,
+          diastolicBp: 56,
+          heartRate: 96,
+          respiratoryRate: 24,
+          temperatureC: 36.9,
+          oxygenSaturation: 98,
+          heightCm: 96,
+          weightKg: 15.2,
+          bmi: 16.5,
+          painScore: 0
+        },
+        chiefComplaint: '3-year well-child examination.',
+        hpi: 'Potty trained, speaks in full sentences.',
+        physicalExam: {
+          General: 'Well-nourished toddler.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Routine child health check', isPrimary: true },
+          secondaryDiagnoses: [],
+          clinicalSummary: 'Normal 3-year growth and milestones.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Promote calcium rich foods, water over juice.',
+          followUpIn: '1 year',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        billingCode: '99392'
+      },
+      {
+        id: 'enc-liam-2',
+        patientId: 'pat-005',
+        date: '2019-09-18T10:00:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'well_child',
+        reasonForVisit: '24-Month Well-Child Examination.',
+        vitals: {
+          systolicBp: 90,
+          diastolicBp: 54,
+          heartRate: 102,
+          respiratoryRate: 26,
+          temperatureC: 36.8,
+          oxygenSaturation: 99,
+          heightCm: 88,
+          weightKg: 13.0,
+          bmi: 16.8,
+          painScore: 0
+        },
+        chiefComplaint: '2-year well-child checkup.',
+        hpi: 'Walking, running, 50+ words, 2-word phrases.',
+        physicalExam: {
+          General: 'Active 24-month-old toddler.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'Z00.129', name: 'Routine 24-month checkup', isPrimary: true },
+          secondaryDiagnoses: [],
+          clinicalSummary: 'Healthy 2-year-old child.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: [],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Transition from whole milk to 1-2% milk.',
+          followUpIn: '1 year',
+          warningSigns: ['Fever > 38.5°C', 'Difficulty breathing or wheezing', 'Persistent vomiting']
+        },
+        status: 'signed',
+        billingCode: '99392'
+      }
+    ],
     labResults: [],
     clinicalAlerts: ['SEVERE PEANUT ANAPHYLAXIS', 'EpiPen Jr on file'],
     visitStatus: 'scheduled_today',
