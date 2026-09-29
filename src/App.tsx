@@ -175,6 +175,8 @@ export default function App() {
         onImportJSON={handleImportJSONClick}
         onResetData={handleResetData}
         patientCount={patients.length}
+        patients={patients}
+        onSelectPatient={handleSelectPatient}
       />
 
       {/* Toast Notification */}
