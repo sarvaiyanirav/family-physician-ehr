@@ -19,11 +19,13 @@ import {
   Syringe,
   FileCheck,
   TrendingUp,
+  TestTube,
 } from 'lucide-react';
 import { Patient, Encounter, Medication, Problem, Allergy } from '../types/clinical';
 import { calculateAge, calculateBmi } from '../services/storageService';
 import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
 import { PediatricGrowthChart } from './PediatricGrowthChart';
+import { LabsManagement } from './LabsManagement';
 
 interface PatientChartProps {
   patient: Patient;
@@ -40,7 +42,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
   onUpdatePatient,
   onOpenCalculators,
 }) => {
-  const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'growth_chart' | 'history' | 'preventive' | 'print'>('encounters');
+  const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'growth_chart' | 'labs' | 'history' | 'preventive' | 'print'>('encounters');
   const [selectedEncounterForView, setSelectedEncounterForView] = useState<Encounter | null>(
     patient.encounters[0] || null
   );
@@ -358,6 +360,22 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             </button>
           )}
           <button
+            onClick={() => setActiveTab('labs')}
+            className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
+              activeTab === 'labs'
+                ? 'border-teal-700 text-teal-800 font-semibold'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <TestTube className="w-3.5 h-3.5 text-teal-700" />
+            <span>Labs & Diagnostics ({patient.labResults.length})</span>
+            {patient.labResults.some((l) => l.flag !== 'normal') && (
+              <span className="text-[10px] bg-rose-50 text-rose-800 font-bold px-1.5 py-0.5 rounded border border-rose-200">
+                {patient.labResults.filter((l) => l.flag !== 'normal').length} Abnormal
+              </span>
+            )}
+          </button>
+          <button
             onClick={() => setActiveTab('history')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'history'
@@ -375,7 +393,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
-            Preventive Care & Labs ({patient.labResults.length})
+            Preventive & Immunizations
           </button>
           <button
             onClick={() => setActiveTab('print')}
@@ -974,6 +992,14 @@ export const PatientChart: React.FC<PatientChartProps> = ({
         />
       )}
 
+      {/* TAB CONTENT: LABS & DIAGNOSTICS */}
+      {activeTab === 'labs' && (
+        <LabsManagement
+          patient={patient}
+          onUpdatePatient={onUpdatePatient}
+        />
+      )}
+
       {/* TAB CONTENT 4: ALLERGIES & HISTORY */}
       {activeTab === 'history' && (
         <div className="space-y-6">
@@ -1201,9 +1227,18 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
           {/* Laboratory Results */}
           <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">
-              Laboratory & Diagnostic Results
-            </h3>
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <h3 className="text-sm font-bold text-slate-900">
+                Recent Laboratory & Diagnostic Results ({patient.labResults.length})
+              </h3>
+              <button
+                onClick={() => setActiveTab('labs')}
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md transition-colors cursor-pointer"
+              >
+                <TestTube className="w-3.5 h-3.5 text-teal-700" />
+                <span>Open Structured Labs & Parser →</span>
+              </button>
+            </div>
             {patient.labResults.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs font-mono">

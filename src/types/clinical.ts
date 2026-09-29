@@ -153,7 +153,7 @@ export interface Encounter {
 export interface LabResult {
   id: string;
   testName: string;
-  category: 'Biochemistry' | 'Hematology' | 'Lipids' | 'Endocrine' | 'Renal / Urinalysis';
+  category: 'Biochemistry' | 'Hematology' | 'Lipids' | 'Endocrine' | 'Renal / Urinalysis' | 'Microbiology' | 'Immunology' | 'General' | string;
   value: string;
   unit: string;
   referenceRange: string;
