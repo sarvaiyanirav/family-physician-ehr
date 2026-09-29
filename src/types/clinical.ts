@@ -161,6 +161,8 @@ export interface LabResult {
   collectedDate: string;
 }
 
+export type TriagePriority = 'routine' | 'urgent' | 'emergency';
+
 export interface Patient {
   id: string;
   mrn: string;
@@ -203,6 +205,8 @@ export interface Patient {
   clinicalAlerts: string[];
   visitStatus?: 'scheduled_today' | 'in_exam' | 'waiting' | 'completed' | 'not_scheduled';
   scheduledTime?: string;
+  triagePriority?: TriagePriority;
+  triageNote?: string;
   createdAt: string;
   updatedAt: string;
 }

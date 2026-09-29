@@ -195,6 +195,7 @@ export default function App() {
             onSelectPatient={handleSelectPatient}
             onNewPatient={() => setIsNewPatientModalOpen(true)}
             onStartEncounter={(p) => handleStartEncounter(p)}
+            onUpdatePatient={handleUpdatePatient}
           />
         )}
 

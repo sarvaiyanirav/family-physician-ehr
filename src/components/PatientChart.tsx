@@ -20,8 +20,9 @@ import {
   FileCheck,
   TrendingUp,
   TestTube,
+  AlertOctagon,
 } from 'lucide-react';
-import { Patient, Encounter, Medication, Problem, Allergy } from '../types/clinical';
+import { Patient, Encounter, Medication, Problem, Allergy, TriagePriority } from '../types/clinical';
 import { calculateAge, calculateBmi } from '../services/storageService';
 import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
 import { PediatricGrowthChart } from './PediatricGrowthChart';
@@ -224,6 +225,32 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               <span className="font-mono text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded">
                 HC: {patient.healthCardNumber}
               </span>
+
+              {/* Triage Priority Badge & Selector */}
+              <div className="flex items-center gap-1.5">
+                <select
+                  value={patient.triagePriority || 'routine'}
+                  onChange={(e) => {
+                    onUpdatePatient({
+                      ...patient,
+                      triagePriority: e.target.value as TriagePriority,
+                    });
+                  }}
+                  className={`text-xs font-bold px-2 py-1 rounded border cursor-pointer uppercase ${
+                    patient.triagePriority === 'emergency'
+                      ? 'bg-rose-100 text-rose-800 border-rose-300'
+                      : patient.triagePriority === 'urgent'
+                      ? 'bg-amber-100 text-amber-800 border-amber-300'
+                      : 'bg-slate-100 text-slate-700 border-slate-200'
+                  }`}
+                  title="Update Triage Priority"
+                >
+                  <option value="routine">Routine</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="emergency">Emergency</option>
+                </select>
+              </div>
+
               {patient.codeStatus !== 'Full Code' ? (
                 <span className="text-xs font-bold text-rose-800 bg-rose-50 border border-rose-300 px-2.5 py-1 rounded">
                   {patient.codeStatus}
@@ -234,6 +261,27 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                 </span>
               )}
             </div>
+
+            {patient.triagePriority === 'emergency' && (
+              <div className="mt-3 p-3 bg-rose-50 border-2 border-rose-500 rounded-md flex items-center justify-between gap-3 text-xs text-rose-950">
+                <div className="flex items-center gap-2.5">
+                  <span className="relative flex h-3 w-3 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+                  </span>
+                  <div>
+                    <span className="font-bold">CRITICAL EMERGENCY TRIAGE PRIORITY:</span>{' '}
+                    <span>{patient.triageNote || 'Immediate medical evaluation and clinical stabilization recommended.'}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => onStartEncounter()}
+                  className="px-3 py-1 font-bold text-white bg-rose-700 hover:bg-rose-800 rounded shadow-xs cursor-pointer shrink-0"
+                >
+                  Immediate Encounter →
+                </button>
+              </div>
+            )}
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 mt-2 font-mono">
               <span>{age} years old</span>

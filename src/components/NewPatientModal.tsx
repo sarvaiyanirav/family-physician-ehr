@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { X, Check } from 'lucide-react';
-import { Patient, Allergy, Problem } from '../types/clinical';
+import { X, Check, AlertTriangle, AlertOctagon, Activity } from 'lucide-react';
+import { Patient, Allergy, Problem, TriagePriority } from '../types/clinical';
 import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
 
 interface NewPatientModalProps {
@@ -34,6 +34,8 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
   const [needsInterpreter, setNeedsInterpreter] = useState(false);
   const [codeStatus, setCodeStatus] = useState<Patient['codeStatus']>('Full Code');
   const [primaryPhysician, setPrimaryPhysician] = useState('Dr. Sarah Lin, MD');
+  const [triagePriority, setTriagePriority] = useState<TriagePriority>('routine');
+  const [triageNote, setTriageNote] = useState('');
 
   // Initial Clinical Baseline
   const [allergyInput, setAllergyInput] = useState('');
@@ -138,6 +140,8 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
       clinicalAlerts: allergiesList.length > 0 ? allergiesList.map((a) => `${a.allergen} allergy`) : ['No Known Drug Allergies (NKDA)'],
       visitStatus: 'waiting',
       scheduledTime: 'Walk-in Intake',
+      triagePriority,
+      triageNote: triageNote.trim() || undefined,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -483,6 +487,34 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
                 type="text"
                 value={primaryPhysician}
                 onChange={(e) => setPrimaryPhysician(e.target.value)}
+                className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Initial Triage Priority Tag
+              </label>
+              <select
+                value={triagePriority}
+                onChange={(e) => setTriagePriority(e.target.value as TriagePriority)}
+                className="w-full px-3 py-1.5 text-sm font-semibold border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              >
+                <option value="routine">Routine (Standard ambulatory appointment / preventive)</option>
+                <option value="urgent">Urgent (Acute symptom onset / priority evaluation)</option>
+                <option value="emergency">Emergency (Critical red flag / immediate physician attention)</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Triage Clinical Reason / Chief Symptom (Optional)
+              </label>
+              <input
+                type="text"
+                value={triageNote}
+                onChange={(e) => setTriageNote(e.target.value)}
+                placeholder="e.g. Acute chest discomfort, asthma flare, or routine follow-up"
                 className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
               />
             </div>

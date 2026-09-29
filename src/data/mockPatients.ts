@@ -376,6 +376,8 @@ export const INITIAL_PATIENTS: Patient[] = [
     clinicalAlerts: ['Sulfa allergy', 'Target HbA1c < 7.0%'],
     visitStatus: 'scheduled_today',
     scheduledTime: '09:15 AM',
+    triagePriority: 'routine',
+    triageNote: 'Regular quarterly chronic disease follow-up (T2DM, HTN)',
     createdAt: '2020-04-10T08:00:00Z',
     updatedAt: '2026-01-20T11:15:00Z'
   },
@@ -575,6 +577,8 @@ export const INITIAL_PATIENTS: Patient[] = [
     clinicalAlerts: ['PENICILLIN ANAPHYLAXIS', 'Severe Tree Nut Allergy', 'Screening Mammogram Due'],
     visitStatus: 'in_exam',
     scheduledTime: '09:45 AM',
+    triagePriority: 'urgent',
+    triageNote: 'Acute severe migraine flare with photophobia and nausea',
     createdAt: '2021-02-14T09:00:00Z',
     updatedAt: '2025-11-02T10:00:00Z'
   },
@@ -649,6 +653,8 @@ export const INITIAL_PATIENTS: Patient[] = [
     clinicalAlerts: ['No Known Drug Allergies (NKDA)'],
     visitStatus: 'waiting',
     scheduledTime: '10:00 AM',
+    triagePriority: 'emergency',
+    triageNote: 'Acute substernal chest pressure, diaphoresis, and hypertensive urgency (BP 178/104)',
     createdAt: '2023-08-11T14:00:00Z',
     updatedAt: '2026-09-29T08:00:00Z'
   },
@@ -839,6 +845,8 @@ export const INITIAL_PATIENTS: Patient[] = [
     clinicalAlerts: ['HIGH FALL RISK', 'ANTICOAGULANT (ELIQUIS)', 'DNR CODE STATUS'],
     visitStatus: 'completed',
     scheduledTime: '08:30 AM',
+    triagePriority: 'urgent',
+    triageNote: 'Elderly fall with head contusion on direct oral anticoagulant (Eliquis)',
     createdAt: '2018-01-20T11:00:00Z',
     updatedAt: '2026-09-29T09:00:00Z'
   },
@@ -1249,6 +1257,8 @@ export const INITIAL_PATIENTS: Patient[] = [
     clinicalAlerts: ['SEVERE PEANUT ANAPHYLAXIS', 'EpiPen Jr on file'],
     visitStatus: 'scheduled_today',
     scheduledTime: '11:15 AM',
+    triagePriority: 'routine',
+    triageNote: 'Well-child checkup & school sports form clearance',
     createdAt: '2019-10-01T10:00:00Z',
     updatedAt: '2025-10-18T14:30:00Z'
   }

@@ -1,7 +1,7 @@
 import { Patient } from '../types/clinical';
 import { INITIAL_PATIENTS } from '../data/mockPatients';
 
-const STORAGE_KEY = 'praxismd_patients_v2';
+const STORAGE_KEY = 'praxismd_patients_v3';
 
 export const storageService = {
   getPatients(): Patient[] {
