@@ -1,0 +1,6 @@
+{
+  "name": "PraxisMD - Family Physician Clinical Data Capture",
+  "description": "Comprehensive primary care clinical intake, encounter documentation, and longitudinal patient health record system for family physicians.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
