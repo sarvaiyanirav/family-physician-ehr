@@ -341,15 +341,15 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
       {/* Top Banner: Patient Context & Allergies Warning */}
-      <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold text-slate-900">
+                <h1 className="text-xl font-bold text-gray-900">
                   {patient.lastName}, {patient.firstName}
                 </h1>
-                <span className="font-mono text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                <span className="font-mono text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
                   {patient.mrn}
                 </span>
                 {patient.codeStatus !== 'Full Code' && (
@@ -358,7 +358,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                   </span>
                 )}
               </div>
-              <div className="text-xs text-slate-500 mt-1 flex items-center gap-2">
+              <div className="text-xs text-gray-500 mt-1 flex items-center gap-2">
                 <span>DOB: {patient.dob}</span>
                 <span aria-hidden="true">·</span>
                 <span className="capitalize">{patient.sex}</span>
@@ -373,7 +373,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
             <button
               onClick={() => onPrintNote(existingEncounter || ({} as any))}
               disabled={!existingEncounter}
-              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 disabled:opacity-40 rounded-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 disabled:opacity-40 rounded-md transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print Note</span>
@@ -382,15 +382,15 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
             <button
               onClick={() => onPrintAVS(existingEncounter || ({} as any))}
               disabled={!existingEncounter}
-              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 disabled:opacity-40 rounded-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 disabled:opacity-40 rounded-md transition-colors cursor-pointer"
             >
-              <FileCheck className="w-3.5 h-3.5 text-teal-700" />
+              <FileCheck className="w-3.5 h-3.5 text-red-700" />
               <span>Patient After-Visit Summary</span>
             </button>
 
             <button
               onClick={onClose}
-              className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-md cursor-pointer"
+              className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 rounded-md cursor-pointer"
             >
               Close
             </button>
@@ -399,7 +399,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
 
         {/* Safety Banner */}
         {patient.allergies.length > 0 ? (
-          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2 text-xs text-rose-800 bg-rose-50/70 p-2.5 rounded-md border border-rose-200">
+          <div className="mt-3 pt-3 border-t border-gray-100 flex items-center gap-2 text-xs text-rose-800 bg-rose-50/70 p-2.5 rounded-md border border-rose-200">
             <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0" />
             <span className="font-semibold">Documented Allergies:</span>
             <div className="flex flex-wrap gap-2">
@@ -411,7 +411,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
             </div>
           </div>
         ) : (
-          <div className="mt-3 pt-2 text-xs text-slate-500 font-mono">
+          <div className="mt-3 pt-2 text-xs text-gray-500 font-mono">
             Safety: No Known Drug Allergies (NKDA)
           </div>
         )}
@@ -428,13 +428,13 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
       </div>
 
       {/* Rapid Clinical Template Dropdown */}
-      <div className="bg-teal-50/60 border border-teal-200 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-red-50/60 border border-red-200 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-teal-700" />
-          <span className="text-xs font-semibold text-teal-900">
+          <Sparkles className="w-4 h-4 text-red-700" />
+          <span className="text-xs font-semibold text-red-900">
             Rapid Primary Care Templates:
           </span>
-          <span className="text-xs text-teal-700 hidden lg:inline">
+          <span className="text-xs text-red-700 hidden lg:inline">
             Load validated SOAP structures, physical exams, and clinical orders
           </span>
         </div>
@@ -443,7 +443,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
             <button
               key={tpl.id}
               onClick={() => handleApplyTemplate(tpl.id)}
-              className="px-2.5 py-1 text-xs font-medium text-teal-900 bg-white border border-teal-300 hover:bg-teal-100 rounded-md transition-colors cursor-pointer"
+              className="px-2.5 py-1 text-xs font-medium text-red-900 bg-white border border-red-300 hover:bg-red-100 rounded-md transition-colors cursor-pointer"
             >
               {tpl.name.split(' ')[0]} {tpl.name.split(' ')[1]}
             </button>
@@ -452,31 +452,31 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
       </div>
 
       {/* Encounter Metadata Form */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-white border border-slate-200 p-4 rounded-lg shadow-xs text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-white border border-gray-200 p-4 rounded-lg shadow-xs text-xs">
         <div>
-          <label className="block font-medium text-slate-700 mb-1">Provider</label>
+          <label className="block font-medium text-gray-700 mb-1">Provider</label>
           <input
             type="text"
             value={provider}
             onChange={(e) => setProvider(e.target.value)}
-            className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
           />
         </div>
         <div>
-          <label className="block font-medium text-slate-700 mb-1">Date & Time</label>
+          <label className="block font-medium text-gray-700 mb-1">Date & Time</label>
           <input
             type="datetime-local"
             value={encounterDate}
             onChange={(e) => setEncounterDate(e.target.value)}
-            className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+            className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
           />
         </div>
         <div>
-          <label className="block font-medium text-slate-700 mb-1">Visit Type</label>
+          <label className="block font-medium text-gray-700 mb-1">Visit Type</label>
           <select
             value={visitType}
             onChange={(e) => setVisitType(e.target.value as any)}
-            className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
           >
             <option value="follow_up">Chronic Follow-up</option>
             <option value="chronic_disease">Chronic Disease Management</option>
@@ -488,11 +488,11 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
           </select>
         </div>
         <div>
-          <label className="block font-medium text-slate-700 mb-1">CPT / Billing Code</label>
+          <label className="block font-medium text-gray-700 mb-1">CPT / Billing Code</label>
           <select
             value={billingCode}
             onChange={(e) => setBillingCode(e.target.value)}
-            className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+            className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
           >
             <option value="99213">99213 - Established (Low Complexity)</option>
             <option value="99214">99214 - Established (Moderate Complexity)</option>
@@ -507,16 +507,16 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
       </div>
 
       {/* SECTION: Vitals Capture */}
-      <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs space-y-3">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-          <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm">
-            <HeartPulse className="w-4 h-4 text-teal-700" />
+      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-xs space-y-3">
+        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+          <div className="flex items-center gap-2 text-gray-900 font-semibold text-sm">
+            <HeartPulse className="w-4 h-4 text-red-700" />
             <span>Vital Signs & Anthropometrics</span>
           </div>
           {bmiCalc && (
             <div className="text-xs flex items-center gap-2">
-              <span className="text-slate-500">Calculated BMI:</span>
-              <span className="font-mono font-bold text-slate-900">{bmiCalc.bmi} kg/m²</span>
+              <span className="text-gray-500">Calculated BMI:</span>
+              <span className="font-mono font-bold text-gray-900">{bmiCalc.bmi} kg/m²</span>
               <span className={`font-medium ${bmiCalc.color}`}>({bmiCalc.label})</span>
             </div>
           )}
@@ -524,114 +524,114 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
 
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3 text-xs">
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Systolic BP</label>
+            <label className="block text-gray-600 font-medium mb-1">Systolic BP</label>
             <div className="flex items-center">
               <input
                 type="number"
                 value={vitals.systolicBp || ''}
                 onChange={(e) => setVitals({ ...vitals, systolicBp: Number(e.target.value) || undefined })}
                 placeholder="120"
-                className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+                className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
               />
             </div>
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">mmHg</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">mmHg</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Diastolic BP</label>
+            <label className="block text-gray-600 font-medium mb-1">Diastolic BP</label>
             <div className="flex items-center">
               <input
                 type="number"
                 value={vitals.diastolicBp || ''}
                 onChange={(e) => setVitals({ ...vitals, diastolicBp: Number(e.target.value) || undefined })}
                 placeholder="80"
-                className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+                className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
               />
             </div>
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">mmHg</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">mmHg</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Heart Rate</label>
+            <label className="block text-gray-600 font-medium mb-1">Heart Rate</label>
             <input
               type="number"
               value={vitals.heartRate || ''}
               onChange={(e) => setVitals({ ...vitals, heartRate: Number(e.target.value) || undefined })}
               placeholder="72"
-              className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">BPM</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">BPM</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Resp Rate</label>
+            <label className="block text-gray-600 font-medium mb-1">Resp Rate</label>
             <input
               type="number"
               value={vitals.respiratoryRate || ''}
               onChange={(e) => setVitals({ ...vitals, respiratoryRate: Number(e.target.value) || undefined })}
               placeholder="16"
-              className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">/min</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">/min</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Temp (°C)</label>
+            <label className="block text-gray-600 font-medium mb-1">Temp (°C)</label>
             <input
               type="number"
               step="0.1"
               value={vitals.temperatureC || ''}
               onChange={(e) => setVitals({ ...vitals, temperatureC: Number(e.target.value) || undefined })}
               placeholder="36.8"
-              className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">Celsius</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">Celsius</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">SpO2 (%)</label>
+            <label className="block text-gray-600 font-medium mb-1">SpO2 (%)</label>
             <input
               type="number"
               value={vitals.oxygenSaturation || ''}
               onChange={(e) => setVitals({ ...vitals, oxygenSaturation: Number(e.target.value) || undefined })}
               placeholder="98"
-              className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">% Room Air</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">% Room Air</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Height (cm)</label>
+            <label className="block text-gray-600 font-medium mb-1">Height (cm)</label>
             <input
               type="number"
               value={vitals.heightCm || ''}
               onChange={(e) => setVitals({ ...vitals, heightCm: Number(e.target.value) || undefined })}
               placeholder="175"
-              className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">cm</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">cm</span>
           </div>
 
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Weight (kg)</label>
+            <label className="block text-gray-600 font-medium mb-1">Weight (kg)</label>
             <input
               type="number"
               step="0.1"
               value={vitals.weightKg || ''}
               onChange={(e) => setVitals({ ...vitals, weightKg: Number(e.target.value) || undefined })}
               placeholder="78.0"
-              className="w-full px-2 py-1.5 font-mono text-center border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-2 py-1.5 font-mono text-center border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
-            <span className="text-[10px] text-slate-400 block text-center mt-0.5">kg</span>
+            <span className="text-[10px] text-gray-400 block text-center mt-0.5">kg</span>
           </div>
         </div>
       </div>
 
       {/* SOAP: S - Subjective */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-            <span className="w-5 h-5 rounded-full bg-teal-700 text-white flex items-center justify-center text-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+          <div className="flex items-center gap-2 text-gray-900 font-bold text-sm">
+            <span className="w-5 h-5 rounded-full bg-red-700 text-white flex items-center justify-center text-xs">
               S
             </span>
             <span>Subjective: Chief Complaint & History of Present Illness</span>
@@ -644,7 +644,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
                 isRecordingHpi
                   ? 'bg-rose-100 text-rose-800 border border-rose-300 animate-pulse'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
               title="Dictate clinical note with speech-to-text"
             >
@@ -656,7 +656,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
 
         <div className="space-y-3">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Chief Complaint (CC) / Reason for Visit
             </label>
             <input
@@ -664,12 +664,12 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               value={chiefComplaint}
               onChange={(e) => setChiefComplaint(e.target.value)}
               placeholder="e.g. 3-month hypertension check-up, or Nasal congestion for 4 days"
-              className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               History of Present Illness (HPI)
             </label>
             <textarea
@@ -677,14 +677,14 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               value={hpi}
               onChange={(e) => setHpi(e.target.value)}
               placeholder="Onset, location, duration, characteristics, aggravating/relieving factors, treatments tried, pertinent negatives..."
-              className="w-full px-3 py-2 text-xs font-sans leading-relaxed border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-3 py-2 text-xs font-sans leading-relaxed border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
           </div>
 
           {/* Review of Systems (ROS) */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-slate-700">Review of Systems (ROS)</span>
+              <span className="text-xs font-semibold text-gray-700">Review of Systems (ROS)</span>
               <button
                 type="button"
                 onClick={() =>
@@ -697,20 +697,20 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                     Neurological: 'Denies dizziness, paresthesias, or headaches.',
                   })
                 }
-                className="text-[11px] text-teal-700 hover:text-teal-900 underline cursor-pointer"
+                className="text-[11px] text-red-700 hover:text-red-900 underline cursor-pointer"
               >
                 Set Standard Negative ROS
               </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {Object.entries(ros).map(([system, text]) => (
-                <div key={system} className="p-2 bg-slate-50 border border-slate-200 rounded text-xs">
-                  <div className="font-semibold text-slate-800 text-[11px]">{system}</div>
+                <div key={system} className="p-2 bg-gray-50 border border-gray-200 rounded text-xs">
+                  <div className="font-semibold text-gray-800 text-[11px]">{system}</div>
                   <input
                     type="text"
                     value={text}
                     onChange={(e) => setRos({ ...ros, [system]: e.target.value })}
-                    className="w-full mt-1 px-2 py-1 text-[11px] bg-white border border-slate-300 rounded focus:outline-none focus:border-teal-600"
+                    className="w-full mt-1 px-2 py-1 text-[11px] bg-white border border-gray-300 rounded focus:outline-none focus:border-red-600"
                   />
                 </div>
               ))}
@@ -720,10 +720,10 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
       </div>
 
       {/* SOAP: O - Objective */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-            <span className="w-5 h-5 rounded-full bg-teal-700 text-white flex items-center justify-center text-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+          <div className="flex items-center gap-2 text-gray-900 font-bold text-sm">
+            <span className="w-5 h-5 rounded-full bg-red-700 text-white flex items-center justify-center text-xs">
               O
             </span>
             <span>Objective: Physical Examination</span>
@@ -732,17 +732,17 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
           <button
             type="button"
             onClick={handleSetAllExamNormal}
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md transition-colors cursor-pointer"
           >
-            <CheckCircle className="w-3.5 h-3.5 text-teal-700" />
+            <CheckCircle className="w-3.5 h-3.5 text-red-700" />
             <span>Set All Systems to Normal Exam</span>
           </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           {Object.entries(physicalExam).map(([system, findings]) => (
-            <div key={system} className="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
-              <label className="block font-semibold text-slate-800 text-xs mb-1">
+            <div key={system} className="p-2.5 bg-gray-50 border border-gray-200 rounded-md">
+              <label className="block font-semibold text-gray-800 text-xs mb-1">
                 {system}
               </label>
               <textarea
@@ -751,7 +751,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                 onChange={(e) =>
                   setPhysicalExam({ ...physicalExam, [system]: e.target.value })
                 }
-                className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded focus:outline-none focus:border-teal-600 leading-snug"
+                className="w-full px-2.5 py-1.5 text-xs bg-white border border-gray-300 rounded focus:outline-none focus:border-red-600 leading-snug"
               />
             </div>
           ))}
@@ -759,10 +759,10 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
       </div>
 
       {/* SOAP: A - Assessment */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-        <div className="border-b border-slate-100 pb-2">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-            <span className="w-5 h-5 rounded-full bg-teal-700 text-white flex items-center justify-center text-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+        <div className="border-b border-gray-100 pb-2">
+          <div className="flex items-center gap-2 text-gray-900 font-bold text-sm">
+            <span className="w-5 h-5 rounded-full bg-red-700 text-white flex items-center justify-center text-xs">
               A
             </span>
             <span>Assessment: Diagnostic Formulations & ICD-10 Codes</span>
@@ -772,7 +772,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
         <div className="space-y-3">
           {/* Primary Diagnosis */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Primary Diagnosis *
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -783,7 +783,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                   setPrimaryDiagnosis({ ...primaryDiagnosis, code: e.target.value })
                 }
                 placeholder="ICD-10 (e.g. I10)"
-                className="w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+                className="w-full px-2.5 py-1.5 text-xs font-mono border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
               />
               <input
                 type="text"
@@ -792,14 +792,14 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                   setPrimaryDiagnosis({ ...primaryDiagnosis, name: e.target.value })
                 }
                 placeholder="Condition description"
-                className="sm:col-span-2 w-full px-2.5 py-1.5 text-xs border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+                className="sm:col-span-2 w-full px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
               />
             </div>
           </div>
 
           {/* Quick ICD Picker */}
           <div>
-            <span className="text-[11px] text-slate-500 font-medium block mb-1">
+            <span className="text-[11px] text-gray-500 font-medium block mb-1">
               Quick Pick Common Primary Care ICD-10:
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -808,9 +808,9 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                   type="button"
                   key={icd.code}
                   onClick={() => setPrimaryDiagnosis({ code: icd.code, name: icd.name, isPrimary: true })}
-                  className="px-2 py-0.5 text-[11px] bg-slate-100 hover:bg-teal-50 hover:text-teal-900 border border-slate-200 rounded transition-colors cursor-pointer"
+                  className="px-2 py-0.5 text-[11px] bg-gray-100 hover:bg-red-50 hover:text-red-900 border border-gray-200 rounded transition-colors cursor-pointer"
                 >
-                  <span className="font-mono text-slate-500 mr-1">[{icd.code}]</span>
+                  <span className="font-mono text-gray-500 mr-1">[{icd.code}]</span>
                   <span>{icd.name.split(',')[0]}</span>
                 </button>
               ))}
@@ -819,7 +819,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
 
           {/* Clinical Assessment Synthesis */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Clinical Assessment Synthesis & Medical Decision Making (MDM)
             </label>
             <textarea
@@ -827,17 +827,17 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               value={clinicalSummary}
               onChange={(e) => setClinicalSummary(e.target.value)}
               placeholder="Summary of clinical status, control of chronic disease, risk factors, or differential diagnoses..."
-              className="w-full px-3 py-2 text-xs border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
           </div>
         </div>
       </div>
 
       {/* SOAP: P - Plan */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-5">
-        <div className="border-b border-slate-100 pb-2">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-            <span className="w-5 h-5 rounded-full bg-teal-700 text-white flex items-center justify-center text-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-5">
+        <div className="border-b border-gray-100 pb-2">
+          <div className="flex items-center gap-2 text-gray-900 font-bold text-sm">
+            <span className="w-5 h-5 rounded-full bg-red-700 text-white flex items-center justify-center text-xs">
               P
             </span>
             <span>Plan: Pharmacotherapy, Investigations, Referrals & Follow-Up</span>
@@ -847,14 +847,14 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
         {/* Prescriptions */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
-              <Pill className="w-4 h-4 text-teal-700" />
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
+              <Pill className="w-4 h-4 text-red-700" />
               <span>Prescriptions Ordered (Rx)</span>
             </div>
             <button
               type="button"
               onClick={handleAddPrescription}
-              className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md cursor-pointer"
             >
               <Plus className="w-3 h-3" />
               <span>Add Medication</span>
@@ -866,49 +866,49 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               {prescriptions.map((rx) => (
                 <div
                   key={rx.id}
-                  className="p-3 bg-slate-50 border border-slate-200 rounded-md grid grid-cols-1 sm:grid-cols-6 gap-2 items-center text-xs"
+                  className="p-3 bg-gray-50 border border-gray-200 rounded-md grid grid-cols-1 sm:grid-cols-6 gap-2 items-center text-xs"
                 >
                   <div className="sm:col-span-2">
-                    <label className="block text-[10px] text-slate-500 font-medium">Drug Name</label>
+                    <label className="block text-[10px] text-gray-500 font-medium">Drug Name</label>
                     <input
                       type="text"
                       value={rx.drug}
                       onChange={(e) => handleUpdatePrescription(rx.id, 'drug', e.target.value)}
                       placeholder="e.g. Lisinopril"
-                      className="w-full px-2 py-1 text-xs bg-white border border-slate-300 rounded focus:outline-none focus:border-teal-600"
+                      className="w-full px-2 py-1 text-xs bg-white border border-gray-300 rounded focus:outline-none focus:border-red-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] text-slate-500 font-medium">Dosage</label>
+                    <label className="block text-[10px] text-gray-500 font-medium">Dosage</label>
                     <input
                       type="text"
                       value={rx.dose}
                       onChange={(e) => handleUpdatePrescription(rx.id, 'dose', e.target.value)}
                       placeholder="e.g. 20 mg"
-                      className="w-full px-2 py-1 text-xs bg-white border border-slate-300 rounded focus:outline-none focus:border-teal-600"
+                      className="w-full px-2 py-1 text-xs bg-white border border-gray-300 rounded focus:outline-none focus:border-red-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] text-slate-500 font-medium">Frequency & Sig</label>
+                    <label className="block text-[10px] text-gray-500 font-medium">Frequency & Sig</label>
                     <input
                       type="text"
                       value={rx.frequency}
                       onChange={(e) => handleUpdatePrescription(rx.id, 'frequency', e.target.value)}
                       placeholder="Once daily"
-                      className="w-full px-2 py-1 text-xs bg-white border border-slate-300 rounded focus:outline-none focus:border-teal-600"
+                      className="w-full px-2 py-1 text-xs bg-white border border-gray-300 rounded focus:outline-none focus:border-red-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] text-slate-500 font-medium">Dispense / Refills</label>
+                    <label className="block text-[10px] text-gray-500 font-medium">Dispense / Refills</label>
                     <input
                       type="text"
                       value={rx.dispenseQuantity}
                       onChange={(e) => handleUpdatePrescription(rx.id, 'dispenseQuantity', e.target.value)}
                       placeholder="90 tabs (3 refills)"
-                      className="w-full px-2 py-1 text-xs bg-white border border-slate-300 rounded focus:outline-none focus:border-teal-600"
+                      className="w-full px-2 py-1 text-xs bg-white border border-gray-300 rounded focus:outline-none focus:border-red-600"
                     />
                   </div>
 
@@ -916,7 +916,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRemovePrescription(rx.id)}
-                      className="p-1 text-slate-400 hover:text-rose-600 rounded cursor-pointer"
+                      className="p-1 text-gray-400 hover:text-rose-600 rounded cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -925,13 +925,13 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-400 italic">No new or modified prescriptions for this encounter.</p>
+            <p className="text-xs text-gray-400 italic">No new or modified prescriptions for this encounter.</p>
           )}
         </div>
 
         {/* Laboratory & Diagnostic Tests */}
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-slate-800">
+          <label className="block text-xs font-semibold text-gray-800">
             Laboratory & Diagnostic Orders
           </label>
           <div className="flex flex-wrap gap-1.5">
@@ -944,8 +944,8 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                   onClick={() => handleToggleLab(lab)}
                   className={`px-2.5 py-1 text-xs rounded-md border transition-colors cursor-pointer ${
                     selected
-                      ? 'bg-teal-700 border-teal-700 text-white font-medium'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      ? 'bg-red-700 border-red-700 text-white font-medium'
+                      : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   {lab}
@@ -960,12 +960,12 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               value={customLab}
               onChange={(e) => setCustomLab(e.target.value)}
               placeholder="Add other lab order..."
-              className="flex-1 px-2.5 py-1 text-xs border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="flex-1 px-2.5 py-1 text-xs border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
             <button
               type="button"
               onClick={handleAddCustomLab}
-              className="px-3 py-1 text-xs font-medium bg-slate-100 hover:bg-slate-200 rounded-md text-slate-800 cursor-pointer"
+              className="px-3 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded-md text-gray-800 cursor-pointer"
             >
               Add Lab
             </button>
@@ -974,7 +974,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
 
         {/* Specialty Referrals */}
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-slate-800">
+          <label className="block text-xs font-semibold text-gray-800">
             Specialist Referrals
           </label>
           <div className="flex flex-wrap gap-1.5">
@@ -987,8 +987,8 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
                   onClick={() => handleToggleReferral(ref)}
                   className={`px-2.5 py-1 text-xs rounded-md border transition-colors cursor-pointer ${
                     selected
-                      ? 'bg-teal-700 border-teal-700 text-white font-medium'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      ? 'bg-red-700 border-red-700 text-white font-medium'
+                      : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   {ref}
@@ -1001,7 +1001,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
         {/* Patient Instructions & Follow-up */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
           <div className="sm:col-span-2">
-            <label className="block text-xs font-semibold text-slate-800 mb-1">
+            <label className="block text-xs font-semibold text-gray-800 mb-1">
               Patient Instructions & Counseling (Printed on After-Visit Summary)
             </label>
             <textarea
@@ -1009,18 +1009,18 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
               value={patientInstructions}
               onChange={(e) => setPatientInstructions(e.target.value)}
               placeholder="Dietary changes, home blood pressure monitoring, exercise, symptom triggers..."
-              className="w-full px-3 py-2 text-xs border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-800 mb-1">
+            <label className="block text-xs font-semibold text-gray-800 mb-1">
               Recommended Follow-Up
             </label>
             <select
               value={followUpIn}
               onChange={(e) => setFollowUpIn(e.target.value)}
-              className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-md focus:outline-none focus:border-teal-600"
+              className="w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md focus:outline-none focus:border-red-600"
             >
               <option value="1 week">1 week (Acute re-check)</option>
               <option value="2-3 weeks">2-3 weeks (Medication titration)</option>
@@ -1035,10 +1035,10 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
       </div>
 
       {/* Encounter Actions / Sign Footer */}
-      <div className="sticky bottom-0 bg-white border-t border-slate-200 p-4 flex items-center justify-between shadow-lg rounded-b-lg">
-        <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
+      <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 flex items-center justify-between shadow-lg rounded-b-lg">
+        <div className="flex items-center gap-2 text-xs text-gray-500 font-mono">
           <span>Encounter Status:</span>
-          <span className={`font-semibold ${isSigned ? 'text-teal-700' : 'text-amber-700'}`}>
+          <span className={`font-semibold ${isSigned ? 'text-red-700' : 'text-amber-700'}`}>
             {isSigned ? 'Signed & Finalized' : 'Draft In Progress'}
           </span>
         </div>
@@ -1047,7 +1047,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
           <button
             type="button"
             onClick={() => handleSave(false)}
-            className="px-4 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors cursor-pointer"
+            className="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors cursor-pointer"
           >
             Save Draft
           </button>
@@ -1055,7 +1055,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
           <button
             type="button"
             onClick={() => handleSave(true)}
-            className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md shadow-xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
           >
             <CheckCircle className="w-4 h-4" />
             <span>Sign & Finalize Encounter</span>

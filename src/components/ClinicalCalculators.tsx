@@ -96,21 +96,21 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
       {/* Header */}
-      <div className="border-b border-slate-200 pb-4">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+      <div className="border-b border-gray-200 pb-4">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">
           Primary Care Clinical Decision Calculators
         </h1>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-gray-500 mt-1">
           Evidence-based cardiovascular, renal, and stroke risk stratification algorithms for family physicians.
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg max-w-xl text-xs font-medium">
+      <div className="flex items-center gap-1 p-1 bg-gray-100 rounded-lg max-w-xl text-xs font-medium">
         <button
           onClick={() => setActiveTab('ascvd')}
           className={`flex-1 py-1.5 px-3 rounded-md transition-colors cursor-pointer text-center ${
-            activeTab === 'ascvd' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-600 hover:text-slate-900'
+            activeTab === 'ascvd' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-600 hover:text-gray-900'
           }`}
         >
           ASCVD 10-Yr Risk
@@ -118,7 +118,7 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
         <button
           onClick={() => setActiveTab('egfr')}
           className={`flex-1 py-1.5 px-3 rounded-md transition-colors cursor-pointer text-center ${
-            activeTab === 'egfr' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-600 hover:text-slate-900'
+            activeTab === 'egfr' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-600 hover:text-gray-900'
           }`}
         >
           eGFR (CKD-EPI)
@@ -126,7 +126,7 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
         <button
           onClick={() => setActiveTab('chads')}
           className={`flex-1 py-1.5 px-3 rounded-md transition-colors cursor-pointer text-center ${
-            activeTab === 'chads' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-600 hover:text-slate-900'
+            activeTab === 'chads' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-600 hover:text-gray-900'
           }`}
         >
           CHA₂DS₂-VASc
@@ -134,7 +134,7 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
         <button
           onClick={() => setActiveTab('bmi')}
           className={`flex-1 py-1.5 px-3 rounded-md transition-colors cursor-pointer text-center ${
-            activeTab === 'bmi' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-600 hover:text-slate-900'
+            activeTab === 'bmi' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-600 hover:text-gray-900'
           }`}
         >
           BMI & Target Weight
@@ -143,32 +143,32 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
 
       {/* TAB 1: ASCVD 10-YEAR RISK */}
       {activeTab === 'ascvd' && (
-        <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-4 text-xs">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+            <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
               <Heart className="w-4 h-4 text-rose-600" />
-              <h2 className="text-sm font-bold text-slate-900">
+              <h2 className="text-sm font-bold text-gray-900">
                 AHA/ACC 10-Year ASCVD Risk Calculator
               </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Age (Years)</label>
+                <label className="block text-gray-700 font-medium mb-1">Age (Years)</label>
                 <input
                   type="number"
                   value={ascvdAge}
                   onChange={(e) => setAscvdAge(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Biological Sex</label>
+                <label className="block text-gray-700 font-medium mb-1">Biological Sex</label>
                 <select
                   value={ascvdSex}
                   onChange={(e) => setAscvdSex(e.target.value as any)}
-                  className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md"
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -176,32 +176,32 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Total Cholesterol (mg/dL)</label>
+                <label className="block text-gray-700 font-medium mb-1">Total Cholesterol (mg/dL)</label>
                 <input
                   type="number"
                   value={totalChol}
                   onChange={(e) => setTotalChol(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">HDL Cholesterol (mg/dL)</label>
+                <label className="block text-gray-700 font-medium mb-1">HDL Cholesterol (mg/dL)</label>
                 <input
                   type="number"
                   value={hdlChol}
                   onChange={(e) => setHdlChol(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Systolic Blood Pressure (mmHg)</label>
+                <label className="block text-gray-700 font-medium mb-1">Systolic Blood Pressure (mmHg)</label>
                 <input
                   type="number"
                   value={systolicBp}
                   onChange={(e) => setSystolicBp(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
@@ -211,7 +211,7 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
                     type="checkbox"
                     checked={onHtnMeds}
                     onChange={(e) => setOnHtnMeds(e.target.checked)}
-                    className="rounded text-teal-700 focus:ring-teal-600"
+                    className="rounded text-red-700 focus:ring-red-600"
                   />
                   <span>Treated for Hypertension</span>
                 </label>
@@ -221,7 +221,7 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
                     type="checkbox"
                     checked={isSmoker}
                     onChange={(e) => setIsSmoker(e.target.checked)}
-                    className="rounded text-teal-700 focus:ring-teal-600"
+                    className="rounded text-red-700 focus:ring-red-600"
                   />
                   <span>Current Tobacco Smoker</span>
                 </label>
@@ -231,7 +231,7 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
                     type="checkbox"
                     checked={isDiabetic}
                     onChange={(e) => setIsDiabetic(e.target.checked)}
-                    className="rounded text-teal-700 focus:ring-teal-600"
+                    className="rounded text-red-700 focus:ring-red-600"
                   />
                   <span>History of Diabetes</span>
                 </label>
@@ -240,13 +240,13 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
           </div>
 
           {/* Outcome Card */}
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 flex flex-col justify-between">
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                 10-Year ASCVD Risk Score
               </span>
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold font-mono text-slate-900">
+                <span className="text-4xl font-extrabold font-mono text-gray-900">
                   {ascvdResult.scorePercent}%
                 </span>
               </div>
@@ -254,8 +254,8 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
                 {ascvdResult.riskCategory}
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-600 space-y-2 leading-relaxed">
-                <p className="font-semibold text-slate-800">Primary Care Clinical Guidance:</p>
+              <div className="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-600 space-y-2 leading-relaxed">
+                <p className="font-semibold text-gray-800">Primary Care Clinical Guidance:</p>
                 {ascvdResult.scorePercent >= 20 && (
                   <p>
                     High Risk: High-intensity statin therapy strongly recommended (e.g. Atorvastatin 40-80mg or Rosuvastatin 20-40mg). Target LDL reduction ≥ 50%.
@@ -284,43 +284,43 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
 
       {/* TAB 2: eGFR */}
       {activeTab === 'egfr' && (
-        <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-4 text-xs">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
-              <Activity className="w-4 h-4 text-teal-700" />
-              <h2 className="text-sm font-bold text-slate-900">
+            <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
+              <Activity className="w-4 h-4 text-red-700" />
+              <h2 className="text-sm font-bold text-gray-900">
                 2021 CKD-EPI Creatinine Equation (eGFR)
               </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Serum Creatinine (mg/dL)</label>
+                <label className="block text-gray-700 font-medium mb-1">Serum Creatinine (mg/dL)</label>
                 <input
                   type="number"
                   step="0.01"
                   value={serumCreatinine}
                   onChange={(e) => setSerumCreatinine(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Age (Years)</label>
+                <label className="block text-gray-700 font-medium mb-1">Age (Years)</label>
                 <input
                   type="number"
                   value={egfrAge}
                   onChange={(e) => setEgfrAge(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Biological Sex</label>
+                <label className="block text-gray-700 font-medium mb-1">Biological Sex</label>
                 <select
                   value={egfrSex}
                   onChange={(e) => setEgfrSex(e.target.value as any)}
-                  className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md"
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -329,23 +329,23 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
             </div>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 flex flex-col justify-between">
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                 Estimated GFR
               </span>
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold font-mono text-slate-900">
+                <span className="text-4xl font-extrabold font-mono text-gray-900">
                   {calculatedEgfr}
                 </span>
-                <span className="text-xs text-slate-500 font-mono">mL/min/1.73m²</span>
+                <span className="text-xs text-gray-500 font-mono">mL/min/1.73m²</span>
               </div>
               <div className={`text-xs font-bold mt-1 ${ckd.color}`}>
                 {ckd.stage}
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
-                <p className="font-semibold text-slate-800">Primary Care Follow-up:</p>
+              <div className="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-600 space-y-1.5">
+                <p className="font-semibold text-gray-800">Primary Care Follow-up:</p>
                 {calculatedEgfr < 30 ? (
                   <p className="text-rose-700">
                     Nephrology referral advised. Review renally-cleared medications (Metformin, DOACs, ACEi/ARB titration).
@@ -365,82 +365,82 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
 
       {/* TAB 3: CHA2DS2-VASc */}
       {activeTab === 'chads' && (
-        <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-4 text-xs">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+            <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
               <ShieldAlert className="w-4 h-4 text-amber-600" />
-              <h2 className="text-sm font-bold text-slate-900">
+              <h2 className="text-sm font-bold text-gray-900">
                 CHA₂DS₂-VASc Stroke Risk Score (in Atrial Fibrillation)
               </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label className="flex items-center gap-2 p-2 bg-slate-50 rounded border border-slate-200 cursor-pointer">
+              <label className="flex items-center gap-2 p-2 bg-gray-50 rounded border border-gray-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={chf}
                   onChange={(e) => setChf(e.target.checked)}
-                  className="rounded text-teal-700"
+                  className="rounded text-red-700"
                 />
                 <span>Congestive Heart Failure / LV dysfunction (+1)</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2 bg-slate-50 rounded border border-slate-200 cursor-pointer">
+              <label className="flex items-center gap-2 p-2 bg-gray-50 rounded border border-gray-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={htn}
                   onChange={(e) => setHtn(e.target.checked)}
-                  className="rounded text-teal-700"
+                  className="rounded text-red-700"
                 />
                 <span>Hypertension (BP &gt; 140/90 or treated) (+1)</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2 bg-slate-50 rounded border border-slate-200 cursor-pointer">
+              <label className="flex items-center gap-2 p-2 bg-gray-50 rounded border border-gray-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={diabetes}
                   onChange={(e) => setDiabetes(e.target.checked)}
-                  className="rounded text-teal-700"
+                  className="rounded text-red-700"
                 />
                 <span>Diabetes Mellitus (+1)</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2 bg-slate-50 rounded border border-slate-200 cursor-pointer">
+              <label className="flex items-center gap-2 p-2 bg-gray-50 rounded border border-gray-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={strokeHistory}
                   onChange={(e) => setStrokeHistory(e.target.checked)}
-                  className="rounded text-teal-700"
+                  className="rounded text-red-700"
                 />
                 <span>Prior Stroke, TIA, or Thromboembolism (+2)</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2 bg-slate-50 rounded border border-slate-200 cursor-pointer">
+              <label className="flex items-center gap-2 p-2 bg-gray-50 rounded border border-gray-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={vascularDisease}
                   onChange={(e) => setVascularDisease(e.target.checked)}
-                  className="rounded text-teal-700"
+                  className="rounded text-red-700"
                 />
                 <span>Vascular Disease (Prior MI, PAD, Aortic plaque) (+1)</span>
               </label>
 
               <div className="flex gap-2">
                 <div className="flex-1">
-                  <label className="block text-slate-700 font-medium mb-1">Age</label>
+                  <label className="block text-gray-700 font-medium mb-1">Age</label>
                   <input
                     type="number"
                     value={chadsAge}
                     onChange={(e) => setChadsAge(Number(e.target.value))}
-                    className="w-full px-2 py-1 font-mono border border-slate-300 rounded"
+                    className="w-full px-2 py-1 font-mono border border-gray-300 rounded"
                   />
                 </div>
                 <div className="flex-1">
-                  <label className="block text-slate-700 font-medium mb-1">Sex</label>
+                  <label className="block text-gray-700 font-medium mb-1">Sex</label>
                   <select
                     value={chadsSex}
                     onChange={(e) => setChadsSex(e.target.value as any)}
-                    className="w-full px-2 py-1 border border-slate-300 rounded"
+                    className="w-full px-2 py-1 border border-gray-300 rounded"
                   >
                     <option value="male">Male (0)</option>
                     <option value="female">Female (+1)</option>
@@ -450,20 +450,20 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
             </div>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 flex flex-col justify-between">
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                 CHA₂DS₂-VASc Score
               </span>
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold font-mono text-slate-900">
+                <span className="text-4xl font-extrabold font-mono text-gray-900">
                   {chadsScore}
                 </span>
-                <span className="text-xs text-slate-500">Points</span>
+                <span className="text-xs text-gray-500">Points</span>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-600 space-y-2">
-                <p className="font-semibold text-slate-800">Anticoagulation Guideline:</p>
+              <div className="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-600 space-y-2">
+                <p className="font-semibold text-gray-800">Anticoagulation Guideline:</p>
                 {chadsScore >= 2 ? (
                   <p className="text-rose-700 font-medium">
                     Oral Anticoagulation (DOAC e.g. Apixaban, Rivaroxaban) is strongly recommended in non-valvular AF unless contraindicated.
@@ -485,59 +485,59 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
 
       {/* TAB 4: BMI */}
       {activeTab === 'bmi' && (
-        <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-4 text-xs">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
-              <Scale className="w-4 h-4 text-teal-700" />
-              <h2 className="text-sm font-bold text-slate-900">
+            <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
+              <Scale className="w-4 h-4 text-red-700" />
+              <h2 className="text-sm font-bold text-gray-900">
                 BMI & Ideal Body Weight Calculator
               </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Height (cm)</label>
+                <label className="block text-gray-700 font-medium mb-1">Height (cm)</label>
                 <input
                   type="number"
                   value={bmiHeightCm}
                   onChange={(e) => setBmiHeightCm(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Weight (kg)</label>
+                <label className="block text-gray-700 font-medium mb-1">Weight (kg)</label>
                 <input
                   type="number"
                   step="0.1"
                   value={bmiWeightKg}
                   onChange={(e) => setBmiWeightKg(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded-md"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded-md"
                 />
               </div>
             </div>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 flex flex-col justify-between">
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 flex flex-col justify-between">
             {bmiResult && (
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                   Calculated BMI
                 </span>
                 <div className="mt-2 flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold font-mono text-slate-900">
+                  <span className="text-4xl font-extrabold font-mono text-gray-900">
                     {bmiResult.bmi}
                   </span>
-                  <span className="text-xs text-slate-500 font-mono">kg/m²</span>
+                  <span className="text-xs text-gray-500 font-mono">kg/m²</span>
                 </div>
                 <div className={`text-xs font-bold mt-1 ${bmiResult.color}`}>
                   {bmiResult.label}
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-600">
+                <div className="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-600">
                   <p>
                     Healthy weight range for {bmiHeightCm} cm: <br />
-                    <span className="font-mono font-semibold text-slate-900">
+                    <span className="font-mono font-semibold text-gray-900">
                       {Math.round(18.5 * (bmiHeightCm / 100) ** 2)} kg – {Math.round(24.9 * (bmiHeightCm / 100) ** 2)} kg
                     </span>
                   </p>

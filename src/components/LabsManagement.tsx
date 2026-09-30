@@ -369,18 +369,18 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="p-1.5 bg-teal-50 text-teal-700 rounded-md">
+              <span className="p-1.5 bg-red-50 text-red-700 rounded-md">
                 <TestTube className="w-4 h-4" />
               </span>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-gray-900">
                 Diagnostic Laboratory Results & Structured Flowsheet
               </h2>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-gray-500 mt-1">
               Structured clinical biomarker records with automated reference range parsing and abnormal out-of-range flagging.
             </p>
           </div>
@@ -388,17 +388,17 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsSingleAddOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-md shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-md shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5 text-teal-700" />
+              <Plus className="w-3.5 h-3.5 text-red-700" />
               <span>Manual Entry</span>
             </button>
 
             <button
               onClick={() => setIsParserOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-teal-200" />
+              <Sparkles className="w-3.5 h-3.5 text-red-200" />
               <span>Parse & Import Report</span>
             </button>
           </div>
@@ -431,29 +431,29 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
 
       {/* PARSER / IMPORTER MODAL */}
       {isParserOpen && (
-        <div className="bg-white border-2 border-teal-600 rounded-lg p-5 shadow-lg space-y-4 text-xs animate-fade-in">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <div className="bg-white border-2 border-red-600 rounded-lg p-5 shadow-lg space-y-4 text-xs animate-fade-in">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-2">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-teal-700" />
-              <h3 className="text-sm font-bold text-slate-900">
+              <Sparkles className="w-4 h-4 text-red-700" />
+              <h3 className="text-sm font-bold text-gray-900">
                 Structured Lab Data Parser & Importer
               </h3>
             </div>
             <button
               onClick={() => setIsParserOpen(false)}
-              className="text-slate-400 hover:text-slate-600 font-bold"
+              className="text-gray-400 hover:text-gray-600 font-bold"
             >
               ✕
             </button>
           </div>
 
-          <p className="text-slate-600 text-xs">
+          <p className="text-gray-600 text-xs">
             Paste raw text from electronic laboratory reports (Quest, LabCorp, hospital discharge, HL7 or comma/tab-delimited records). The parser automatically extracts test names, numeric values, units, reference intervals, and tags high/low/critical alerts.
           </p>
 
           {/* Quick preset panel selector */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase">
+            <span className="text-[11px] font-semibold text-gray-500 uppercase">
               Quick Panels:
             </span>
             {SAMPLE_LAB_PANELS.map((panel) => (
@@ -461,7 +461,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                 key={panel.name}
                 type="button"
                 onClick={() => handleApplyPreset(panel.sampleText)}
-                className="px-2.5 py-1 text-[11px] font-medium bg-slate-100 hover:bg-teal-50 hover:text-teal-800 border border-slate-200 rounded transition-colors cursor-pointer"
+                className="px-2.5 py-1 text-[11px] font-medium bg-gray-100 hover:bg-red-50 hover:text-red-800 border border-gray-200 rounded transition-colors cursor-pointer"
               >
                 + {panel.name}
               </button>
@@ -472,7 +472,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
             {/* Input Column */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="font-semibold text-slate-700">
+                <label className="font-semibold text-gray-700">
                   Raw Laboratory Text Input
                 </label>
                 <div className="flex items-center gap-2 font-mono text-[11px]">
@@ -481,7 +481,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                     type="date"
                     value={importDate}
                     onChange={(e) => setImportDate(e.target.value)}
-                    className="px-2 py-0.5 border border-slate-300 rounded text-slate-900"
+                    className="px-2 py-0.5 border border-gray-300 rounded text-gray-900"
                   />
                 </div>
               </div>
@@ -490,14 +490,14 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                 value={rawInputText}
                 onChange={(e) => handleRawTextChange(e.target.value)}
                 placeholder={`Paste laboratory output here, for example:\nGlucose: 142 mg/dL (Ref: 70 - 99 mg/dL) [High]\neGFR: 52 mL/min (Ref: > 60 mL/min) [Low]\nPotassium: 4.8 mEq/L (Ref: 3.5 - 5.0 mEq/L)`}
-                className="w-full p-2.5 font-mono text-xs border border-slate-300 rounded-md focus:outline-teal-600 bg-slate-50"
+                className="w-full p-2.5 font-mono text-xs border border-gray-300 rounded-md focus:outline-red-600 bg-gray-50"
               />
             </div>
 
             {/* Parsed Preview Column */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-700">
+                <span className="font-semibold text-gray-700">
                   Parsed Live Preview ({parsedPreview.length} items extracted)
                 </span>
                 {parsedPreview.some((p) => p.flag !== 'normal') && (
@@ -507,25 +507,25 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                 )}
               </div>
 
-              <div className="border border-slate-200 rounded-md max-h-56 overflow-y-auto bg-white divide-y divide-slate-100">
+              <div className="border border-gray-200 rounded-md max-h-56 overflow-y-auto bg-white divide-y divide-gray-100">
                 {parsedPreview.length > 0 ? (
                   parsedPreview.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-2 flex items-center justify-between text-[11px] font-mono hover:bg-slate-50"
+                      className="p-2 flex items-center justify-between text-[11px] font-mono hover:bg-gray-50"
                     >
                       <div>
-                        <span className="font-bold text-slate-900 font-sans mr-2">
+                        <span className="font-bold text-gray-900 font-sans mr-2">
                           {item.testName}
                         </span>
-                        <span className="text-slate-500 text-[10px] bg-slate-100 px-1.5 py-0.2 rounded mr-2">
+                        <span className="text-gray-500 text-[10px] bg-gray-100 px-1.5 py-0.2 rounded mr-2">
                           {item.category}
                         </span>
-                        <span className="text-slate-400">Ref: {item.referenceRange}</span>
+                        <span className="text-gray-400">Ref: {item.referenceRange}</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900">
+                        <span className="font-bold text-gray-900">
                           {item.value} {item.unit}
                         </span>
                         <span
@@ -543,7 +543,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                     </div>
                   ))
                 ) : (
-                  <div className="p-6 text-center text-slate-400 italic">
+                  <div className="p-6 text-center text-gray-400 italic">
                     Type or paste lab report lines on the left to see structured parsing in real time.
                   </div>
                 )}
@@ -551,7 +551,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <button
               type="button"
               onClick={() => {
@@ -559,7 +559,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                 setRawInputText('');
                 setParsedPreview([]);
               }}
-              className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+              className="px-3 py-1.5 text-gray-600 hover:bg-gray-100 rounded cursor-pointer"
             >
               Cancel
             </button>
@@ -567,7 +567,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
               type="button"
               disabled={parsedPreview.length === 0}
               onClick={handleCommitParsedLabs}
-              className="px-4 py-1.5 bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white font-semibold rounded cursor-pointer"
+              className="px-4 py-1.5 bg-red-700 hover:bg-red-800 disabled:opacity-50 text-white font-semibold rounded cursor-pointer"
             >
               Commit & Save {parsedPreview.length} Lab Results
             </button>
@@ -579,16 +579,16 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
       {isSingleAddOpen && (
         <form
           onSubmit={handleAddSingleLab}
-          className="bg-white border-2 border-teal-600 rounded-lg p-5 shadow-lg space-y-4 text-xs animate-fade-in"
+          className="bg-white border-2 border-red-600 rounded-lg p-5 shadow-lg space-y-4 text-xs animate-fade-in"
         >
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h3 className="text-sm font-bold text-slate-900">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+            <h3 className="text-sm font-bold text-gray-900">
               Manual Laboratory Entry
             </h3>
             <button
               type="button"
               onClick={() => setIsSingleAddOpen(false)}
-              className="text-slate-400 hover:text-slate-600 font-bold"
+              className="text-gray-400 hover:text-gray-600 font-bold"
             >
               ✕
             </button>
@@ -596,7 +596,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Test Name</label>
+              <label className="block text-gray-700 font-medium mb-1">Test Name</label>
               <input
                 type="text"
                 required
@@ -606,16 +606,16 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                   setSingleName(e.target.value);
                   setSingleCategory(inferLabCategory(e.target.value));
                 }}
-                className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Category</label>
+              <label className="block text-gray-700 font-medium mb-1">Category</label>
               <select
                 value={singleCategory}
                 onChange={(e) => setSingleCategory(e.target.value)}
-                className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600"
               >
                 <option value="Biochemistry">Biochemistry</option>
                 <option value="Hematology">Hematology</option>
@@ -628,18 +628,18 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Collected Date</label>
+              <label className="block text-gray-700 font-medium mb-1">Collected Date</label>
               <input
                 type="date"
                 required
                 value={importDate}
                 onChange={(e) => setImportDate(e.target.value)}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Numeric Result</label>
+              <label className="block text-gray-700 font-medium mb-1">Numeric Result</label>
               <input
                 type="text"
                 required
@@ -650,24 +650,24 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                   const auto = calculateFlag(e.target.value, singleRange);
                   setSingleFlag(auto);
                 }}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Unit</label>
+              <label className="block text-gray-700 font-medium mb-1">Unit</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. mEq/L"
                 value={singleUnit}
                 onChange={(e) => setSingleUnit(e.target.value)}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Reference Range</label>
+              <label className="block text-gray-700 font-medium mb-1">Reference Range</label>
               <input
                 type="text"
                 required
@@ -678,14 +678,14 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                   const auto = calculateFlag(singleValue, e.target.value);
                   setSingleFlag(auto);
                 }}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+          <div className="flex items-center justify-between pt-2 border-t border-gray-100">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-slate-700">Flag:</span>
+              <span className="font-semibold text-gray-700">Flag:</span>
               <span
                 className={`font-mono font-bold px-2 py-0.5 rounded uppercase text-[11px] ${
                   singleFlag === 'high' || singleFlag === 'critical'
@@ -703,13 +703,13 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setIsSingleAddOpen(false)}
-                className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+                className="px-3 py-1.5 text-gray-600 hover:bg-gray-100 rounded cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded cursor-pointer"
+                className="px-4 py-1.5 bg-red-700 hover:bg-red-800 text-white font-semibold rounded cursor-pointer"
               >
                 Add Result
               </button>
@@ -719,15 +719,15 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
       )}
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 border border-slate-200 rounded-lg text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 border border-gray-200 rounded-lg text-xs">
         {/* Category Pill Filters */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
           <button
             onClick={() => setActiveCategoryFilter('all')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
               activeCategoryFilter === 'all'
-                ? 'bg-teal-700 text-white font-semibold'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-red-700 text-white font-semibold'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             All Panels ({patient.labResults.length})
@@ -739,8 +739,8 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
               onClick={() => setActiveCategoryFilter(cat)}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer whitespace-nowrap ${
                 activeCategoryFilter === cat
-                  ? 'bg-teal-700 text-white font-semibold'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-red-700 text-white font-semibold'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {cat}
@@ -750,34 +750,34 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
 
         {/* Search & Toggle Abnormal */}
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-1.5 cursor-pointer font-medium text-slate-700 shrink-0">
+          <label className="flex items-center gap-1.5 cursor-pointer font-medium text-gray-700 shrink-0">
             <input
               type="checkbox"
               checked={showAbnormalOnly}
               onChange={(e) => setShowAbnormalOnly(e.target.checked)}
-              className="rounded text-teal-700 focus:ring-teal-600"
+              className="rounded text-red-700 focus:ring-red-600"
             />
             <span>Abnormal Only</span>
           </label>
 
           <div className="relative w-48">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-2.5 pointer-events-none" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search test name..."
-              className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-300 rounded text-xs focus:outline-teal-600"
+              className="w-full pl-8 pr-3 py-1.5 bg-gray-50 border border-gray-300 rounded text-xs focus:outline-red-600"
             />
           </div>
         </div>
       </div>
 
       {/* Main Structured Results Table */}
-      <div className="bg-white border border-slate-200 rounded-lg shadow-xs overflow-hidden">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase tracking-wider text-[11px]">
+            <thead className="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-2.5 px-4 font-semibold">Test Name</th>
                 <th className="py-2.5 px-4 font-semibold">Category</th>
@@ -788,7 +788,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                 <th className="py-2.5 px-4 text-right font-semibold">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-sans">
+            <tbody className="divide-y divide-gray-100 font-sans">
               {filteredLabs.length > 0 ? (
                 filteredLabs.map((lab) => {
                   const isHigh = lab.flag === 'high' || lab.flag === 'critical';
@@ -798,7 +798,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                   return (
                     <tr
                       key={lab.id}
-                      className={`hover:bg-slate-50 transition-colors ${
+                      className={`hover:bg-gray-50 transition-colors ${
                         isCritical
                           ? 'bg-rose-50/50'
                           : isHigh
@@ -809,13 +809,13 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                       }`}
                     >
                       <td className="py-3 px-4">
-                        <span className="font-bold text-slate-900 block font-sans">
+                        <span className="font-bold text-gray-900 block font-sans">
                           {lab.testName}
                         </span>
                       </td>
 
                       <td className="py-3 px-4">
-                        <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                        <span className="text-[11px] font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
                           {lab.category}
                         </span>
                       </td>
@@ -829,11 +829,11 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                               ? 'text-rose-700'
                               : isLow
                               ? 'text-amber-700'
-                              : 'text-slate-900'
+                              : 'text-gray-900'
                           }`}
                         >
                           {lab.value}{' '}
-                          <span className="text-xs font-normal text-slate-500 font-sans">
+                          <span className="text-xs font-normal text-gray-500 font-sans">
                             {lab.unit}
                           </span>
                         </span>
@@ -863,11 +863,11 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                         )}
                       </td>
 
-                      <td className="py-3 px-4 font-mono text-slate-600 text-xs">
+                      <td className="py-3 px-4 font-mono text-gray-600 text-xs">
                         {lab.referenceRange} {lab.unit}
                       </td>
 
-                      <td className="py-3 px-4 font-mono text-slate-500 text-xs">
+                      <td className="py-3 px-4 font-mono text-gray-500 text-xs">
                         {lab.collectedDate}
                       </td>
 
@@ -875,7 +875,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                         <button
                           onClick={() => handleDeleteLab(lab.id)}
                           title="Remove lab entry"
-                          className="p-1 text-slate-400 hover:text-rose-600 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+                          className="p-1 text-gray-400 hover:text-rose-600 hover:bg-gray-100 rounded transition-colors cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -885,7 +885,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
                 })
               ) : (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400 italic">
+                  <td colSpan={7} className="py-8 text-center text-gray-400 italic">
                     {searchTerm
                       ? `No lab results match "${searchTerm}".`
                       : showAbnormalOnly
@@ -898,7 +898,7 @@ export const LabsManagement: React.FC<LabsManagementProps> = ({
           </table>
         </div>
 
-        <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <div className="p-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500 font-mono">
           <span>
             Displaying {filteredLabs.length} of {patient.labResults.length} total laboratory parameters
           </span>

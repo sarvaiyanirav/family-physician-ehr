@@ -176,7 +176,7 @@ export function calculateASCVDScore(params: {
 }): { scorePercent: number; riskCategory: 'Low (< 5%)' | 'Borderline (5-7.4%)' | 'Intermediate (7.5-19.9%)' | 'High (≥ 20%)'; color: string } {
   const { age, totalChol, hdl, systolicBp, onHtnMeds, isSmoker, isDiabetic } = params;
   if (age < 20 || age > 79) {
-    return { scorePercent: 0, riskCategory: 'Low (< 5%)', color: 'text-slate-600' };
+    return { scorePercent: 0, riskCategory: 'Low (< 5%)', color: 'text-gray-600' };
   }
 
   // Simplified validated empirical model approximating Pooled Cohort Equations

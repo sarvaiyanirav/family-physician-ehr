@@ -153,7 +153,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
         description: problem.notes,
         code: problem.icdCode,
         statusBadge: problem.status === 'active' ? 'Active Chronic' : 'Resolved',
-        statusColor: problem.status === 'active' ? 'bg-indigo-50 text-indigo-800 border-indigo-200' : 'bg-slate-100 text-slate-700 border-slate-200',
+        statusColor: problem.status === 'active' ? 'bg-indigo-50 text-indigo-800 border-indigo-200' : 'bg-gray-100 text-gray-700 border-gray-200',
         rawData: problem,
       });
     });
@@ -384,18 +384,18 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner & Overview */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="p-1.5 bg-teal-50 text-teal-700 rounded-md">
+              <span className="p-1.5 bg-red-50 text-red-700 rounded-md">
                 <Clock className="w-4 h-4" />
               </span>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-gray-900">
                 Longitudinal Clinical Timeline & Patient History
               </h2>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-gray-500 mt-1">
               Unified chronological vertical flowsheet summarizing major hospitalizations, immunization milestones, surgeries, and chronic disease onsets with age-at-event tracking.
             </p>
           </div>
@@ -403,37 +403,37 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-md shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-md shadow-xs transition-colors cursor-pointer"
             >
-              <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-gray-500" />
               <span>{sortOrder === 'desc' ? 'Newest First' : 'Oldest First'}</span>
             </button>
 
             <button
               onClick={() => setIsAddEventOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5 text-teal-200" />
+              <Plus className="w-3.5 h-3.5 text-red-200" />
               <span>Log Milestone / Hospitalization</span>
             </button>
           </div>
         </div>
 
         {/* Category Metrics Pill Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-4 pt-4 border-t border-slate-100 text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-4 pt-4 border-t border-gray-100 text-xs">
           <div
             onClick={() => setSelectedTypeFilter('hospitalization')}
             className={`p-2.5 rounded-lg border transition-all cursor-pointer ${
               selectedTypeFilter === 'hospitalization'
                 ? 'bg-rose-50 border-rose-300 text-rose-950 font-semibold'
-                : 'bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700'
+                : 'bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase font-semibold text-slate-500">Hospitalizations</span>
+              <span className="text-[11px] uppercase font-semibold text-gray-500">Hospitalizations</span>
               <Building2 className="w-3.5 h-3.5 text-rose-600" />
             </div>
-            <div className="text-xl font-bold font-mono text-slate-900 mt-1">
+            <div className="text-xl font-bold font-mono text-gray-900 mt-1">
               {eventCounts.hospitalization}
             </div>
           </div>
@@ -443,14 +443,14 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`p-2.5 rounded-lg border transition-all cursor-pointer ${
               selectedTypeFilter === 'chronic_diagnosis'
                 ? 'bg-indigo-50 border-indigo-300 text-indigo-950 font-semibold'
-                : 'bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700'
+                : 'bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase font-semibold text-slate-500">Chronic Onsets</span>
+              <span className="text-[11px] uppercase font-semibold text-gray-500">Chronic Onsets</span>
               <Activity className="w-3.5 h-3.5 text-indigo-600" />
             </div>
-            <div className="text-xl font-bold font-mono text-slate-900 mt-1">
+            <div className="text-xl font-bold font-mono text-gray-900 mt-1">
               {eventCounts.chronic_diagnosis}
             </div>
           </div>
@@ -460,14 +460,14 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`p-2.5 rounded-lg border transition-all cursor-pointer ${
               selectedTypeFilter === 'immunization'
                 ? 'bg-emerald-50 border-emerald-300 text-emerald-950 font-semibold'
-                : 'bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700'
+                : 'bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase font-semibold text-slate-500">Immunizations</span>
+              <span className="text-[11px] uppercase font-semibold text-gray-500">Immunizations</span>
               <Syringe className="w-3.5 h-3.5 text-emerald-600" />
             </div>
-            <div className="text-xl font-bold font-mono text-slate-900 mt-1">
+            <div className="text-xl font-bold font-mono text-gray-900 mt-1">
               {eventCounts.immunization}
             </div>
           </div>
@@ -477,14 +477,14 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`p-2.5 rounded-lg border transition-all cursor-pointer ${
               selectedTypeFilter === 'surgery'
                 ? 'bg-purple-50 border-purple-300 text-purple-950 font-semibold'
-                : 'bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700'
+                : 'bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase font-semibold text-slate-500">Surgeries</span>
+              <span className="text-[11px] uppercase font-semibold text-gray-500">Surgeries</span>
               <Scissors className="w-3.5 h-3.5 text-purple-600" />
             </div>
-            <div className="text-xl font-bold font-mono text-slate-900 mt-1">
+            <div className="text-xl font-bold font-mono text-gray-900 mt-1">
               {eventCounts.surgery}
             </div>
           </div>
@@ -494,14 +494,14 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`p-2.5 rounded-lg border transition-all cursor-pointer ${
               selectedTypeFilter === 'encounter'
                 ? 'bg-sky-50 border-sky-300 text-sky-950 font-semibold'
-                : 'bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700'
+                : 'bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase font-semibold text-slate-500">Clinic Visits</span>
+              <span className="text-[11px] uppercase font-semibold text-gray-500">Clinic Visits</span>
               <FileText className="w-3.5 h-3.5 text-sky-600" />
             </div>
-            <div className="text-xl font-bold font-mono text-slate-900 mt-1">
+            <div className="text-xl font-bold font-mono text-gray-900 mt-1">
               {eventCounts.encounter}
             </div>
           </div>
@@ -512,19 +512,19 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
       {isAddEventOpen && (
         <form
           onSubmit={handleSaveMilestone}
-          className="bg-white border-2 border-teal-600 rounded-lg p-5 shadow-lg space-y-4 text-xs animate-fade-in"
+          className="bg-white border-2 border-red-600 rounded-lg p-5 shadow-lg space-y-4 text-xs animate-fade-in"
         >
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-2">
             <div className="flex items-center gap-2">
-              <Plus className="w-4 h-4 text-teal-700" />
-              <h3 className="text-sm font-bold text-slate-900">
+              <Plus className="w-4 h-4 text-red-700" />
+              <h3 className="text-sm font-bold text-gray-900">
                 Log Clinical Milestone or Hospitalization
               </h3>
             </div>
             <button
               type="button"
               onClick={() => setIsAddEventOpen(false)}
-              className="text-slate-400 hover:text-slate-600 font-bold"
+              className="text-gray-400 hover:text-gray-600 font-bold"
             >
               ✕
             </button>
@@ -532,13 +532,13 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-slate-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1">
                 Category
               </label>
               <select
                 value={newEventCategory}
                 onChange={(e) => setNewEventCategory(e.target.value as TimelineEventType)}
-                className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600 bg-white"
+                className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600 bg-white"
               >
                 <option value="hospitalization">Hospitalization / Inpatient Stay</option>
                 <option value="chronic_diagnosis">Chronic Condition Onset</option>
@@ -548,7 +548,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1">
                 {newEventCategory === 'hospitalization' ? 'Admission Date' : 'Event / Onset Date'}
               </label>
               <input
@@ -556,26 +556,26 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                 required
                 value={newEventDate}
                 onChange={(e) => setNewEventDate(e.target.value)}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             {newEventCategory === 'hospitalization' && (
               <div>
-                <label className="block text-slate-700 font-medium mb-1">
+                <label className="block text-gray-700 font-medium mb-1">
                   Discharge Date (Optional)
                 </label>
                 <input
                   type="date"
                   value={newEventEndDate}
                   onChange={(e) => setNewEventEndDate(e.target.value)}
-                  className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                  className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
                 />
               </div>
             )}
 
             <div className="sm:col-span-2">
-              <label className="block text-slate-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1">
                 {newEventCategory === 'hospitalization'
                   ? 'Admitting Diagnosis / Chief Reason'
                   : newEventCategory === 'surgery'
@@ -598,12 +598,12 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                 }
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
-                className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1">
                 Facility / Hospital / Clinic
               </label>
               <input
@@ -611,13 +611,13 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                 placeholder="e.g. Providence St. Vincent Medical Center"
                 value={newFacility}
                 onChange={(e) => setNewFacility(e.target.value)}
-                className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             {newEventCategory === 'hospitalization' && (
               <div>
-                <label className="block text-slate-700 font-medium mb-1">
+                <label className="block text-gray-700 font-medium mb-1">
                   Attending Physician (Optional)
                 </label>
                 <input
@@ -625,13 +625,13 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                   placeholder="e.g. Dr. Robert Vance, MD"
                   value={newAttending}
                   onChange={(e) => setNewAttending(e.target.value)}
-                  className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600"
+                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600"
                 />
               </div>
             )}
 
             <div className={newEventCategory === 'hospitalization' ? 'sm:col-span-2' : 'sm:col-span-3'}>
-              <label className="block text-slate-700 font-medium mb-1">
+              <label className="block text-gray-700 font-medium mb-1">
                 Clinical Details / Discharge Summary / Treatment Interventions
               </label>
               <textarea
@@ -639,22 +639,22 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                 placeholder="Document key treatments, ICU stay, medication changes, and outpatient discharge instructions..."
                 value={newNotes}
                 onChange={(e) => setNewNotes(e.target.value)}
-                className="w-full px-2.5 py-1.5 border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <button
               type="button"
               onClick={() => setIsAddEventOpen(false)}
-              className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+              className="px-3 py-1.5 text-gray-600 hover:bg-gray-100 rounded cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded cursor-pointer"
+              className="px-4 py-1.5 bg-red-700 hover:bg-red-800 text-white font-semibold rounded cursor-pointer"
             >
               Save Milestone to Timeline
             </button>
@@ -663,14 +663,14 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
       )}
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 border border-slate-200 rounded-lg text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 border border-gray-200 rounded-lg text-xs">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
           <button
             onClick={() => setSelectedTypeFilter('all')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
               selectedTypeFilter === 'all'
-                ? 'bg-teal-700 text-white font-semibold'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-red-700 text-white font-semibold'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             All Milestones ({allEvents.length})
@@ -680,7 +680,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`px-2.5 py-1.5 rounded-md font-medium transition-colors cursor-pointer flex items-center gap-1 whitespace-nowrap ${
               selectedTypeFilter === 'hospitalization'
                 ? 'bg-rose-700 text-white font-semibold'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             <Building2 className="w-3 h-3 text-rose-500" />
@@ -691,7 +691,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`px-2.5 py-1.5 rounded-md font-medium transition-colors cursor-pointer flex items-center gap-1 whitespace-nowrap ${
               selectedTypeFilter === 'chronic_diagnosis'
                 ? 'bg-indigo-700 text-white font-semibold'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             <Activity className="w-3 h-3 text-indigo-500" />
@@ -702,7 +702,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`px-2.5 py-1.5 rounded-md font-medium transition-colors cursor-pointer flex items-center gap-1 whitespace-nowrap ${
               selectedTypeFilter === 'immunization'
                 ? 'bg-emerald-700 text-white font-semibold'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             <Syringe className="w-3 h-3 text-emerald-500" />
@@ -713,7 +713,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             className={`px-2.5 py-1.5 rounded-md font-medium transition-colors cursor-pointer flex items-center gap-1 whitespace-nowrap ${
               selectedTypeFilter === 'surgery'
                 ? 'bg-purple-700 text-white font-semibold'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             <Scissors className="w-3 h-3 text-purple-500" />
@@ -722,35 +722,35 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
         </div>
 
         <div className="relative w-full sm:w-64">
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5 pointer-events-none" />
+          <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-2.5 pointer-events-none" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search timeline events..."
-            className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-300 rounded text-xs focus:outline-teal-600"
+            className="w-full pl-8 pr-3 py-1.5 bg-gray-50 border border-gray-300 rounded text-xs focus:outline-red-600"
           />
         </div>
       </div>
 
       {/* Main Vertical Timeline */}
-      <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs">
         {groupedByYear.length > 0 ? (
           <div className="space-y-8">
             {groupedByYear.map((group) => (
               <div key={group.year} className="relative">
                 {/* Year Header Marker */}
-                <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-xs py-1.5 mb-4 flex items-center gap-2 border-b border-slate-100">
-                  <span className="px-2.5 py-0.5 bg-teal-800 text-white font-mono text-xs font-bold rounded-md shadow-xs">
+                <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-xs py-1.5 mb-4 flex items-center gap-2 border-b border-gray-100">
+                  <span className="px-2.5 py-0.5 bg-red-800 text-white font-mono text-xs font-bold rounded-md shadow-xs">
                     {group.year}
                   </span>
-                  <span className="text-[11px] text-slate-400 font-mono">
+                  <span className="text-[11px] text-gray-400 font-mono">
                     {group.events.length} {group.events.length === 1 ? 'clinical event' : 'clinical events'}
                   </span>
                 </div>
 
                 {/* Vertical Spine */}
-                <div className="relative pl-6 sm:pl-8 space-y-4 before:content-[''] before:absolute before:left-3 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+                <div className="relative pl-6 sm:pl-8 space-y-4 before:content-[''] before:absolute before:left-3 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-200">
                   {group.events.map((event) => {
                     const isExpanded = expandedEventIds.has(event.id);
                     const ageAtEvent = calculateAgeAtDate(patient.dob, event.dateStr);
@@ -786,12 +786,12 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
 
                         {/* Event Card Content */}
                         <div
-                          className={`border rounded-lg p-3.5 transition-all bg-white hover:border-slate-300 ${
+                          className={`border rounded-lg p-3.5 transition-all bg-white hover:border-gray-300 ${
                             event.type === 'hospitalization'
                               ? 'border-rose-200 bg-rose-50/20'
                               : event.type === 'chronic_diagnosis'
                               ? 'border-indigo-100 bg-indigo-50/15'
-                              : 'border-slate-200'
+                              : 'border-gray-200'
                           }`}
                         >
                           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
@@ -799,42 +799,42 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                               <div className="flex items-center gap-2 flex-wrap">
                                 <span
                                   className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase font-sans ${
-                                    event.statusColor || 'bg-slate-100 text-slate-700'
+                                    event.statusColor || 'bg-gray-100 text-gray-700'
                                   }`}
                                 >
                                   {event.statusBadge || event.type}
                                 </span>
 
-                                <span className="font-mono text-xs text-slate-500 font-semibold">
+                                <span className="font-mono text-xs text-gray-500 font-semibold">
                                   {event.dateStr}
                                 </span>
 
                                 {ageAtEvent && (
-                                  <span className="font-mono text-[11px] text-teal-800 bg-teal-50 border border-teal-200 px-1.5 py-0.2 rounded font-semibold">
+                                  <span className="font-mono text-[11px] text-red-800 bg-red-50 border border-red-200 px-1.5 py-0.2 rounded font-semibold">
                                     {ageAtEvent}
                                   </span>
                                 )}
 
                                 {event.code && (
-                                  <span className="font-mono text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.2 rounded">
+                                  <span className="font-mono text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.2 rounded">
                                     {event.code}
                                   </span>
                                 )}
                               </div>
 
-                              <h4 className="text-sm font-bold text-slate-900 leading-snug">
+                              <h4 className="text-sm font-bold text-gray-900 leading-snug">
                                 {event.title}
                               </h4>
 
                               {event.subtitle && (
-                                <p className="text-xs text-slate-600 font-medium">
+                                <p className="text-xs text-gray-600 font-medium">
                                   {event.subtitle}
                                 </p>
                               )}
 
                               {event.facilityOrProvider && (
-                                <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-mono">
-                                  <Building2 className="w-3 h-3 text-slate-400" />
+                                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-mono">
+                                  <Building2 className="w-3 h-3 text-gray-400" />
                                   <span>{event.facilityOrProvider}</span>
                                 </div>
                               )}
@@ -844,7 +844,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                               {event.description && (
                                 <button
                                   onClick={() => toggleExpand(event.id)}
-                                  className="text-[11px] text-teal-700 hover:text-teal-900 font-medium flex items-center gap-1 cursor-pointer"
+                                  className="text-[11px] text-red-700 hover:text-red-900 font-medium flex items-center gap-1 cursor-pointer"
                                 >
                                   <span>{isExpanded ? 'Less' : 'Details'}</span>
                                   {isExpanded ? (
@@ -858,7 +858,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
                               {event.type === 'hospitalization' && (
                                 <button
                                   onClick={() => handleDeleteHospitalization(event.id)}
-                                  className="text-slate-400 hover:text-rose-600 p-1 cursor-pointer"
+                                  className="text-gray-400 hover:text-rose-600 p-1 cursor-pointer"
                                   title="Delete hospitalization"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -869,8 +869,8 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
 
                           {/* Expandable Clinical Notes / Discharge Summary */}
                           {isExpanded && event.description && (
-                            <div className="mt-3 pt-3 border-t border-slate-100 text-xs text-slate-700 bg-slate-50/80 p-2.5 rounded font-mono whitespace-pre-line animate-fade-in">
-                              <span className="text-[10px] font-bold uppercase text-slate-500 font-sans block mb-1">
+                            <div className="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-700 bg-gray-50/80 p-2.5 rounded font-mono whitespace-pre-line animate-fade-in">
+                              <span className="text-[10px] font-bold uppercase text-gray-500 font-sans block mb-1">
                                 Clinical Summary & Interventions:
                               </span>
                               {event.description}
@@ -885,7 +885,7 @@ export const ClinicalTimeline: React.FC<ClinicalTimelineProps> = ({
             ))}
           </div>
         ) : (
-          <div className="py-12 text-center text-slate-400 italic">
+          <div className="py-12 text-center text-gray-400 italic">
             {searchTerm
               ? `No timeline milestones found matching "${searchTerm}".`
               : 'No clinical timeline events recorded yet. Click "Log Milestone / Hospitalization" to add.'}

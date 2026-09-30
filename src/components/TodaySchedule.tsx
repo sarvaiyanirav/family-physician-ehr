@@ -20,12 +20,12 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="border-b border-gray-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
             Today&apos;s Clinic Queue & Schedule
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-gray-500 mt-1">
             Dr. Sarah Lin, MD · Cascade Family Health Centre ·{' '}
             {new Date().toLocaleDateString(undefined, {
               weekday: 'long',
@@ -36,9 +36,9 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-3 text-xs font-mono text-slate-600">
+        <div className="flex items-center gap-3 text-xs font-mono text-gray-600">
           <span className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-teal-600 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-red-600 inline-block" />
             In Exam ({patients.filter((p) => p.visitStatus === 'in_exam').length})
           </span>
           <span className="flex items-center gap-1.5">
@@ -58,12 +58,12 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
           return (
             <div
               key={patient.id}
-              className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs hover:border-slate-300 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
+              className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs hover:border-gray-300 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
             >
               <div className="flex items-start gap-4">
-                <div className="text-center font-mono py-1.5 px-3 bg-slate-50 border border-slate-200 rounded-md">
-                  <Clock className="w-3.5 h-3.5 text-slate-400 mx-auto mb-0.5" />
-                  <span className="text-xs font-bold text-slate-900 block">
+                <div className="text-center font-mono py-1.5 px-3 bg-gray-50 border border-gray-200 rounded-md">
+                  <Clock className="w-3.5 h-3.5 text-gray-400 mx-auto mb-0.5" />
+                  <span className="text-xs font-bold text-gray-900 block">
                     {patient.scheduledTime || 'Scheduled'}
                   </span>
                 </div>
@@ -72,13 +72,13 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => onSelectPatient(patient)}
-                      className="font-bold text-base text-slate-900 hover:text-teal-700 transition-colors text-left cursor-pointer"
+                      className="font-bold text-base text-gray-900 hover:text-red-700 transition-colors text-left cursor-pointer"
                     >
                       {patient.lastName}, {patient.firstName}
                     </button>
-                    <span className="text-xs font-mono text-slate-500">[{patient.mrn}]</span>
+                    <span className="text-xs font-mono text-gray-500">[{patient.mrn}]</span>
                     {patient.visitStatus === 'in_exam' && (
-                      <span className="text-[11px] font-semibold text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+                      <span className="text-[11px] font-semibold text-red-800 bg-red-50 px-2 py-0.5 rounded border border-red-200">
                         Exam Room 3B
                       </span>
                     )}
@@ -88,13 +88,13 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
                       </span>
                     )}
                     {patient.visitStatus === 'completed' && (
-                      <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
+                      <span className="text-[11px] font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded">
                         Visit Signed & Complete
                       </span>
                     )}
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-slate-500 mt-1 font-mono">
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-gray-500 mt-1 font-mono">
                     <span>{age} yo {patient.sex}</span>
                     <span aria-hidden="true">·</span>
                     <span>DOB: {patient.dob}</span>
@@ -107,7 +107,7 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
                     {patient.activeProblems.slice(0, 2).map((prob) => (
                       <span
                         key={prob.id}
-                        className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px]"
+                        className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-[11px]"
                       >
                         {prob.description}
                       </span>
@@ -126,14 +126,14 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => onSelectPatient(patient)}
-                  className="px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-md transition-colors cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors cursor-pointer"
                 >
                   View Dossier
                 </button>
 
                 <button
                   onClick={() => onStartEncounter(patient)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md shadow-xs transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
                 >
                   <Activity className="w-3.5 h-3.5" />
                   <span>Launch SOAP Room</span>

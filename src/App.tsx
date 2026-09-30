@@ -155,7 +155,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900">
+    <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-col font-sans selection:bg-red-100 selection:text-red-900">
       {/* Hidden file input for JSON import */}
       <input
         type="file"
@@ -181,8 +181,8 @@ export default function App() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-lg shadow-xl text-xs font-medium flex items-center gap-2 border border-slate-700 animate-fade-in">
-          <Check className="w-4 h-4 text-teal-400" />
+        <div className="fixed bottom-6 right-6 z-50 bg-gray-900 text-white px-4 py-2.5 rounded-lg shadow-xl text-xs font-medium flex items-center gap-2 border border-gray-700 animate-fade-in">
+          <Check className="w-4 h-4 text-red-400" />
           <span>{toastMessage}</span>
         </div>
       )}

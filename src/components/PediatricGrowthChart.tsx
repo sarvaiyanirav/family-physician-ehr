@@ -410,21 +410,21 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="p-1.5 bg-teal-50 text-teal-700 rounded-md">
+              <span className="p-1.5 bg-red-50 text-red-700 rounded-md">
                 <TrendingUp className="w-4 h-4" />
               </span>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-gray-900">
                 CDC Pediatric Clinical Growth Chart (2–20 Years)
               </h2>
-              <span className="font-mono text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
+              <span className="font-mono text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded">
                 {isFemale ? 'Female' : 'Male'} Standard Reference
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-gray-500 mt-1">
               Evidence-based longitudinal growth curves comparing {patient.firstName}&apos;s stature, weight, and BMI trajectory against CDC/NCHS reference percentiles.
             </p>
           </div>
@@ -432,7 +432,7 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsAddingMeasurement(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md transition-colors cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md transition-colors cursor-pointer shadow-xs"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Log Anthropometry</span>
@@ -442,51 +442,51 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
 
         {/* Quick Vitals Summary Strip */}
         {latestMeasurement && (
-          <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
-            <div className="bg-slate-50 p-2.5 rounded border border-slate-200">
-              <span className="text-[10px] uppercase font-sans text-slate-500 block font-semibold">
+          <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
+            <div className="bg-gray-50 p-2.5 rounded border border-gray-200">
+              <span className="text-[10px] uppercase font-sans text-gray-500 block font-semibold">
                 Latest Height
               </span>
-              <span className="text-sm font-bold text-slate-900">
+              <span className="text-sm font-bold text-gray-900">
                 {latestMeasurement.heightCm ? `${latestMeasurement.heightCm} cm` : '—'}
               </span>
-              <span className="text-[11px] text-slate-500 block">
+              <span className="text-[11px] text-gray-500 block">
                 At age {latestMeasurement.ageFormatted}
               </span>
             </div>
 
-            <div className="bg-slate-50 p-2.5 rounded border border-slate-200">
-              <span className="text-[10px] uppercase font-sans text-slate-500 block font-semibold">
+            <div className="bg-gray-50 p-2.5 rounded border border-gray-200">
+              <span className="text-[10px] uppercase font-sans text-gray-500 block font-semibold">
                 Latest Weight
               </span>
-              <span className="text-sm font-bold text-slate-900">
+              <span className="text-sm font-bold text-gray-900">
                 {latestMeasurement.weightKg ? `${latestMeasurement.weightKg} kg` : '—'}
               </span>
-              <span className="text-[11px] text-slate-500 block">
+              <span className="text-[11px] text-gray-500 block">
                 ({latestMeasurement.weightKg ? (latestMeasurement.weightKg * 2.20462).toFixed(1) : '—'} lbs)
               </span>
             </div>
 
-            <div className="bg-slate-50 p-2.5 rounded border border-slate-200">
-              <span className="text-[10px] uppercase font-sans text-slate-500 block font-semibold">
+            <div className="bg-gray-50 p-2.5 rounded border border-gray-200">
+              <span className="text-[10px] uppercase font-sans text-gray-500 block font-semibold">
                 Current BMI
               </span>
-              <span className="text-sm font-bold text-slate-900">
+              <span className="text-sm font-bold text-gray-900">
                 {latestMeasurement.bmi || '—'} kg/m²
               </span>
-              <span className="text-[11px] text-slate-500 block font-sans">
+              <span className="text-[11px] text-gray-500 block font-sans">
                 {currentPercentileEstimate?.label || 'CDC Percentile'}
               </span>
             </div>
 
-            <div className="bg-slate-50 p-2.5 rounded border border-slate-200">
-              <span className="text-[10px] uppercase font-sans text-slate-500 block font-semibold">
+            <div className="bg-gray-50 p-2.5 rounded border border-gray-200">
+              <span className="text-[10px] uppercase font-sans text-gray-500 block font-semibold">
                 Growth Velocity
               </span>
-              <span className="text-sm font-bold text-slate-900">
+              <span className="text-sm font-bold text-gray-900">
                 {growthVelocity?.rate || '—'}
               </span>
-              <span className="text-[11px] text-teal-700 block font-sans font-medium">
+              <span className="text-[11px] text-red-700 block font-sans font-medium">
                 {growthVelocity?.delta ? `${growthVelocity.delta} since last visit` : 'Normal tracking'}
               </span>
             </div>
@@ -498,16 +498,16 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
       {isAddingMeasurement && (
         <form
           onSubmit={handleSaveMeasurement}
-          className="bg-white border-2 border-teal-600 rounded-lg p-5 shadow-md space-y-4 text-xs animate-fade-in"
+          className="bg-white border-2 border-red-600 rounded-lg p-5 shadow-md space-y-4 text-xs animate-fade-in"
         >
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h3 className="text-sm font-bold text-slate-900">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+            <h3 className="text-sm font-bold text-gray-900">
               Record New Pediatric Growth Measurement
             </h3>
             <button
               type="button"
               onClick={() => setIsAddingMeasurement(false)}
-              className="text-slate-400 hover:text-slate-600 font-bold"
+              className="text-gray-400 hover:text-gray-600 font-bold"
             >
               ✕
             </button>
@@ -515,18 +515,18 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Encounter Date</label>
+              <label className="block text-gray-700 font-medium mb-1">Encounter Date</label>
               <input
                 type="date"
                 required
                 value={newMeasureDate}
                 onChange={(e) => setNewMeasureDate(e.target.value)}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Height / Stature (cm)</label>
+              <label className="block text-gray-700 font-medium mb-1">Height / Stature (cm)</label>
               <input
                 type="number"
                 step="0.5"
@@ -534,12 +534,12 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
                 placeholder="e.g. 132.5"
                 value={newHeightCm}
                 onChange={(e) => setNewHeightCm(e.target.value)}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-700 font-medium mb-1">Weight (kg)</label>
+              <label className="block text-gray-700 font-medium mb-1">Weight (kg)</label>
               <input
                 type="number"
                 step="0.1"
@@ -547,22 +547,22 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
                 placeholder="e.g. 30.2"
                 value={newWeightKg}
                 onChange={(e) => setNewWeightKg(e.target.value)}
-                className="w-full px-2.5 py-1.5 font-mono border border-slate-300 rounded focus:outline-teal-600"
+                className="w-full px-2.5 py-1.5 font-mono border border-gray-300 rounded focus:outline-red-600"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <button
               type="button"
               onClick={() => setIsAddingMeasurement(false)}
-              className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+              className="px-3 py-1.5 text-gray-600 hover:bg-gray-100 rounded cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded cursor-pointer"
+              className="px-4 py-1.5 bg-red-700 hover:bg-red-800 text-white font-semibold rounded cursor-pointer"
             >
               Save & Plot Measurement
             </button>
@@ -571,15 +571,15 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
       )}
 
       {/* Metric Selector & Display Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 border border-slate-200 rounded-lg text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 border border-gray-200 rounded-lg text-xs">
         <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-slate-700 mr-1">Parameter:</span>
+          <span className="font-semibold text-gray-700 mr-1">Parameter:</span>
           <button
             onClick={() => setActiveMetric('height')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
               activeMetric === 'height'
-                ? 'bg-teal-700 text-white font-bold shadow-xs'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-red-700 text-white font-bold shadow-xs'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             Stature (Height cm)
@@ -588,8 +588,8 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
             onClick={() => setActiveMetric('weight')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
               activeMetric === 'weight'
-                ? 'bg-teal-700 text-white font-bold shadow-xs'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-red-700 text-white font-bold shadow-xs'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             Weight (kg)
@@ -598,8 +598,8 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
             onClick={() => setActiveMetric('bmi')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
               activeMetric === 'bmi'
-                ? 'bg-teal-700 text-white font-bold shadow-xs'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-red-700 text-white font-bold shadow-xs'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             BMI-for-Age (kg/m²)
@@ -607,12 +607,12 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 cursor-pointer font-medium text-slate-700">
+          <label className="flex items-center gap-2 cursor-pointer font-medium text-gray-700">
             <input
               type="checkbox"
               checked={showAllPercentiles}
               onChange={(e) => setShowAllPercentiles(e.target.checked)}
-              className="rounded text-teal-700 focus:ring-teal-600"
+              className="rounded text-red-700 focus:ring-red-600"
             />
             <span>Show 5th, 25th, 75th, 95th Percentile Bands</span>
           </label>
@@ -620,19 +620,19 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
       </div>
 
       {/* Main Chart Visualization */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-700">
             {patient.firstName}&apos;s Growth Trajectory vs. CDC Standard ({metricLabel})
           </h3>
-          <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+          <div className="flex items-center gap-3 text-[11px] font-mono text-gray-500">
             <span className="flex items-center gap-1">
-              <span className="w-3 h-0.5 bg-teal-700 inline-block" />
-              <span className="w-2 h-2 rounded-full bg-teal-700 inline-block" />
-              <strong className="text-teal-900 font-bold">{patient.firstName}&apos;s Visits</strong>
+              <span className="w-3 h-0.5 bg-red-700 inline-block" />
+              <span className="w-2 h-2 rounded-full bg-red-700 inline-block" />
+              <strong className="text-red-900 font-bold">{patient.firstName}&apos;s Visits</strong>
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-3 h-0.5 bg-slate-400 inline-block" />
+              <span className="w-3 h-0.5 bg-gray-400 inline-block" />
               <span>50th %ile (Median)</span>
             </span>
           </div>
@@ -677,8 +677,8 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="bg-slate-900 text-white p-3 rounded-lg shadow-xl text-xs space-y-1 font-mono border border-slate-700">
-                        <div className="font-bold text-teal-300 font-sans border-b border-slate-700 pb-1">
+                      <div className="bg-gray-900 text-white p-3 rounded-lg shadow-xl text-xs space-y-1 font-mono border border-gray-700">
+                        <div className="font-bold text-red-300 font-sans border-b border-gray-700 pb-1">
                           Age: {data.ageFormatted || `${label} years`}
                         </div>
                         {data.patientValue !== undefined && (
@@ -690,16 +690,16 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
                               ? 'kg'
                               : 'kg/m²'}
                             {data.measurementDate && (
-                              <span className="text-slate-400 font-normal ml-1">
+                              <span className="text-gray-400 font-normal ml-1">
                                 ({data.measurementDate})
                               </span>
                             )}
                           </div>
                         )}
-                        <div className="text-[11px] text-slate-300 pt-1 space-y-0.5">
+                        <div className="text-[11px] text-gray-300 pt-1 space-y-0.5">
                           <div>95th Percentile: {data.p95}</div>
                           <div>75th Percentile: {data.p75}</div>
-                          <div className="text-teal-200 font-semibold">50th Percentile (Median): {data.p50}</div>
+                          <div className="text-red-200 font-semibold">50th Percentile (Median): {data.p50}</div>
                           <div>25th Percentile: {data.p25}</div>
                           <div>5th Percentile: {data.p5}</div>
                         </div>
@@ -771,10 +771,10 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
               <Line
                 type="monotone"
                 dataKey="patientValue"
-                stroke="#0f766e"
+                stroke="#b91c1c"
                 strokeWidth={3}
-                dot={{ r: 5, fill: '#0f766e', stroke: '#ffffff', strokeWidth: 2 }}
-                activeDot={{ r: 7, fill: '#0d9488', stroke: '#ffffff', strokeWidth: 2 }}
+                dot={{ r: 5, fill: '#b91c1c', stroke: '#ffffff', strokeWidth: 2 }}
+                activeDot={{ r: 7, fill: '#dc2626', stroke: '#ffffff', strokeWidth: 2 }}
                 connectNulls
                 name={`${patient.firstName}'s Growth`}
               />
@@ -782,7 +782,7 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
           </ResponsiveContainer>
         </div>
 
-        <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between text-slate-500 text-[11px]">
+        <div className="pt-2 border-t border-gray-100 flex flex-wrap items-center justify-between text-gray-500 text-[11px]">
           <span>CDC Clinical Growth Charts (United States 2 to 20 years).</span>
           <span className="font-mono">
             {patientMeasurements.length} visits recorded between {patientMeasurements[0]?.date} and{' '}
@@ -792,13 +792,13 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
       </div>
 
       {/* Longitudinal Pediatric Anthropometrics Table */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-3">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-gray-700">
           Recorded Anthropometric Measurements Flowsheet
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[11px]">
+            <thead className="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase text-[11px]">
               <tr>
                 <th className="py-2.5 px-3">Date</th>
                 <th className="py-2.5 px-3">Age at Visit</th>
@@ -808,38 +808,38 @@ export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
                 <th className="py-2.5 px-3">Clinical Assessment</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-gray-100">
               {patientMeasurements.map((meas, idx) => {
                 const prev = idx > 0 ? patientMeasurements[idx - 1] : null;
                 const hDelta = prev?.heightCm && meas.heightCm ? (meas.heightCm - prev.heightCm).toFixed(1) : null;
                 const wDelta = prev?.weightKg && meas.weightKg ? (meas.weightKg - prev.weightKg).toFixed(1) : null;
 
                 return (
-                  <tr key={meas.encounterId || meas.date} className="hover:bg-slate-50">
-                    <td className="py-2.5 px-3 text-slate-900 font-semibold">{meas.date}</td>
-                    <td className="py-2.5 px-3 text-slate-600">{meas.ageFormatted}</td>
-                    <td className="py-2.5 px-3 font-bold text-slate-900">
+                  <tr key={meas.encounterId || meas.date} className="hover:bg-gray-50">
+                    <td className="py-2.5 px-3 text-gray-900 font-semibold">{meas.date}</td>
+                    <td className="py-2.5 px-3 text-gray-600">{meas.ageFormatted}</td>
+                    <td className="py-2.5 px-3 font-bold text-gray-900">
                       {meas.heightCm ? `${meas.heightCm} cm` : '—'}
                       {hDelta && (
-                        <span className="text-[10px] text-teal-700 ml-1 font-normal font-sans">
+                        <span className="text-[10px] text-red-700 ml-1 font-normal font-sans">
                           (+{hDelta})
                         </span>
                       )}
                     </td>
-                    <td className="py-2.5 px-3 font-bold text-slate-900">
+                    <td className="py-2.5 px-3 font-bold text-gray-900">
                       {meas.weightKg ? `${meas.weightKg} kg` : '—'}
                       {meas.weightKg && (
-                        <span className="text-[11px] text-slate-400 ml-1 font-normal">
+                        <span className="text-[11px] text-gray-400 ml-1 font-normal">
                           ({(meas.weightKg * 2.20462).toFixed(1)} lbs)
                         </span>
                       )}
                       {wDelta && (
-                        <span className="text-[10px] text-teal-700 ml-1 font-normal font-sans">
+                        <span className="text-[10px] text-red-700 ml-1 font-normal font-sans">
                           (+{wDelta})
                         </span>
                       )}
                     </td>
-                    <td className="py-2.5 px-3 font-bold text-slate-900">
+                    <td className="py-2.5 px-3 font-bold text-gray-900">
                       {meas.bmi || '—'}
                     </td>
                     <td className="py-2.5 px-3 font-sans">

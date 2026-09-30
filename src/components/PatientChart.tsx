@@ -168,7 +168,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-teal-800 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-red-800 transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Patient Registry</span>
@@ -180,8 +180,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               onClick={() => setActiveTab('growth_chart')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md shadow-xs transition-colors cursor-pointer border ${
                 activeTab === 'growth_chart'
-                  ? 'bg-teal-700 text-white border-teal-700'
-                  : 'text-teal-800 bg-teal-50 border-teal-200 hover:bg-teal-100'
+                  ? 'bg-red-700 text-white border-red-700'
+                  : 'text-red-800 bg-red-50 border-red-200 hover:bg-red-100'
               }`}
             >
               <TrendingUp className="w-3.5 h-3.5" />
@@ -191,15 +191,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
           <button
             onClick={onOpenCalculators}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-md shadow-xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-md shadow-xs transition-colors cursor-pointer"
           >
-            <Activity className="w-3.5 h-3.5 text-teal-700" />
+            <Activity className="w-3.5 h-3.5 text-red-700" />
             <span>Clinical Calculators</span>
           </button>
 
           <button
             onClick={() => onStartEncounter()}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md shadow-xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>New Clinical Encounter</span>
@@ -208,22 +208,22 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       </div>
 
       {/* Primary Patient Dossier Header Banner */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-2xl font-bold tracking-tight text-gray-900">
                 {patient.lastName}, {patient.firstName}
                 {patient.preferredName && (
-                  <span className="text-base font-normal text-slate-500 ml-2">
+                  <span className="text-base font-normal text-gray-500 ml-2">
                     &ldquo;{patient.preferredName}&rdquo;
                   </span>
                 )}
               </h1>
-              <span className="font-mono text-xs font-semibold text-slate-700 bg-slate-100 px-2.5 py-1 rounded">
+              <span className="font-mono text-xs font-semibold text-gray-700 bg-gray-100 px-2.5 py-1 rounded">
                 MRN: {patient.mrn}
               </span>
-              <span className="font-mono text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded">
+              <span className="font-mono text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
                 HC: {patient.healthCardNumber}
               </span>
 
@@ -242,7 +242,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       ? 'bg-rose-100 text-rose-800 border-rose-300'
                       : patient.triagePriority === 'urgent'
                       ? 'bg-amber-100 text-amber-800 border-amber-300'
-                      : 'bg-slate-100 text-slate-700 border-slate-200'
+                      : 'bg-gray-100 text-gray-700 border-gray-200'
                   }`}
                   title="Update Triage Priority"
                 >
@@ -257,7 +257,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                   {patient.codeStatus}
                 </span>
               ) : (
-                <span className="text-xs font-medium text-slate-600 bg-slate-50 px-2 py-1 rounded">
+                <span className="text-xs font-medium text-gray-600 bg-gray-50 px-2 py-1 rounded">
                   Full Code
                 </span>
               )}
@@ -284,7 +284,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               </div>
             )}
 
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 mt-2 font-mono">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600 mt-2 font-mono">
               <span>{age} years old</span>
               <span aria-hidden="true">·</span>
               <span className="capitalize">{patient.sex}</span>
@@ -299,36 +299,36 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
           {/* Recent Vitals Strip */}
           {latestVitals && (
-            <div className="flex items-center gap-4 bg-slate-50 p-3 rounded-md border border-slate-200 text-xs">
+            <div className="flex items-center gap-4 bg-gray-50 p-3 rounded-md border border-gray-200 text-xs">
               <div>
-                <span className="text-[10px] text-slate-500 uppercase block font-semibold">Latest BP</span>
-                <span className="font-mono font-bold text-slate-900 text-sm">
+                <span className="text-[10px] text-gray-500 uppercase block font-semibold">Latest BP</span>
+                <span className="font-mono font-bold text-gray-900 text-sm">
                   {latestVitals.systolicBp}/{latestVitals.diastolicBp}
                 </span>
-                <span className="text-[10px] text-slate-400 block font-mono">mmHg</span>
+                <span className="text-[10px] text-gray-400 block font-mono">mmHg</span>
               </div>
-              <div className="border-l border-slate-200 pl-3">
-                <span className="text-[10px] text-slate-500 uppercase block font-semibold">Pulse</span>
-                <span className="font-mono font-bold text-slate-900 text-sm">
+              <div className="border-l border-gray-200 pl-3">
+                <span className="text-[10px] text-gray-500 uppercase block font-semibold">Pulse</span>
+                <span className="font-mono font-bold text-gray-900 text-sm">
                   {latestVitals.heartRate}
                 </span>
-                <span className="text-[10px] text-slate-400 block font-mono">BPM</span>
+                <span className="text-[10px] text-gray-400 block font-mono">BPM</span>
               </div>
-              <div className="border-l border-slate-200 pl-3">
-                <span className="text-[10px] text-slate-500 uppercase block font-semibold">BMI</span>
-                <span className="font-mono font-bold text-slate-900 text-sm">
+              <div className="border-l border-gray-200 pl-3">
+                <span className="text-[10px] text-gray-500 uppercase block font-semibold">BMI</span>
+                <span className="font-mono font-bold text-gray-900 text-sm">
                   {bmiObj?.bmi || latestVitals.bmi || '—'}
                 </span>
-                <span className="text-[10px] text-slate-400 block font-mono">kg/m²</span>
+                <span className="text-[10px] text-gray-400 block font-mono">kg/m²</span>
               </div>
             </div>
           )}
         </div>
 
         {/* Safety & Allergy Strip */}
-        <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-700">Allergies:</span>
+            <span className="font-semibold text-gray-700">Allergies:</span>
             {patient.allergies.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {patient.allergies.map((alg) => (
@@ -344,30 +344,30 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       <AlertTriangle className="w-3 h-3 text-rose-600" />
                     )}
                     <span>{alg.allergen}</span>
-                    <span className="text-slate-500">({alg.reaction})</span>
+                    <span className="text-gray-500">({alg.reaction})</span>
                   </span>
                 ))}
               </div>
             ) : (
-              <span className="text-slate-500 font-mono">No Known Drug Allergies (NKDA)</span>
+              <span className="text-gray-500 font-mono">No Known Drug Allergies (NKDA)</span>
             )}
           </div>
 
-          <div className="text-slate-500 text-[11px]">
-            Emergency Contact: <span className="font-medium text-slate-800">{patient.emergencyContact.name}</span> ({patient.emergencyContact.relationship}) · <span className="font-mono">{patient.emergencyContact.phone}</span>
+          <div className="text-gray-500 text-[11px]">
+            Emergency Contact: <span className="font-medium text-gray-800">{patient.emergencyContact.name}</span> ({patient.emergencyContact.relationship}) · <span className="font-mono">{patient.emergencyContact.phone}</span>
           </div>
         </div>
       </div>
 
       {/* Longitudinal Dossier Tabs */}
-      <div className="border-b border-slate-200">
+      <div className="border-b border-gray-200">
         <nav className="flex space-x-6 overflow-x-auto text-xs font-medium">
           <button
             onClick={() => setActiveTab('encounters')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'encounters'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Clinical Encounters & SOAP Notes ({patient.encounters.length})
@@ -376,8 +376,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('meds_problems')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'meds_problems'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Medications & Problem List ({patient.medications.length} / {patient.activeProblems.length})
@@ -386,8 +386,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('vitals')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'vitals'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Vitals & Flowsheet
@@ -397,13 +397,13 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               onClick={() => setActiveTab('growth_chart')}
               className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === 'growth_chart'
-                  ? 'border-teal-700 text-teal-800 font-semibold'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
+                  ? 'border-red-700 text-red-800 font-semibold'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5 text-teal-700" />
+              <TrendingUp className="w-3.5 h-3.5 text-red-700" />
               <span>Pediatric Growth Chart</span>
-              <span className="text-[10px] bg-teal-50 text-teal-800 font-bold px-1.5 py-0.5 rounded border border-teal-200">
+              <span className="text-[10px] bg-red-50 text-red-800 font-bold px-1.5 py-0.5 rounded border border-red-200">
                 CDC Curves
               </span>
             </button>
@@ -412,11 +412,11 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('labs')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'labs'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
-            <TestTube className="w-3.5 h-3.5 text-teal-700" />
+            <TestTube className="w-3.5 h-3.5 text-red-700" />
             <span>Labs & Diagnostics ({patient.labResults.length})</span>
             {patient.labResults.some((l) => l.flag !== 'normal') && (
               <span className="text-[10px] bg-rose-50 text-rose-800 font-bold px-1.5 py-0.5 rounded border border-rose-200">
@@ -428,11 +428,11 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('timeline')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'timeline'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
-            <Clock className="w-3.5 h-3.5 text-teal-700" />
+            <Clock className="w-3.5 h-3.5 text-red-700" />
             <span>Clinical Timeline</span>
             {(patient.hospitalizations?.length || 0) > 0 && (
               <span className="text-[10px] bg-rose-50 text-rose-800 font-bold px-1.5 py-0.5 rounded border border-rose-200">
@@ -444,8 +444,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('history')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'history'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Allergies & Medical/Family History
@@ -454,8 +454,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('preventive')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'preventive'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Preventive & Immunizations
@@ -464,8 +464,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             onClick={() => setActiveTab('print')}
             className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === 'print'
-                ? 'border-teal-700 text-teal-800 font-semibold'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-red-700 text-red-800 font-semibold'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
             Printable Documents & AVS
@@ -477,10 +477,10 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       {activeTab === 'encounters' && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-900">Encounter Timeline</h2>
+            <h2 className="text-base font-bold text-gray-900">Encounter Timeline</h2>
             <button
               onClick={() => onStartEncounter()}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md transition-colors cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Record New Encounter</span>
@@ -499,12 +499,12 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       onClick={() => setSelectedEncounterForView(enc)}
                       className={`p-4 rounded-lg border transition-all cursor-pointer text-xs ${
                         isSelected
-                          ? 'border-teal-600 bg-teal-50/50 shadow-xs'
-                          : 'border-slate-200 bg-white hover:border-slate-300'
+                          ? 'border-red-600 bg-red-50/50 shadow-xs'
+                          : 'border-gray-200 bg-white hover:border-gray-300'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-slate-900">
+                        <span className="font-semibold text-gray-900">
                           {new Date(enc.date).toLocaleDateString(undefined, {
                             year: 'numeric',
                             month: 'short',
@@ -513,22 +513,22 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                         </span>
                         <span
                           className={`font-medium text-[11px] ${
-                            enc.status === 'signed' ? 'text-teal-700' : 'text-amber-700'
+                            enc.status === 'signed' ? 'text-red-700' : 'text-amber-700'
                           }`}
                         >
                           {enc.status === 'signed' ? 'Signed' : 'Draft'}
                         </span>
                       </div>
 
-                      <div className="text-slate-600 mt-1 font-medium capitalize">
+                      <div className="text-gray-600 mt-1 font-medium capitalize">
                         {enc.type.replace('_', ' ')}
                       </div>
 
-                      <div className="text-slate-700 mt-1 line-clamp-2">
+                      <div className="text-gray-700 mt-1 line-clamp-2">
                         {enc.reasonForVisit || enc.chiefComplaint}
                       </div>
 
-                      <div className="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-slate-500 font-mono text-[11px]">
+                      <div className="mt-3 pt-2 border-t border-gray-200/60 flex items-center justify-between text-gray-500 font-mono text-[11px]">
                         <span>{enc.provider}</span>
                         <span>CPT: {enc.billingCode || '99214'}</span>
                       </div>
@@ -539,10 +539,10 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
               {/* Selected Encounter Detailed View on Right */}
               {selectedEncounterForView && (
-                <div className="lg:col-span-2 bg-white border border-slate-200 rounded-lg p-6 shadow-xs space-y-5 text-xs">
-                  <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6 shadow-xs space-y-5 text-xs">
+                  <div className="flex items-center justify-between border-b border-gray-200 pb-3">
                     <div>
-                      <h3 className="text-sm font-bold text-slate-900">
+                      <h3 className="text-sm font-bold text-gray-900">
                         Clinical Encounter Note —{' '}
                         {new Date(selectedEncounterForView.date).toLocaleDateString(undefined, {
                           weekday: 'short',
@@ -551,7 +551,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                           day: 'numeric',
                         })}
                       </h3>
-                      <div className="text-slate-500 text-xs font-mono mt-0.5">
+                      <div className="text-gray-500 text-xs font-mono mt-0.5">
                         Provider: {selectedEncounterForView.provider} · CPT Billing: {selectedEncounterForView.billingCode || '99214'}
                       </div>
                     </div>
@@ -559,14 +559,14 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onStartEncounter(selectedEncounterForView)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded cursor-pointer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                         <span>Edit / Resume</span>
                       </button>
                       <button
                         onClick={handlePrint}
-                        className="p-1 text-slate-500 hover:text-slate-800 rounded cursor-pointer"
+                        className="p-1 text-gray-500 hover:text-gray-800 rounded cursor-pointer"
                         title="Print Note"
                       >
                         <Printer className="w-4 h-4" />
@@ -576,28 +576,28 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
                   {/* Vitals */}
                   {selectedEncounterForView.vitals && (
-                    <div className="bg-slate-50 p-3 rounded border border-slate-200">
-                      <div className="font-semibold text-slate-700 mb-1">Encounter Vitals:</div>
+                    <div className="bg-gray-50 p-3 rounded border border-gray-200">
+                      <div className="font-semibold text-gray-700 mb-1">Encounter Vitals:</div>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]">
-                        <div>BP: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.systolicBp}/{selectedEncounterForView.vitals.diastolicBp} mmHg</span></div>
-                        <div>HR: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.heartRate} bpm</span></div>
-                        <div>RR: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.respiratoryRate} /min</span></div>
-                        <div>SpO2: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.oxygenSaturation}%</span></div>
-                        <div>Temp: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.temperatureC}°C</span></div>
-                        <div>Wt: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.weightKg} kg</span></div>
-                        <div>BMI: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.bmi || '—'}</span></div>
-                        <div>Pain: <span className="font-bold text-slate-900">{selectedEncounterForView.vitals.painScore || 0}/10</span></div>
+                        <div>BP: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.systolicBp}/{selectedEncounterForView.vitals.diastolicBp} mmHg</span></div>
+                        <div>HR: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.heartRate} bpm</span></div>
+                        <div>RR: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.respiratoryRate} /min</span></div>
+                        <div>SpO2: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.oxygenSaturation}%</span></div>
+                        <div>Temp: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.temperatureC}°C</span></div>
+                        <div>Wt: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.weightKg} kg</span></div>
+                        <div>BMI: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.bmi || '—'}</span></div>
+                        <div>Pain: <span className="font-bold text-gray-900">{selectedEncounterForView.vitals.painScore || 0}/10</span></div>
                       </div>
                     </div>
                   )}
 
                   {/* Subjective */}
                   <div>
-                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-teal-800 mb-1">
+                    <h4 className="font-bold text-gray-900 text-xs uppercase tracking-wider text-red-800 mb-1">
                       Subjective
                     </h4>
-                    <p className="text-slate-700 font-medium">Chief Complaint: {selectedEncounterForView.chiefComplaint}</p>
-                    <p className="text-slate-700 mt-2 leading-relaxed whitespace-pre-line">
+                    <p className="text-gray-700 font-medium">Chief Complaint: {selectedEncounterForView.chiefComplaint}</p>
+                    <p className="text-gray-700 mt-2 leading-relaxed whitespace-pre-line">
                       {selectedEncounterForView.hpi}
                     </p>
                   </div>
@@ -605,11 +605,11 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                   {/* ROS */}
                   {selectedEncounterForView.reviewOfSystems && Object.keys(selectedEncounterForView.reviewOfSystems).length > 0 && (
                     <div>
-                      <h4 className="font-semibold text-slate-800 text-xs mb-1">Review of Systems (ROS):</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded">
+                      <h4 className="font-semibold text-gray-800 text-xs mb-1">Review of Systems (ROS):</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] text-gray-600 bg-gray-50 p-2.5 rounded">
                         {Object.entries(selectedEncounterForView.reviewOfSystems).map(([sys, text]) => (
                           <div key={sys}>
-                            <span className="font-medium text-slate-900">{sys}: </span>
+                            <span className="font-medium text-gray-900">{sys}: </span>
                             <span>{text}</span>
                           </div>
                         ))}
@@ -619,13 +619,13 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
                   {/* Objective (Physical Exam) */}
                   <div>
-                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-teal-800 mb-1">
+                    <h4 className="font-bold text-gray-900 text-xs uppercase tracking-wider text-red-800 mb-1">
                       Objective (Physical Examination)
                     </h4>
-                    <div className="space-y-1 text-slate-700 leading-relaxed">
+                    <div className="space-y-1 text-gray-700 leading-relaxed">
                       {Object.entries(selectedEncounterForView.physicalExam).map(([sys, findings]) => (
                         <div key={sys}>
-                          <span className="font-semibold text-slate-900">{sys}: </span>
+                          <span className="font-semibold text-gray-900">{sys}: </span>
                           <span>{findings}</span>
                         </div>
                       ))}
@@ -634,20 +634,20 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
                   {/* Assessment */}
                   <div>
-                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-teal-800 mb-1">
+                    <h4 className="font-bold text-gray-900 text-xs uppercase tracking-wider text-red-800 mb-1">
                       Assessment & Diagnoses
                     </h4>
-                    <div className="p-2.5 bg-slate-50 border border-slate-200 rounded space-y-1">
-                      <div className="font-semibold text-slate-900">
+                    <div className="p-2.5 bg-gray-50 border border-gray-200 rounded space-y-1">
+                      <div className="font-semibold text-gray-900">
                         1. {selectedEncounterForView.assessment.primaryDiagnosis.name} (ICD-10: {selectedEncounterForView.assessment.primaryDiagnosis.code})
                       </div>
                       {selectedEncounterForView.assessment.secondaryDiagnoses.map((sec, idx) => (
-                        <div key={sec.code} className="text-slate-700">
+                        <div key={sec.code} className="text-gray-700">
                           {idx + 2}. {sec.name} (ICD-10: {sec.code})
                         </div>
                       ))}
                       {selectedEncounterForView.assessment.clinicalSummary && (
-                        <div className="text-slate-600 italic pt-1 border-t border-slate-200 mt-2">
+                        <div className="text-gray-600 italic pt-1 border-t border-gray-200 mt-2">
                           Clinical Synthesis: {selectedEncounterForView.assessment.clinicalSummary}
                         </div>
                       )}
@@ -656,15 +656,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
                   {/* Plan */}
                   <div>
-                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-teal-800 mb-1">
+                    <h4 className="font-bold text-gray-900 text-xs uppercase tracking-wider text-red-800 mb-1">
                       Plan & Treatment
                     </h4>
                     <div className="space-y-3">
                       {/* Prescriptions */}
                       {selectedEncounterForView.plan.prescriptions.length > 0 && (
                         <div>
-                          <span className="font-semibold text-slate-800">Prescriptions:</span>
-                          <ul className="list-disc list-inside mt-1 space-y-1 text-slate-700">
+                          <span className="font-semibold text-gray-800">Prescriptions:</span>
+                          <ul className="list-disc list-inside mt-1 space-y-1 text-gray-700">
                             {selectedEncounterForView.plan.prescriptions.map((rx) => (
                               <li key={rx.id}>
                                 <span className="font-semibold">{rx.drug} {rx.dose}</span> — {rx.frequency} ({rx.instructions})
@@ -677,10 +677,10 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       {/* Orders */}
                       {selectedEncounterForView.plan.labOrders.length > 0 && (
                         <div>
-                          <span className="font-semibold text-slate-800">Diagnostics Ordered:</span>
+                          <span className="font-semibold text-gray-800">Diagnostics Ordered:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {selectedEncounterForView.plan.labOrders.map((lab) => (
-                              <span key={lab} className="px-2 py-0.5 bg-teal-50 text-teal-900 rounded border border-teal-200 text-[11px]">
+                              <span key={lab} className="px-2 py-0.5 bg-red-50 text-red-900 rounded border border-red-200 text-[11px]">
                                 {lab}
                               </span>
                             ))}
@@ -691,17 +691,17 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       {/* Patient Instructions */}
                       {selectedEncounterForView.plan.patientInstructions && (
                         <div>
-                          <span className="font-semibold text-slate-800">Patient Counseling & Care Plan:</span>
-                          <p className="text-slate-700 mt-1 leading-relaxed bg-slate-50 p-2.5 rounded">
+                          <span className="font-semibold text-gray-800">Patient Counseling & Care Plan:</span>
+                          <p className="text-gray-700 mt-1 leading-relaxed bg-gray-50 p-2.5 rounded">
                             {selectedEncounterForView.plan.patientInstructions}
                           </p>
                         </div>
                       )}
 
-                      <div className="flex items-center gap-4 text-slate-600 font-mono text-[11px] pt-2 border-t border-slate-100">
-                        <span>Follow-up: <strong className="text-slate-900">{selectedEncounterForView.plan.followUpIn}</strong></span>
+                      <div className="flex items-center gap-4 text-gray-600 font-mono text-[11px] pt-2 border-t border-gray-100">
+                        <span>Follow-up: <strong className="text-gray-900">{selectedEncounterForView.plan.followUpIn}</strong></span>
                         <span aria-hidden="true">·</span>
-                        <span>Signed by: <strong className="text-slate-900">{selectedEncounterForView.provider}</strong></span>
+                        <span>Signed by: <strong className="text-gray-900">{selectedEncounterForView.provider}</strong></span>
                       </div>
                     </div>
                   </div>
@@ -709,15 +709,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               )}
             </div>
           ) : (
-            <div className="bg-white border border-slate-200 rounded-lg p-8 text-center space-y-3">
-              <FileText className="w-10 h-10 text-slate-300 mx-auto" />
-              <h3 className="text-sm font-semibold text-slate-800">No encounters charted yet for this patient</h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <div className="bg-white border border-gray-200 rounded-lg p-8 text-center space-y-3">
+              <FileText className="w-10 h-10 text-gray-300 mx-auto" />
+              <h3 className="text-sm font-semibold text-gray-800">No encounters charted yet for this patient</h3>
+              <p className="text-xs text-gray-500 max-w-sm mx-auto">
                 Begin documentation with a new SOAP encounter using validated clinical templates.
               </p>
               <button
                 onClick={() => onStartEncounter()}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Start First Encounter</span>
@@ -731,15 +731,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       {activeTab === 'meds_problems' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Active Medications */}
-          <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div className="flex items-center gap-2">
-                <Pill className="w-4 h-4 text-teal-700" />
-                <h3 className="text-sm font-bold text-slate-900">Current Medications List</h3>
+                <Pill className="w-4 h-4 text-red-700" />
+                <h3 className="text-sm font-bold text-gray-900">Current Medications List</h3>
               </div>
               <button
                 onClick={() => setIsAddingMed(true)}
-                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md cursor-pointer"
               >
                 <Plus className="w-3 h-3" />
                 <span>Prescribe / Add Rx</span>
@@ -748,8 +748,8 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
             {/* Add Med Form */}
             {isAddingMed && (
-              <form onSubmit={handleAddMedication} className="p-3 bg-slate-50 border border-slate-200 rounded-md space-y-3 text-xs">
-                <div className="font-semibold text-slate-800">New Medication Entry</div>
+              <form onSubmit={handleAddMedication} className="p-3 bg-gray-50 border border-gray-200 rounded-md space-y-3 text-xs">
+                <div className="font-semibold text-gray-800">New Medication Entry</div>
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="text"
@@ -757,7 +757,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                     value={newMedName}
                     onChange={(e) => setNewMedName(e.target.value)}
                     placeholder="Drug name (e.g. Atorvastatin)"
-                    className="px-2 py-1 bg-white border border-slate-300 rounded focus:outline-none"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded focus:outline-none"
                   />
                   <input
                     type="text"
@@ -765,34 +765,34 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                     value={newMedDose}
                     onChange={(e) => setNewMedDose(e.target.value)}
                     placeholder="Dose (e.g. 20 mg)"
-                    className="px-2 py-1 bg-white border border-slate-300 rounded focus:outline-none"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded focus:outline-none"
                   />
                   <input
                     type="text"
                     value={newMedFreq}
                     onChange={(e) => setNewMedFreq(e.target.value)}
                     placeholder="Frequency (e.g. Once daily at bedtime)"
-                    className="px-2 py-1 bg-white border border-slate-300 rounded focus:outline-none"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded focus:outline-none"
                   />
                   <input
                     type="text"
                     value={newMedIndication}
                     onChange={(e) => setNewMedIndication(e.target.value)}
                     placeholder="Indication (e.g. Hyperlipidemia)"
-                    className="px-2 py-1 bg-white border border-slate-300 rounded focus:outline-none"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded focus:outline-none"
                   />
                 </div>
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => setIsAddingMed(false)}
-                    className="px-2.5 py-1 text-slate-600 hover:bg-slate-200 rounded cursor-pointer"
+                    className="px-2.5 py-1 text-gray-600 hover:bg-gray-200 rounded cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-3 py-1 bg-teal-700 text-white rounded font-medium cursor-pointer"
+                    className="px-3 py-1 bg-red-700 text-white rounded font-medium cursor-pointer"
                   >
                     Save Rx
                   </button>
@@ -801,30 +801,30 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             )}
 
             {patient.medications.length > 0 ? (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-gray-100">
                 {patient.medications.map((med) => (
                   <div key={med.id} className="py-3 flex items-start justify-between gap-2 text-xs">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900">{med.name} {med.dosage}</span>
+                        <span className="font-bold text-gray-900">{med.name} {med.dosage}</span>
                         <span
                           className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
                             med.status === 'active'
                               ? 'bg-emerald-50 text-emerald-700'
-                              : 'bg-slate-100 text-slate-500'
+                              : 'bg-gray-100 text-gray-500'
                           }`}
                         >
                           {med.status.toUpperCase()}
                         </span>
                       </div>
-                      <div className="text-slate-600 mt-0.5">
+                      <div className="text-gray-600 mt-0.5">
                         {med.route} · {med.frequency} · Indication: {med.indication}
                       </div>
-                      <div className="text-slate-400 font-mono text-[11px] mt-0.5">
+                      <div className="text-gray-400 font-mono text-[11px] mt-0.5">
                         Prescribed: {med.prescribedDate} by {med.prescribedBy}
                       </div>
                       {med.adherenceNotes && (
-                        <div className="text-teal-800 text-[11px] italic mt-0.5">
+                        <div className="text-red-800 text-[11px] italic mt-0.5">
                           Adherence: {med.adherenceNotes}
                         </div>
                       )}
@@ -832,7 +832,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
                     <button
                       onClick={() => handleToggleMedStatus(med.id)}
-                      className="text-xs text-slate-500 hover:text-slate-900 border border-slate-200 px-2 py-1 rounded cursor-pointer shrink-0"
+                      className="text-xs text-gray-500 hover:text-gray-900 border border-gray-200 px-2 py-1 rounded cursor-pointer shrink-0"
                     >
                       {med.status === 'active' ? 'Discontinue' : 'Reactivate'}
                     </button>
@@ -840,20 +840,20 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-slate-400 italic py-4">No medications on profile.</p>
+              <p className="text-xs text-gray-400 italic py-4">No medications on profile.</p>
             )}
           </div>
 
           {/* Active Problems List */}
-          <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-teal-700" />
-                <h3 className="text-sm font-bold text-slate-900">Problem List & Chronic Diagnoses</h3>
+                <Activity className="w-4 h-4 text-red-700" />
+                <h3 className="text-sm font-bold text-gray-900">Problem List & Chronic Diagnoses</h3>
               </div>
               <button
                 onClick={() => setIsAddingProblem(true)}
-                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md cursor-pointer"
               >
                 <Plus className="w-3 h-3" />
                 <span>Add Diagnosis</span>
@@ -862,15 +862,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
             {/* Add Problem Form */}
             {isAddingProblem && (
-              <form onSubmit={handleAddProblem} className="p-3 bg-slate-50 border border-slate-200 rounded-md space-y-3 text-xs">
-                <div className="font-semibold text-slate-800">Add Clinical Problem</div>
+              <form onSubmit={handleAddProblem} className="p-3 bg-gray-50 border border-gray-200 rounded-md space-y-3 text-xs">
+                <div className="font-semibold text-gray-800">Add Clinical Problem</div>
                 <div className="grid grid-cols-3 gap-2">
                   <input
                     type="text"
                     value={newProbCode}
                     onChange={(e) => setNewProbCode(e.target.value)}
                     placeholder="ICD-10 (e.g. I10)"
-                    className="px-2 py-1 font-mono bg-white border border-slate-300 rounded focus:outline-none"
+                    className="px-2 py-1 font-mono bg-white border border-gray-300 rounded focus:outline-none"
                   />
                   <input
                     type="text"
@@ -878,7 +878,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                     value={newProbName}
                     onChange={(e) => setNewProbName(e.target.value)}
                     placeholder="Diagnosis name"
-                    className="col-span-2 px-2 py-1 bg-white border border-slate-300 rounded focus:outline-none"
+                    className="col-span-2 px-2 py-1 bg-white border border-gray-300 rounded focus:outline-none"
                   />
                 </div>
                 <textarea
@@ -886,19 +886,19 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                   value={newProbNotes}
                   onChange={(e) => setNewProbNotes(e.target.value)}
                   placeholder="Clinical tracking notes (e.g. target values, control status)..."
-                  className="w-full px-2 py-1 bg-white border border-slate-300 rounded focus:outline-none"
+                  className="w-full px-2 py-1 bg-white border border-gray-300 rounded focus:outline-none"
                 />
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => setIsAddingProblem(false)}
-                    className="px-2.5 py-1 text-slate-600 hover:bg-slate-200 rounded cursor-pointer"
+                    className="px-2.5 py-1 text-gray-600 hover:bg-gray-200 rounded cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-3 py-1 bg-teal-700 text-white rounded font-medium cursor-pointer"
+                    className="px-3 py-1 bg-red-700 text-white rounded font-medium cursor-pointer"
                   >
                     Save Condition
                   </button>
@@ -907,28 +907,28 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             )}
 
             {patient.activeProblems.length > 0 ? (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-gray-100">
                 {patient.activeProblems.map((prob) => (
                   <div key={prob.id} className="py-3 flex items-start justify-between gap-2 text-xs">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-slate-500 font-semibold">[{prob.icdCode}]</span>
-                        <span className="font-bold text-slate-900">{prob.description}</span>
+                        <span className="font-mono text-gray-500 font-semibold">[{prob.icdCode}]</span>
+                        <span className="font-bold text-gray-900">{prob.description}</span>
                         <span
                           className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
                             prob.status === 'active'
-                              ? 'bg-teal-50 text-teal-800'
-                              : 'bg-slate-100 text-slate-500'
+                              ? 'bg-red-50 text-red-800'
+                              : 'bg-gray-100 text-gray-500'
                           }`}
                         >
                           {prob.status.toUpperCase()}
                         </span>
                       </div>
-                      <div className="text-slate-400 font-mono text-[11px] mt-0.5">
+                      <div className="text-gray-400 font-mono text-[11px] mt-0.5">
                         Onset: {prob.onsetDate}
                       </div>
                       {prob.notes && (
-                        <div className="text-slate-600 text-[11px] mt-1 bg-slate-50 p-1.5 rounded">
+                        <div className="text-gray-600 text-[11px] mt-1 bg-gray-50 p-1.5 rounded">
                           {prob.notes}
                         </div>
                       )}
@@ -936,7 +936,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
                     <button
                       onClick={() => handleToggleProblemStatus(prob.id)}
-                      className="text-xs text-slate-500 hover:text-slate-900 border border-slate-200 px-2 py-1 rounded cursor-pointer shrink-0"
+                      className="text-xs text-gray-500 hover:text-gray-900 border border-gray-200 px-2 py-1 rounded cursor-pointer shrink-0"
                     >
                       {prob.status === 'active' ? 'Mark Resolved' : 'Mark Active'}
                     </button>
@@ -944,7 +944,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-slate-400 italic py-4">No active problems recorded.</p>
+              <p className="text-xs text-gray-400 italic py-4">No active problems recorded.</p>
             )}
           </div>
         </div>
@@ -952,11 +952,11 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
       {/* TAB CONTENT 3: VITALS FLOWSHEET */}
       {activeTab === 'vitals' && (
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-3">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Longitudinal Vitals Flowsheet</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-gray-900">Longitudinal Vitals Flowsheet</h3>
+              <p className="text-xs text-gray-500">
                 Chronological vital signs captured across clinic encounters
               </p>
             </div>
@@ -964,15 +964,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               {age <= 20 && (
                 <button
                   onClick={() => setActiveTab('growth_chart')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md cursor-pointer"
                 >
-                  <TrendingUp className="w-3.5 h-3.5 text-teal-700" />
+                  <TrendingUp className="w-3.5 h-3.5 text-red-700" />
                   <span>CDC Growth Chart</span>
                 </button>
               )}
               <button
                 onClick={() => onStartEncounter()}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Capture New Vitals</span>
@@ -981,16 +981,16 @@ export const PatientChart: React.FC<PatientChartProps> = ({
           </div>
 
           {age <= 20 && (
-            <div className="bg-teal-50/80 border border-teal-200 rounded-md p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-teal-950">
+            <div className="bg-red-50/80 border border-red-200 rounded-md p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-red-950">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-teal-700 shrink-0" />
+                <TrendingUp className="w-4 h-4 text-red-700 shrink-0" />
                 <span>
                   <strong>Pediatric Anthropometrics Active:</strong> Plot stature, weight, and BMI percentiles (5th–95th) against standard CDC curves.
                 </span>
               </div>
               <button
                 onClick={() => setActiveTab('growth_chart')}
-                className="px-2.5 py-1 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded transition-colors cursor-pointer self-start sm:self-auto shrink-0"
+                className="px-2.5 py-1 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded transition-colors cursor-pointer self-start sm:self-auto shrink-0"
               >
                 View Pediatric Growth Chart →
               </button>
@@ -999,7 +999,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-mono">
-              <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase tracking-wider text-[11px]">
+              <thead className="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase tracking-wider text-[11px]">
                 <tr>
                   <th className="py-2.5 px-3">Date</th>
                   <th className="py-2.5 px-3">Blood Pressure (mmHg)</th>
@@ -1012,13 +1012,13 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                   <th className="py-2.5 px-3">Pain (0-10)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-gray-100">
                 {patient.encounters.map((enc) => {
                   const v = enc.vitals;
                   const isHighBp = v.systolicBp && (v.systolicBp >= 140 || (v.diastolicBp && v.diastolicBp >= 90));
                   return (
-                    <tr key={enc.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="py-3 px-3 text-slate-900 font-semibold">
+                    <tr key={enc.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="py-3 px-3 text-gray-900 font-semibold">
                         {new Date(enc.date).toLocaleDateString(undefined, {
                           year: 'numeric',
                           month: 'short',
@@ -1026,7 +1026,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                         })}
                       </td>
                       <td className="py-3 px-3">
-                        <span className={`font-bold ${isHighBp ? 'text-rose-700' : 'text-slate-900'}`}>
+                        <span className={`font-bold ${isHighBp ? 'text-rose-700' : 'text-gray-900'}`}>
                           {v.systolicBp ? `${v.systolicBp}/${v.diastolicBp}` : '—'}
                         </span>
                         {isHighBp && <span className="text-[10px] text-rose-600 ml-1 font-sans">(! High)</span>}
@@ -1037,7 +1037,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       <td className="py-3 px-3">{v.temperatureC ? `${v.temperatureC}°C` : '—'}</td>
                       <td className="py-3 px-3">{v.weightKg ? `${v.weightKg} kg` : '—'}</td>
                       <td className="py-3 px-3">
-                        <span className="font-semibold text-slate-900">{v.bmi || '—'}</span>
+                        <span className="font-semibold text-gray-900">{v.bmi || '—'}</span>
                       </td>
                       <td className="py-3 px-3">{v.painScore ?? 0}/10</td>
                     </tr>
@@ -1078,27 +1078,27 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       {activeTab === 'history' && (
         <div className="space-y-6">
           {/* Quick link to Clinical Timeline */}
-          <div className="p-3 bg-teal-50/70 border border-teal-200 rounded-lg flex items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2 text-teal-950">
-              <Clock className="w-4 h-4 text-teal-700 shrink-0" />
+          <div className="p-3 bg-red-50/70 border border-red-200 rounded-lg flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 text-red-950">
+              <Clock className="w-4 h-4 text-red-700 shrink-0" />
               <span>
                 Want a unified vertical chronology of all past hospitalizations, chronic diagnoses, immunizations, and surgeries?
               </span>
             </div>
             <button
               onClick={() => setActiveTab('timeline')}
-              className="px-3 py-1 font-semibold text-teal-900 bg-teal-100 hover:bg-teal-200 border border-teal-300 rounded cursor-pointer shrink-0 transition-colors"
+              className="px-3 py-1 font-semibold text-red-900 bg-red-100 hover:bg-red-200 border border-red-300 rounded cursor-pointer shrink-0 transition-colors"
             >
               Open Clinical Timeline →
             </button>
           </div>
 
           {/* Allergies Section */}
-          <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <div className="flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-rose-600" />
-                <h3 className="text-sm font-bold text-slate-900">Allergies & Adverse Drug Reactions</h3>
+                <h3 className="text-sm font-bold text-gray-900">Allergies & Adverse Drug Reactions</h3>
               </div>
               <button
                 onClick={() => setIsAddingAllergy(true)}
@@ -1110,7 +1110,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             </div>
 
             {isAddingAllergy && (
-              <form onSubmit={handleAddAllergy} className="p-3 bg-slate-50 border border-slate-200 rounded space-y-2 text-xs">
+              <form onSubmit={handleAddAllergy} className="p-3 bg-gray-50 border border-gray-200 rounded space-y-2 text-xs">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <input
                     type="text"
@@ -1118,19 +1118,19 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                     value={newAlgSubstance}
                     onChange={(e) => setNewAlgSubstance(e.target.value)}
                     placeholder="Allergen (e.g. Sulfa, Latex)"
-                    className="px-2 py-1 bg-white border border-slate-300 rounded"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded"
                   />
                   <input
                     type="text"
                     value={newAlgReaction}
                     onChange={(e) => setNewAlgReaction(e.target.value)}
                     placeholder="Reaction (e.g. Hives, Anaphylaxis)"
-                    className="px-2 py-1 bg-white border border-slate-300 rounded"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded"
                   />
                   <select
                     value={newAlgSeverity}
                     onChange={(e) => setNewAlgSeverity(e.target.value as any)}
-                    className="px-2 py-1 bg-white border border-slate-300 rounded"
+                    className="px-2 py-1 bg-white border border-gray-300 rounded"
                   >
                     <option value="mild">Mild</option>
                     <option value="moderate">Moderate</option>
@@ -1141,7 +1141,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsAddingAllergy(false)}
-                    className="px-2 py-1 text-slate-600"
+                    className="px-2 py-1 text-gray-600"
                   >
                     Cancel
                   </button>
@@ -1166,13 +1166,13 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">{alg.allergen}</span>
-                    <span className="capitalize font-semibold text-[11px] text-slate-600">
+                    <span className="font-bold text-gray-900">{alg.allergen}</span>
+                    <span className="capitalize font-semibold text-[11px] text-gray-600">
                       {alg.severity.replace('_', ' ')}
                     </span>
                   </div>
-                  <div className="text-slate-700 mt-1">Reaction: {alg.reaction}</div>
-                  <div className="text-slate-400 font-mono text-[10px] mt-1">
+                  <div className="text-gray-700 mt-1">Reaction: {alg.reaction}</div>
+                  <div className="text-gray-400 font-mono text-[10px] mt-1">
                     Verified: {alg.identifiedDate}
                   </div>
                 </div>
@@ -1183,69 +1183,69 @@ export const PatientChart: React.FC<PatientChartProps> = ({
           {/* Social History & Family History Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Social History */}
-            <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3 text-xs">
-              <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-3 text-xs">
+              <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">
                 Social & Lifestyle History
               </h3>
               <div className="space-y-2">
                 <div>
-                  <span className="font-semibold text-slate-700">Tobacco Smoking: </span>
-                  <span className="capitalize text-slate-900">{patient.socialHistory.smokingStatus}</span>
+                  <span className="font-semibold text-gray-700">Tobacco Smoking: </span>
+                  <span className="capitalize text-gray-900">{patient.socialHistory.smokingStatus}</span>
                   {patient.socialHistory.smokingPacksPerDay && (
-                    <span className="text-slate-500"> ({patient.socialHistory.smokingPacksPerDay} packs/day for {patient.socialHistory.smokingYears} yrs)</span>
+                    <span className="text-gray-500"> ({patient.socialHistory.smokingPacksPerDay} packs/day for {patient.socialHistory.smokingYears} yrs)</span>
                   )}
                 </div>
                 <div>
-                  <span className="font-semibold text-slate-700">Alcohol Consumption: </span>
-                  <span className="capitalize text-slate-900">{patient.socialHistory.alcoholUse}</span>
+                  <span className="font-semibold text-gray-700">Alcohol Consumption: </span>
+                  <span className="capitalize text-gray-900">{patient.socialHistory.alcoholUse}</span>
                   {patient.socialHistory.alcoholDrinksPerWeek !== undefined && (
-                    <span className="text-slate-500"> ({patient.socialHistory.alcoholDrinksPerWeek} drinks/wk)</span>
+                    <span className="text-gray-500"> ({patient.socialHistory.alcoholDrinksPerWeek} drinks/wk)</span>
                   )}
                 </div>
                 <div>
-                  <span className="font-semibold text-slate-700">Occupation: </span>
-                  <span className="text-slate-900">{patient.socialHistory.occupation || 'Not documented'}</span>
+                  <span className="font-semibold text-gray-700">Occupation: </span>
+                  <span className="text-gray-900">{patient.socialHistory.occupation || 'Not documented'}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-slate-700">Living Situation: </span>
-                  <span className="text-slate-900">{patient.socialHistory.livingArrangement || 'Not documented'}</span>
+                  <span className="font-semibold text-gray-700">Living Situation: </span>
+                  <span className="text-gray-900">{patient.socialHistory.livingArrangement || 'Not documented'}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-slate-700">Exercise & Activity: </span>
-                  <span className="text-slate-900">{patient.socialHistory.exerciseRoutine || 'Not documented'}</span>
+                  <span className="font-semibold text-gray-700">Exercise & Activity: </span>
+                  <span className="text-gray-900">{patient.socialHistory.exerciseRoutine || 'Not documented'}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-slate-700">Dietary Habits: </span>
-                  <span className="text-slate-900">{patient.socialHistory.dietaryHabits || 'Not documented'}</span>
+                  <span className="font-semibold text-gray-700">Dietary Habits: </span>
+                  <span className="text-gray-900">{patient.socialHistory.dietaryHabits || 'Not documented'}</span>
                 </div>
               </div>
             </div>
 
             {/* Family History */}
-            <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3 text-xs">
-              <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-3 text-xs">
+              <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">
                 Family Pedigree & Medical History
               </h3>
               {patient.familyHistory.length > 0 ? (
                 <div className="space-y-3">
                   {patient.familyHistory.map((item) => (
-                    <div key={item.id} className="p-2.5 bg-slate-50 rounded border border-slate-200">
+                    <div key={item.id} className="p-2.5 bg-gray-50 rounded border border-gray-200">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900">{item.relation}</span>
+                        <span className="font-bold text-gray-900">{item.relation}</span>
                         {item.ageAtOnsetOrDeath && (
-                          <span className="text-[11px] text-slate-500 font-mono">
+                          <span className="text-[11px] text-gray-500 font-mono">
                             {item.ageAtOnsetOrDeath}
                           </span>
                         )}
                       </div>
-                      <div className="text-slate-700 mt-1">
+                      <div className="text-gray-700 mt-1">
                         {item.conditions.join(', ')}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-slate-400 italic">No family history recorded.</p>
+                <p className="text-gray-400 italic">No family history recorded.</p>
               )}
             </div>
           </div>
@@ -1256,16 +1256,16 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       {activeTab === 'preventive' && (
         <div className="space-y-6">
           {/* Preventive Screening Deadlines */}
-          <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+            <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">
               USPSTF Preventive Care & Cancer Screenings
             </h3>
             {patient.preventiveScreenings.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 {patient.preventiveScreenings.map((scr) => (
-                  <div key={scr.id} className="p-3 bg-slate-50 border border-slate-200 rounded-md">
+                  <div key={scr.id} className="p-3 bg-gray-50 border border-gray-200 rounded-md">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900">{scr.screeningType}</span>
+                      <span className="font-bold text-gray-900">{scr.screeningType}</span>
                       <span
                         className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
                           scr.status === 'up_to_date'
@@ -1279,9 +1279,9 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       </span>
                     </div>
                     {scr.resultSummary && (
-                      <p className="text-slate-600 mt-1 text-[11px]">{scr.resultSummary}</p>
+                      <p className="text-gray-600 mt-1 text-[11px]">{scr.resultSummary}</p>
                     )}
-                    <div className="text-slate-400 font-mono text-[10px] mt-2 flex items-center justify-between">
+                    <div className="text-gray-400 font-mono text-[10px] mt-2 flex items-center justify-between">
                       <span>Last: {scr.lastCompletedDate || 'None'}</span>
                       <span>Next Due: {scr.dueDate}</span>
                     </div>
@@ -1289,50 +1289,50 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-slate-400 italic">No preventive screenings recorded.</p>
+              <p className="text-xs text-gray-400 italic">No preventive screenings recorded.</p>
             )}
           </div>
 
           {/* Immunizations */}
-          <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+            <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">
               Immunization Records
             </h3>
             {patient.immunizations.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs font-mono">
                 {patient.immunizations.map((imm) => (
-                  <div key={imm.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded">
-                    <div className="font-semibold text-slate-900 font-sans">{imm.vaccineName}</div>
-                    <div className="text-[11px] text-slate-500 mt-1">Administered: {imm.dateAdministered}</div>
-                    <span className="text-[10px] font-semibold text-teal-800 uppercase mt-1 inline-block">
+                  <div key={imm.id} className="p-2.5 bg-gray-50 border border-gray-200 rounded">
+                    <div className="font-semibold text-gray-900 font-sans">{imm.vaccineName}</div>
+                    <div className="text-[11px] text-gray-500 mt-1">Administered: {imm.dateAdministered}</div>
+                    <span className="text-[10px] font-semibold text-red-800 uppercase mt-1 inline-block">
                       {imm.status}
                     </span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-slate-400 italic">No vaccines on file.</p>
+              <p className="text-xs text-gray-400 italic">No vaccines on file.</p>
             )}
           </div>
 
           {/* Laboratory Results */}
-          <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <h3 className="text-sm font-bold text-slate-900">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+              <h3 className="text-sm font-bold text-gray-900">
                 Recent Laboratory & Diagnostic Results ({patient.labResults.length})
               </h3>
               <button
                 onClick={() => setActiveTab('labs')}
-                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-md transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md transition-colors cursor-pointer"
               >
-                <TestTube className="w-3.5 h-3.5 text-teal-700" />
+                <TestTube className="w-3.5 h-3.5 text-red-700" />
                 <span>Open Structured Labs & Parser →</span>
               </button>
             </div>
             {patient.labResults.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs font-mono">
-                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[11px]">
+                  <thead className="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase text-[11px]">
                     <tr>
                       <th className="py-2 px-3">Test Name</th>
                       <th className="py-2 px-3">Category</th>
@@ -1341,11 +1341,11 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                       <th className="py-2 px-3">Collected Date</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-gray-100">
                     {patient.labResults.map((lab) => (
-                      <tr key={lab.id} className="hover:bg-slate-50">
-                        <td className="py-2.5 px-3 font-semibold text-slate-900 font-sans">{lab.testName}</td>
-                        <td className="py-2.5 px-3 text-slate-600">{lab.category}</td>
+                      <tr key={lab.id} className="hover:bg-gray-50">
+                        <td className="py-2.5 px-3 font-semibold text-gray-900 font-sans">{lab.testName}</td>
+                        <td className="py-2.5 px-3 text-gray-600">{lab.category}</td>
                         <td className="py-2.5 px-3">
                           <span
                             className={`font-bold ${
@@ -1353,7 +1353,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                                 ? 'text-rose-700'
                                 : lab.flag === 'low'
                                 ? 'text-amber-700'
-                                : 'text-slate-900'
+                                : 'text-gray-900'
                             }`}
                           >
                             {lab.value} {lab.unit}
@@ -1364,15 +1364,15 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                             </span>
                           )}
                         </td>
-                        <td className="py-2.5 px-3 text-slate-500">{lab.referenceRange}</td>
-                        <td className="py-2.5 px-3 text-slate-500">{lab.collectedDate}</td>
+                        <td className="py-2.5 px-3 text-gray-500">{lab.referenceRange}</td>
+                        <td className="py-2.5 px-3 text-gray-500">{lab.collectedDate}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             ) : (
-              <p className="text-xs text-slate-400 italic">No lab results on profile.</p>
+              <p className="text-xs text-gray-400 italic">No lab results on profile.</p>
             )}
           </div>
         </div>
@@ -1380,19 +1380,19 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
       {/* TAB CONTENT 6: PRINTABLE DOCUMENTS & AFTER-VISIT SUMMARY */}
       {activeTab === 'print' && (
-        <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs space-y-6">
+          <div className="flex items-center justify-between border-b border-gray-200 pb-3">
             <div>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-gray-900">
                 Patient After-Visit Summary (AVS) & Clinical Dossier
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-gray-500">
                 Print-ready official document formatted for patient handoff or physician chart transfer
               </p>
             </div>
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-800 rounded-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md transition-colors cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>Print Document / Save as PDF</span>
@@ -1400,42 +1400,42 @@ export const PatientChart: React.FC<PatientChartProps> = ({
           </div>
 
           {/* Printable Container (styled for crisp printing) */}
-          <div className="p-8 border border-slate-200 rounded-lg max-w-4xl mx-auto space-y-6 bg-white text-slate-900 text-xs">
+          <div className="p-8 border border-gray-200 rounded-lg max-w-4xl mx-auto space-y-6 bg-white text-gray-900 text-xs">
             {/* Clinical Letterhead */}
-            <div className="flex items-start justify-between border-b-2 border-slate-900 pb-4">
+            <div className="flex items-start justify-between border-b-2 border-gray-900 pb-4">
               <div>
-                <h1 className="text-lg font-bold uppercase tracking-tight text-slate-900">
+                <h1 className="text-lg font-bold uppercase tracking-tight text-gray-900">
                   Cascade Family Health Centre
                 </h1>
-                <p className="text-slate-600 text-xs mt-0.5">
+                <p className="text-gray-600 text-xs mt-0.5">
                   Primary Care, Preventive Medicine & Chronic Disease Management
                 </p>
-                <p className="text-slate-500 font-mono text-[11px]">
+                <p className="text-gray-500 font-mono text-[11px]">
                   740 SW Horizon Blvd · Portland, OR 97201 · Ph: (503) 555-0190
                 </p>
               </div>
-              <div className="text-right font-mono text-[11px] text-slate-600">
+              <div className="text-right font-mono text-[11px] text-gray-600">
                 <div>Date: {new Date().toLocaleDateString()}</div>
                 <div>Attending: {patient.primaryPhysician}</div>
               </div>
             </div>
 
             {/* Patient Header Block */}
-            <div className="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded border border-slate-200">
+            <div className="grid grid-cols-2 gap-4 bg-gray-50 p-3 rounded border border-gray-200">
               <div>
                 <span className="font-semibold">Patient: </span>
-                <span className="text-slate-900 font-bold">{patient.lastName}, {patient.firstName}</span>
-                <div className="text-slate-600 font-mono">DOB: {patient.dob} ({age} yrs) · {patient.sex}</div>
-                <div className="text-slate-600 font-mono">MRN: {patient.mrn} · HC: {patient.healthCardNumber}</div>
+                <span className="text-gray-900 font-bold">{patient.lastName}, {patient.firstName}</span>
+                <div className="text-gray-600 font-mono">DOB: {patient.dob} ({age} yrs) · {patient.sex}</div>
+                <div className="text-gray-600 font-mono">MRN: {patient.mrn} · HC: {patient.healthCardNumber}</div>
               </div>
               <div>
                 <span className="font-semibold text-rose-800">Drug Allergies: </span>
-                <span className="text-slate-900 font-medium">
+                <span className="text-gray-900 font-medium">
                   {patient.allergies.length > 0
                     ? patient.allergies.map((a) => `${a.allergen} (${a.reaction})`).join('; ')
                     : 'No Known Drug Allergies (NKDA)'}
                 </span>
-                <div className="text-slate-600 mt-1">
+                <div className="text-gray-600 mt-1">
                   Code Status: <span className="font-bold">{patient.codeStatus}</span>
                 </div>
               </div>
@@ -1443,25 +1443,25 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
             {/* Current Active Medications */}
             <div>
-              <h3 className="font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+              <h3 className="font-bold uppercase tracking-wider text-gray-900 border-b border-gray-300 pb-1 mb-2">
                 Current Prescribed Medications
               </h3>
               <table className="w-full text-left text-xs font-mono">
                 <thead>
-                  <tr className="text-slate-600 border-b border-slate-200">
+                  <tr className="text-gray-600 border-b border-gray-200">
                     <th className="py-1">Medication</th>
                     <th className="py-1">Dosage & Route</th>
                     <th className="py-1">Frequency / Instructions</th>
                     <th className="py-1">Indication</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-gray-100">
                   {patient.medications.filter((m) => m.status === 'active').map((med) => (
                     <tr key={med.id}>
                       <td className="py-1.5 font-bold font-sans">{med.name}</td>
                       <td className="py-1.5">{med.dosage} ({med.route})</td>
                       <td className="py-1.5">{med.frequency}</td>
-                      <td className="py-1.5 font-sans text-slate-600">{med.indication}</td>
+                      <td className="py-1.5 font-sans text-gray-600">{med.indication}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1470,14 +1470,14 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
             {/* Active Diagnoses */}
             <div>
-              <h3 className="font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+              <h3 className="font-bold uppercase tracking-wider text-gray-900 border-b border-gray-300 pb-1 mb-2">
                 Active Diagnoses & Chronic Problems
               </h3>
               <div className="grid grid-cols-2 gap-2">
                 {patient.activeProblems.filter((p) => p.status === 'active').map((p) => (
                   <div key={p.id}>
-                    <span className="font-mono text-slate-500 mr-1">[{p.icdCode}]</span>
-                    <span className="font-medium text-slate-900">{p.description}</span>
+                    <span className="font-mono text-gray-500 mr-1">[{p.icdCode}]</span>
+                    <span className="font-medium text-gray-900">{p.description}</span>
                   </div>
                 ))}
               </div>
@@ -1486,13 +1486,13 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             {/* Latest Encounter Care Instructions */}
             {patient.encounters[0] && (
               <div className="space-y-2">
-                <h3 className="font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                <h3 className="font-bold uppercase tracking-wider text-gray-900 border-b border-gray-300 pb-1 mb-2">
                   Care Plan & Patient Instructions (Visit: {new Date(patient.encounters[0].date).toLocaleDateString()})
                 </h3>
-                <p className="leading-relaxed bg-slate-50 p-3 rounded border border-slate-200">
+                <p className="leading-relaxed bg-gray-50 p-3 rounded border border-gray-200">
                   {patient.encounters[0].plan.patientInstructions || 'Continue current healthy lifestyle and medication regimen.'}
                 </p>
-                <div className="font-semibold text-slate-800">
+                <div className="font-semibold text-gray-800">
                   Follow-Up Appointment: <span className="font-normal font-mono">{patient.encounters[0].plan.followUpIn}</span>
                 </div>
               </div>
@@ -1507,12 +1507,12 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             </div>
 
             {/* Signature Block */}
-            <div className="pt-8 flex justify-between items-end border-t border-slate-200 text-xs">
+            <div className="pt-8 flex justify-between items-end border-t border-gray-200 text-xs">
               <div>
-                <div className="font-mono text-slate-500 text-[10px]">VERIFIED CLINICAL RECORD</div>
-                <div className="font-semibold text-slate-900">{patient.primaryPhysician}</div>
+                <div className="font-mono text-gray-500 text-[10px]">VERIFIED CLINICAL RECORD</div>
+                <div className="font-semibold text-gray-900">{patient.primaryPhysician}</div>
               </div>
-              <div className="border-t border-slate-400 w-48 text-center pt-1 text-slate-600 font-mono text-[11px]">
+              <div className="border-t border-gray-400 w-48 text-center pt-1 text-gray-600 font-mono text-[11px]">
                 Clinician Signature
               </div>
             </div>
