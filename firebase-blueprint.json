@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "Patient": {
+      "title": "Patient",
+      "description": "Comprehensive primary care clinical chart and patient demographic record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique patient identifier",
+          "maxLength": 128
+        },
+        "mrn": {
+          "type": "string",
+          "description": "Medical Record Number",
+          "maxLength": 64
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Legal first name",
+          "maxLength": 100
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Legal last name",
+          "maxLength": 100
+        },
+        "dob": {
+          "type": "string",
+          "description": "Date of birth in YYYY-MM-DD format",
+          "maxLength": 10
+        },
+        "sex": {
+          "type": "string",
+          "description": "Biological sex",
+          "enum": ["male", "female", "intersex"]
+        },
+        "healthCardNumber": {
+          "type": "string",
+          "description": "Provincial or State health insurance identifier",
+          "maxLength": 64
+        },
+        "primaryPhysician": {
+          "type": "string",
+          "description": "Assigned primary care physician",
+          "maxLength": 128
+        },
+        "clinicLocation": {
+          "type": "string",
+          "description": "Primary practice location",
+          "maxLength": 128
+        },
+        "codeStatus": {
+          "type": "string",
+          "description": "Resuscitation preference directive",
+          "enum": ["Full Code", "DNR", "DNI", "Limited Intervention"]
+        },
+        "visitStatus": {
+          "type": "string",
+          "description": "Current clinic tracking status",
+          "enum": ["scheduled_today", "in_exam", "waiting", "completed", "not_scheduled"]
+        },
+        "triagePriority": {
+          "type": "string",
+          "description": "Clinical urgency priority",
+          "enum": ["emergency", "urgent", "routine"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last record update",
+          "maxLength": 64
+        }
+      },
+      "required": ["id", "mrn", "firstName", "lastName", "dob", "sex"]
+    }
+  },
+  "firestore": {
+    "/patients/{patientId}": {
+      "schema": {
+        "$ref": "#/entities/Patient"
+      },
+      "description": "Collection of primary care patient charts"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Deny Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidPatient(data) {
+      return data.keys().hasAll(['id', 'mrn', 'firstName', 'lastName', 'dob', 'sex']) &&
+             data.id is string && data.id.size() <= 128 &&
+             data.mrn is string && data.mrn.size() <= 64 &&
+             data.firstName is string && data.firstName.size() <= 100 &&
+             data.lastName is string && data.lastName.size() <= 100 &&
+             data.dob is string && data.dob.size() <= 32 &&
+             data.sex is string && data.sex.size() <= 20;
+    }
+
+    // Primary Care Patients Collection
+    match /patients/{patientId} {
+      allow get: if isSignedIn() && isValidId(patientId);
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(patientId) && isValidPatient(incoming()) && incoming().id == patientId;
+      allow update: if isSignedIn() && isValidId(patientId) && isValidPatient(incoming());
+      allow delete: if isSignedIn() && isValidId(patientId);
+    }
+  }
+}

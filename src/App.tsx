@@ -8,6 +8,9 @@ import { TodaySchedule } from './components/TodaySchedule';
 import { NewPatientModal } from './components/NewPatientModal';
 import { Patient, Encounter } from './types/clinical';
 import { storageService } from './services/storageService';
+import { auth, googleProvider, testConnection } from './firebase';
+import { onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth';
+import { firebasePatientService } from './services/firebasePatientService';
 import { Check, AlertCircle } from 'lucide-react';
 
 export default function App() {
@@ -17,13 +20,60 @@ export default function App() {
   const [editingEncounter, setEditingEncounter] = useState<Encounter | undefined>(undefined);
   const [isNewPatientModalOpen, setIsNewPatientModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [syncStatus, setSyncStatus] = useState<'connected' | 'syncing' | 'offline'>('connected');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Load initial patients
+  // Load initial patients & connect Firebase
   useEffect(() => {
-    const list = storageService.getPatients();
-    setPatients(list);
+    // 1. Initial boot connection test per SKILL.md
+    testConnection().then((connected) => {
+      setSyncStatus(connected ? 'connected' : 'offline');
+    });
+
+    // 2. Load cached patients immediately so UI is instant
+    const cached = storageService.getPatients();
+    setPatients(cached);
+
+    // 3. Listen to Firebase Auth state & attach real-time Firestore sync
+    let unsubscribeFirestore: (() => void) | null = null;
+
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      if (user) {
+        setSyncStatus('syncing');
+        if (unsubscribeFirestore) {
+          unsubscribeFirestore();
+        }
+        unsubscribeFirestore = firebasePatientService.subscribeToPatients(
+          (livePatients) => {
+            if (livePatients && livePatients.length > 0) {
+              setPatients(livePatients);
+              storageService.savePatients(livePatients);
+            }
+            setSyncStatus('connected');
+          },
+          (err) => {
+            console.warn('Firestore subscription fallback to cache:', err);
+            setSyncStatus('offline');
+          }
+        );
+      } else {
+        if (unsubscribeFirestore) {
+          unsubscribeFirestore();
+          unsubscribeFirestore = null;
+        }
+        setSyncStatus('offline');
+      }
+    });
+
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeFirestore) {
+        unsubscribeFirestore();
+      }
+    };
   }, []);
 
   const showToast = (msg: string) => {
@@ -31,6 +81,28 @@ export default function App() {
     setTimeout(() => {
       setToastMessage(null);
     }, 4000);
+  };
+
+  const handleSignIn = async () => {
+    try {
+      setSyncStatus('syncing');
+      await signInWithPopup(auth, googleProvider);
+      showToast('Signed in with Google. Firestore synchronized.');
+    } catch (err) {
+      console.error('Google sign-in error:', err);
+      showToast('Could not sign in with Google');
+      setSyncStatus('offline');
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      showToast('Signed out of practice account.');
+      setSyncStatus('offline');
+    } catch (err) {
+      console.error('Sign out error:', err);
+    }
   };
 
   const selectedPatient = patients.find((p) => p.id === selectedPatientId) || patients[0];
@@ -89,6 +161,11 @@ export default function App() {
     storageService.savePatient(updatedPatient);
     setPatients(storageService.getPatients());
 
+    // Asynchronously synchronize to Firestore database
+    firebasePatientService.savePatient(updatedPatient).catch((err) => {
+      console.warn('Saved locally, Firestore sync pending:', err);
+    });
+
     showToast(
       isSigned
         ? `Encounter finalized & signed by ${encounter.provider}`
@@ -101,6 +178,12 @@ export default function App() {
   const handleUpdatePatient = (updated: Patient) => {
     storageService.savePatient(updated);
     setPatients(storageService.getPatients());
+
+    // Synchronize to Firestore database
+    firebasePatientService.savePatient(updated).catch((err) => {
+      console.warn('Updated locally, Firestore sync pending:', err);
+    });
+
     showToast(`Updated health record for ${updated.lastName}, ${updated.firstName}`);
   };
 
@@ -110,6 +193,12 @@ export default function App() {
     setPatients(updatedList);
     setSelectedPatientId(newPatient.id);
     setActiveView('chart');
+
+    // Synchronize to Firestore database
+    firebasePatientService.savePatient(newPatient).catch((err) => {
+      console.warn('Registered locally, Firestore sync pending:', err);
+    });
+
     showToast(`Successfully registered ${newPatient.lastName}, ${newPatient.firstName}`);
   };
 
@@ -118,6 +207,12 @@ export default function App() {
       const resetList = storageService.resetToDefault();
       setPatients(resetList);
       setSelectedPatientId(resetList[0]?.id || null);
+
+      // Reset in Firestore database
+      firebasePatientService.seedInitialCohort(resetList).catch((err) => {
+        console.warn('Reset locally, Firestore sync pending:', err);
+      });
+
       showToast('Restored standard clinical cohort data');
     }
   };
@@ -144,7 +239,9 @@ export default function App() {
       const content = event.target?.result as string;
       const success = storageService.importFromJSON(content);
       if (success) {
-        setPatients(storageService.getPatients());
+        const imported = storageService.getPatients();
+        setPatients(imported);
+        firebasePatientService.seedInitialCohort(imported).catch(console.warn);
         showToast('Successfully imported clinical patient records');
       } else {
         alert('Invalid JSON patient file format.');
@@ -177,6 +274,10 @@ export default function App() {
         patientCount={patients.length}
         patients={patients}
         onSelectPatient={handleSelectPatient}
+        currentUser={currentUser}
+        syncStatus={syncStatus}
+        onSignIn={handleSignIn}
+        onSignOut={handleSignOut}
       />
 
       {/* Toast Notification */}

@@ -1,5 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { UserPlus, Download, Upload, RotateCcw, Search, X, User, AlertTriangle, ArrowRight } from 'lucide-react';
+import {
+  UserPlus,
+  Download,
+  Upload,
+  RotateCcw,
+  Search,
+  X,
+  User,
+  AlertTriangle,
+  ArrowRight,
+  Cloud,
+  CloudOff,
+  LogIn,
+  LogOut,
+} from 'lucide-react';
 import { Patient } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
 
@@ -14,6 +28,10 @@ interface HeaderProps {
   patientCount: number;
   patients: Patient[];
   onSelectPatient: (patient: Patient) => void;
+  currentUser?: { email?: string | null; displayName?: string | null } | null;
+  syncStatus?: 'connected' | 'syncing' | 'offline';
+  onSignIn?: () => void;
+  onSignOut?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -27,6 +45,10 @@ export const Header: React.FC<HeaderProps> = ({
   patientCount,
   patients,
   onSelectPatient,
+  currentUser,
+  syncStatus = 'connected',
+  onSignIn,
+  onSignOut,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -361,6 +383,62 @@ export const Header: React.FC<HeaderProps> = ({
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span className="sr-only">Reset Sample Data</span>
               </button>
+            </div>
+
+            {/* Cloud Sync & Auth State */}
+            <div className="hidden sm:flex items-center gap-2 border-r border-gray-200 pr-3">
+              <div
+                title={
+                  syncStatus === 'connected'
+                    ? 'Firestore DB Connected & Synchronized'
+                    : syncStatus === 'syncing'
+                    ? 'Syncing with Firestore...'
+                    : 'Working in offline cache mode'
+                }
+                className="flex items-center gap-1.5 px-2 py-1 bg-gray-50 border border-gray-200 rounded-md text-[11px] font-mono text-gray-600"
+              >
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    syncStatus === 'connected'
+                      ? 'bg-emerald-500 animate-pulse'
+                      : syncStatus === 'syncing'
+                      ? 'bg-amber-500 animate-ping'
+                      : 'bg-gray-400'
+                  }`}
+                />
+                <span className="hidden md:inline">
+                  {syncStatus === 'connected' ? 'Firestore Live' : syncStatus === 'syncing' ? 'Syncing...' : 'Local Cache'}
+                </span>
+              </div>
+
+              {currentUser ? (
+                <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 px-2 py-1 rounded-md text-xs">
+                  <span className="w-5 h-5 rounded-full bg-red-100 text-red-800 font-bold flex items-center justify-center text-[10px]">
+                    {currentUser.displayName ? currentUser.displayName[0].toUpperCase() : 'MD'}
+                  </span>
+                  <span className="font-medium text-gray-800 text-[11px] max-w-[100px] truncate hidden xl:inline" title={currentUser.email || ''}>
+                    {currentUser.displayName || currentUser.email?.split('@')[0]}
+                  </span>
+                  {onSignOut && (
+                    <button
+                      onClick={onSignOut}
+                      title="Sign out of Firebase"
+                      className="text-gray-400 hover:text-gray-700 ml-1 cursor-pointer"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              ) : onSignIn ? (
+                <button
+                  onClick={onSignIn}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-gray-700 hover:text-gray-900 bg-white hover:bg-gray-50 border border-gray-200 rounded-md transition-colors cursor-pointer"
+                  title="Sign in with Google to synchronize records"
+                >
+                  <LogIn className="w-3.5 h-3.5 text-red-600" />
+                  <span>Sign In</span>
+                </button>
+              ) : null}
             </div>
 
             <button
