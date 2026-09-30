@@ -78,7 +78,7 @@ Urine Albumin/Creatinine Ratio (UACR): 56.7 mg/g (Ref: < 30.0 mg/g) [High]`,
 ];
 
 // Determine category based on test name
-function inferLabCategory(testName: string): string {
+export function inferLabCategory(testName: string): string {
   const name = testName.toLowerCase();
   if (name.includes('cholesterol') || name.includes('triglyceride') || name.includes('hdl') || name.includes('ldl') || name.includes('lipid')) {
     return 'Lipids';
@@ -96,7 +96,7 @@ function inferLabCategory(testName: string): string {
 }
 
 // Calculate abnormal flag based on numeric value & reference range
-function calculateFlag(valueStr: string, rangeStr: string): 'normal' | 'high' | 'low' | 'critical' {
+export function calculateFlag(valueStr: string, rangeStr: string): 'normal' | 'high' | 'low' | 'critical' {
   const val = parseFloat(valueStr);
   if (isNaN(val)) return 'normal';
 

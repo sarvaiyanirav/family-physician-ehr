@@ -7,6 +7,38 @@ interface ClinicalCalculatorsProps {
   initialPatient?: Patient;
 }
 
+export interface ChadsParams {
+  chf: boolean;
+  htn: boolean;
+  age: number;
+  diabetes: boolean;
+  strokeHistory: boolean;
+  vascularDisease: boolean;
+  sex: 'male' | 'female';
+}
+
+export function calculateChads2Vasc(params: ChadsParams): number {
+  let score = 0;
+  if (params.chf) score += 1;
+  if (params.htn) score += 1;
+  if (params.age >= 75) score += 2;
+  else if (params.age >= 65) score += 1;
+  if (params.diabetes) score += 1;
+  if (params.strokeHistory) score += 2;
+  if (params.vascularDisease) score += 1;
+  if (params.sex === 'female') score += 1;
+  return score;
+}
+
+export function getCkdStage(gfr: number) {
+  if (gfr >= 90) return { stage: 'Stage G1 (Normal / High)', desc: 'GFR ≥ 90 mL/min/1.73m²', color: 'text-emerald-700' };
+  if (gfr >= 60) return { stage: 'Stage G2 (Mildly Decreased)', desc: 'GFR 60-89 mL/min/1.73m²', color: 'text-emerald-700' };
+  if (gfr >= 45) return { stage: 'Stage G3a (Mild-to-Moderate)', desc: 'GFR 45-59 mL/min/1.73m²', color: 'text-amber-700' };
+  if (gfr >= 30) return { stage: 'Stage G3b (Moderate-to-Severe)', desc: 'GFR 30-44 mL/min/1.73m²', color: 'text-amber-800' };
+  if (gfr >= 15) return { stage: 'Stage G4 (Severely Decreased)', desc: 'GFR 15-29 mL/min/1.73m²', color: 'text-rose-700' };
+  return { stage: 'Stage G5 (Kidney Failure)', desc: 'GFR < 15 mL/min/1.73m²', color: 'text-rose-800' };
+}
+
 export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initialPatient }) => {
   const [activeTab, setActiveTab] = useState<'egfr' | 'ascvd' | 'bmi' | 'chads'>('ascvd');
 
@@ -72,24 +104,15 @@ export const ClinicalCalculators: React.FC<ClinicalCalculatorsProps> = ({ initia
   const bmiResult = calculateBmi(bmiWeightKg, bmiHeightCm);
 
   // CHADS2-VASc Calculation
-  let chadsScore = 0;
-  if (chf) chadsScore += 1;
-  if (htn) chadsScore += 1;
-  if (chadsAge >= 75) chadsScore += 2;
-  else if (chadsAge >= 65) chadsScore += 1;
-  if (diabetes) chadsScore += 1;
-  if (strokeHistory) chadsScore += 2;
-  if (vascularDisease) chadsScore += 1;
-  if (chadsSex === 'female') chadsScore += 1;
-
-  const getCkdStage = (gfr: number) => {
-    if (gfr >= 90) return { stage: 'Stage G1 (Normal / High)', desc: 'GFR ≥ 90 mL/min/1.73m²', color: 'text-emerald-700' };
-    if (gfr >= 60) return { stage: 'Stage G2 (Mildly Decreased)', desc: 'GFR 60-89 mL/min/1.73m²', color: 'text-emerald-700' };
-    if (gfr >= 45) return { stage: 'Stage G3a (Mild-to-Moderate)', desc: 'GFR 45-59 mL/min/1.73m²', color: 'text-amber-700' };
-    if (gfr >= 30) return { stage: 'Stage G3b (Moderate-to-Severe)', desc: 'GFR 30-44 mL/min/1.73m²', color: 'text-amber-800' };
-    if (gfr >= 15) return { stage: 'Stage G4 (Severely Decreased)', desc: 'GFR 15-29 mL/min/1.73m²', color: 'text-rose-700' };
-    return { stage: 'Stage G5 (Kidney Failure)', desc: 'GFR < 15 mL/min/1.73m²', color: 'text-rose-800' };
-  };
+  const chadsScore = calculateChads2Vasc({
+    chf,
+    htn,
+    age: chadsAge,
+    diabetes,
+    strokeHistory,
+    vascularDisease,
+    sex: chadsSex,
+  });
 
   const ckd = getCkdStage(calculatedEgfr);
 

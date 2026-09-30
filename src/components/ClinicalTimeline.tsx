@@ -52,7 +52,7 @@ export interface TimelineEvent {
 }
 
 // Calculate age string at the time of a past date
-function calculateAgeAtDate(dobStr: string, eventDateStr: string): string {
+export function calculateAgeAtDate(dobStr: string, eventDateStr: string): string {
   try {
     const dob = new Date(dobStr);
     // If only year is given (e.g. "2019")

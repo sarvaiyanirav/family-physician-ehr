@@ -23,7 +23,7 @@ type GrowthMetric = 'height' | 'weight' | 'bmi';
 
 // CDC 2-20 Years Growth Standards Data (Boys & Girls)
 // Reference: CDC Clinical Growth Charts (National Center for Health Statistics)
-interface CDCPercentiles {
+export interface CDCPercentiles {
   ageYears: number;
   p5: number;
   p25: number;
@@ -32,7 +32,7 @@ interface CDCPercentiles {
   p95: number;
 }
 
-const CDC_BOYS_HEIGHT: CDCPercentiles[] = [
+export const CDC_BOYS_HEIGHT: CDCPercentiles[] = [
   { ageYears: 2, p5: 82.0, p25: 85.0, p50: 87.0, p75: 89.5, p95: 93.0 },
   { ageYears: 3, p5: 89.5, p25: 93.0, p50: 95.5, p75: 98.5, p95: 102.5 },
   { ageYears: 4, p5: 96.5, p25: 100.5, p50: 103.0, p75: 106.5, p95: 110.5 },
@@ -52,7 +52,7 @@ const CDC_BOYS_HEIGHT: CDCPercentiles[] = [
   { ageYears: 18, p5: 165.0, p25: 171.5, p50: 177.0, p75: 182.5, p95: 190.0 },
 ];
 
-const CDC_GIRLS_HEIGHT: CDCPercentiles[] = [
+export const CDC_GIRLS_HEIGHT: CDCPercentiles[] = [
   { ageYears: 2, p5: 80.5, p25: 83.5, p50: 85.5, p75: 88.5, p95: 92.0 },
   { ageYears: 3, p5: 88.0, p25: 91.5, p50: 94.0, p75: 97.0, p95: 101.0 },
   { ageYears: 4, p5: 95.0, p25: 99.0, p50: 101.5, p75: 105.0, p95: 109.5 },
@@ -72,7 +72,7 @@ const CDC_GIRLS_HEIGHT: CDCPercentiles[] = [
   { ageYears: 18, p5: 152.0, p25: 157.5, p50: 162.0, p75: 166.5, p95: 173.0 },
 ];
 
-const CDC_BOYS_WEIGHT: CDCPercentiles[] = [
+export const CDC_BOYS_WEIGHT: CDCPercentiles[] = [
   { ageYears: 2, p5: 10.6, p25: 11.7, p50: 12.6, p75: 13.6, p95: 15.3 },
   { ageYears: 3, p5: 12.4, p25: 13.7, p50: 14.7, p75: 16.0, p95: 18.2 },
   { ageYears: 4, p5: 14.1, p25: 15.6, p50: 16.8, p75: 18.4, p95: 21.2 },
@@ -92,7 +92,7 @@ const CDC_BOYS_WEIGHT: CDCPercentiles[] = [
   { ageYears: 18, p5: 57.2, p25: 66.2, p50: 74.5, p75: 85.8, p95: 104.0 },
 ];
 
-const CDC_GIRLS_WEIGHT: CDCPercentiles[] = [
+export const CDC_GIRLS_WEIGHT: CDCPercentiles[] = [
   { ageYears: 2, p5: 10.0, p25: 11.2, p50: 12.1, p75: 13.2, p95: 14.9 },
   { ageYears: 3, p5: 11.8, p25: 13.2, p50: 14.3, p75: 15.6, p95: 18.0 },
   { ageYears: 4, p5: 13.6, p25: 15.2, p50: 16.5, p75: 18.3, p95: 21.4 },
@@ -112,7 +112,7 @@ const CDC_GIRLS_WEIGHT: CDCPercentiles[] = [
   { ageYears: 18, p5: 46.8, p25: 54.6, p50: 61.6, p75: 72.2, p95: 89.2 },
 ];
 
-const CDC_BOYS_BMI: CDCPercentiles[] = [
+export const CDC_BOYS_BMI: CDCPercentiles[] = [
   { ageYears: 2, p5: 14.8, p25: 15.6, p50: 16.4, p75: 17.3, p95: 18.6 },
   { ageYears: 3, p5: 14.3, p25: 15.0, p50: 15.7, p75: 16.6, p95: 17.9 },
   { ageYears: 4, p5: 13.9, p25: 14.6, p50: 15.3, p75: 16.2, p95: 17.6 },
@@ -132,7 +132,7 @@ const CDC_BOYS_BMI: CDCPercentiles[] = [
   { ageYears: 18, p5: 18.2, p25: 20.3, p50: 22.7, p75: 26.0, p95: 31.0 },
 ];
 
-const CDC_GIRLS_BMI: CDCPercentiles[] = [
+export const CDC_GIRLS_BMI: CDCPercentiles[] = [
   { ageYears: 2, p5: 14.5, p25: 15.4, p50: 16.2, p75: 17.2, p95: 18.5 },
   { ageYears: 3, p5: 14.0, p25: 14.8, p50: 15.6, p75: 16.5, p95: 17.8 },
   { ageYears: 4, p5: 13.6, p25: 14.4, p50: 15.2, p75: 16.1, p95: 17.6 },
@@ -151,6 +151,17 @@ const CDC_GIRLS_BMI: CDCPercentiles[] = [
   { ageYears: 17, p5: 17.6, p25: 19.7, p50: 21.9, p75: 25.1, p95: 29.3 },
   { ageYears: 18, p5: 17.8, p25: 19.9, p50: 22.1, p75: 25.3, p95: 29.5 },
 ];
+
+export function estimatePercentile(
+  val: number,
+  ref: { p5: number; p25: number; p50: number; p75: number; p95: number }
+): { label: string; category: string; color: string } {
+  if (val < ref.p5) return { label: '< 5th percentile', category: 'Low', color: 'text-amber-700' };
+  if (val <= ref.p25) return { label: '5th - 25th percentile', category: 'Normal Low', color: 'text-emerald-700' };
+  if (val <= ref.p75) return { label: '25th - 75th percentile', category: 'Optimal Median', color: 'text-emerald-700' };
+  if (val <= ref.p95) return { label: '75th - 95th percentile', category: 'Normal High', color: 'text-emerald-700' };
+  return { label: '> 95th percentile', category: 'Elevated', color: 'text-rose-700' };
+}
 
 export const PediatricGrowthChart: React.FC<PediatricGrowthChartProps> = ({
   patient,
