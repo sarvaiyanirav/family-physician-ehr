@@ -34,6 +34,16 @@ export interface SurgicalHistoryItem {
   notes?: string;
 }
 
+export interface HospitalizationRecord {
+  id: string;
+  admissionDate: string; // YYYY-MM-DD
+  dischargeDate?: string; // YYYY-MM-DD
+  facility: string;
+  admittingDiagnosis: string;
+  dischargeSummary?: string;
+  attendingPhysician?: string;
+}
+
 export interface Medication {
   id: string;
   name: string;
@@ -75,6 +85,7 @@ export interface Immunization {
   doseNumber?: string;
   status: 'completed' | 'due' | 'overdue' | 'declined';
   administeredBy?: string;
+  lotNumber?: string;
 }
 
 export interface PreventiveScreening {
@@ -202,6 +213,7 @@ export interface Patient {
   preventiveScreenings: PreventiveScreening[];
   encounters: Encounter[];
   labResults: LabResult[];
+  hospitalizations?: HospitalizationRecord[];
   clinicalAlerts: string[];
   visitStatus?: 'scheduled_today' | 'in_exam' | 'waiting' | 'completed' | 'not_scheduled';
   scheduledTime?: string;

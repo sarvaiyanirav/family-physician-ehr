@@ -27,6 +27,7 @@ import { calculateAge, calculateBmi } from '../services/storageService';
 import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
 import { PediatricGrowthChart } from './PediatricGrowthChart';
 import { LabsManagement } from './LabsManagement';
+import { ClinicalTimeline } from './ClinicalTimeline';
 
 interface PatientChartProps {
   patient: Patient;
@@ -43,7 +44,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
   onUpdatePatient,
   onOpenCalculators,
 }) => {
-  const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'growth_chart' | 'labs' | 'history' | 'preventive' | 'print'>('encounters');
+  const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'growth_chart' | 'labs' | 'timeline' | 'history' | 'preventive' | 'print'>('encounters');
   const [selectedEncounterForView, setSelectedEncounterForView] = useState<Encounter | null>(
     patient.encounters[0] || null
   );
@@ -420,6 +421,22 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             {patient.labResults.some((l) => l.flag !== 'normal') && (
               <span className="text-[10px] bg-rose-50 text-rose-800 font-bold px-1.5 py-0.5 rounded border border-rose-200">
                 {patient.labResults.filter((l) => l.flag !== 'normal').length} Abnormal
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab('timeline')}
+            className={`py-2.5 border-b-2 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
+              activeTab === 'timeline'
+                ? 'border-teal-700 text-teal-800 font-semibold'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Clock className="w-3.5 h-3.5 text-teal-700" />
+            <span>Clinical Timeline</span>
+            {(patient.hospitalizations?.length || 0) > 0 && (
+              <span className="text-[10px] bg-rose-50 text-rose-800 font-bold px-1.5 py-0.5 rounded border border-rose-200">
+                {patient.hospitalizations?.length} Inpatient
               </span>
             )}
           </button>
@@ -1048,9 +1065,34 @@ export const PatientChart: React.FC<PatientChartProps> = ({
         />
       )}
 
+      {/* TAB CONTENT: CLINICAL TIMELINE */}
+      {activeTab === 'timeline' && (
+        <ClinicalTimeline
+          patient={patient}
+          onUpdatePatient={onUpdatePatient}
+          onStartEncounter={onStartEncounter}
+        />
+      )}
+
       {/* TAB CONTENT 4: ALLERGIES & HISTORY */}
       {activeTab === 'history' && (
         <div className="space-y-6">
+          {/* Quick link to Clinical Timeline */}
+          <div className="p-3 bg-teal-50/70 border border-teal-200 rounded-lg flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 text-teal-950">
+              <Clock className="w-4 h-4 text-teal-700 shrink-0" />
+              <span>
+                Want a unified vertical chronology of all past hospitalizations, chronic diagnoses, immunizations, and surgeries?
+              </span>
+            </div>
+            <button
+              onClick={() => setActiveTab('timeline')}
+              className="px-3 py-1 font-semibold text-teal-900 bg-teal-100 hover:bg-teal-200 border border-teal-300 rounded cursor-pointer shrink-0 transition-colors"
+            >
+              Open Clinical Timeline →
+            </button>
+          </div>
+
           {/* Allergies Section */}
           <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">

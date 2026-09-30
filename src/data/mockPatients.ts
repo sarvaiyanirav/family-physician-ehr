@@ -378,6 +378,26 @@ export const INITIAL_PATIENTS: Patient[] = [
     scheduledTime: '09:15 AM',
     triagePriority: 'routine',
     triageNote: 'Regular quarterly chronic disease follow-up (T2DM, HTN)',
+    hospitalizations: [
+      {
+        id: 'hosp-001',
+        admissionDate: '2024-11-12',
+        dischargeDate: '2024-11-15',
+        facility: 'Providence Portland Medical Center',
+        admittingDiagnosis: 'Community-Acquired Pneumonia & Acute COPD Exacerbation',
+        dischargeSummary: 'Treated with IV Ceftriaxone 1g daily, Azithromycin 500mg, and frequent nebulized DuoNebs. Supplemental oxygen weaned from 3L to room air. Sputum culture cleared.',
+        attendingPhysician: 'Dr. Gregory House, MD (Hospitalist)'
+      },
+      {
+        id: 'hosp-002',
+        admissionDate: '2019-06-04',
+        dischargeDate: '2019-06-06',
+        facility: 'OHSU Hospital & Clinics',
+        admittingDiagnosis: 'Severe End-Stage Osteoarthritis Left Hip (Elective Total Hip Arthroplasty)',
+        dischargeSummary: 'Underwent uncomplicated left total hip replacement. Post-op weight bearing as tolerated, PT clearance day 2, discharged on Enoxaparin DVT prophylaxis.',
+        attendingPhysician: 'Dr. Robert Vance, MD (Orthopedics)'
+      }
+    ],
     createdAt: '2020-04-10T08:00:00Z',
     updatedAt: '2026-01-20T11:15:00Z'
   },
@@ -655,6 +675,17 @@ export const INITIAL_PATIENTS: Patient[] = [
     scheduledTime: '10:00 AM',
     triagePriority: 'emergency',
     triageNote: 'Acute substernal chest pressure, diaphoresis, and hypertensive urgency (BP 178/104)',
+    hospitalizations: [
+      {
+        id: 'hosp-003',
+        admissionDate: '2023-08-10',
+        dischargeDate: '2023-08-11',
+        facility: 'Legacy Emanuel Medical Center (Emergency Department & Observation)',
+        admittingDiagnosis: 'Road Cycling Collision / Grade 2 Concussion & Cervical Strain',
+        dischargeSummary: 'Non-contrast CT head and cervical spine negative for acute intracranial hemorrhage or fracture. Monitored overnight for neurological symptoms, cleared for return to non-contact activity with vestibular follow-up.',
+        attendingPhysician: 'Dr. Megan Kelly, MD (Emergency Medicine)'
+      }
+    ],
     createdAt: '2023-08-11T14:00:00Z',
     updatedAt: '2026-09-29T08:00:00Z'
   },
@@ -847,6 +878,17 @@ export const INITIAL_PATIENTS: Patient[] = [
     scheduledTime: '08:30 AM',
     triagePriority: 'urgent',
     triageNote: 'Elderly fall with head contusion on direct oral anticoagulant (Eliquis)',
+    hospitalizations: [
+      {
+        id: 'hosp-004',
+        admissionDate: '2025-04-18',
+        dischargeDate: '2025-04-21',
+        facility: 'Providence St. Vincent Medical Center',
+        admittingDiagnosis: 'Paroxysmal Atrial Fibrillation with Rapid Ventricular Response (HR 154)',
+        dischargeSummary: 'Rate control achieved with IV Cardizem infusion transitioned to oral Metoprolol Succinate 50mg daily. Evaluated for stroke risk (CHA2DS2-VASc = 5), initiated on Eliquis (Apixaban) 5mg BID. Telemetry showed no sustained VT or high-grade AV block.',
+        attendingPhysician: 'Dr. Anita Desai, MD (Cardiology)'
+      }
+    ],
     createdAt: '2018-01-20T11:00:00Z',
     updatedAt: '2026-09-29T09:00:00Z'
   },
