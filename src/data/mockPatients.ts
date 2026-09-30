@@ -289,6 +289,99 @@ export const INITIAL_PATIENTS: Patient[] = [
         status: 'signed',
         signedAt: '2026-01-20T11:15:00Z',
         billingCode: '99214'
+      },
+      {
+        id: 'enc-001-prior1',
+        patientId: 'pat-001',
+        date: '2025-09-18T09:45:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'follow_up',
+        reasonForVisit: 'Hypertension and glycemic management check.',
+        vitals: {
+          systolicBp: 136,
+          diastolicBp: 84,
+          heartRate: 74,
+          respiratoryRate: 16,
+          temperatureC: 36.7,
+          oxygenSaturation: 98,
+          heightCm: 178,
+          weightKg: 88.4,
+          bmi: 27.9,
+          painScore: 1
+        },
+        chiefComplaint: 'Blood pressure recheck after lisinopril dose adjustment.',
+        hpi: 'Tolerating increased Lisinopril 20mg well without dry cough or lightheadedness.',
+        reviewOfSystems: { Cardiovascular: 'No chest pain or orthopnea.' },
+        physicalExam: {
+          General: 'Comfortable, alert.',
+          Cardiovascular: 'Regular rate and rhythm. No edema.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'I10', name: 'Essential (primary) hypertension', isPrimary: true },
+          secondaryDiagnoses: [
+            { code: 'E11.9', name: 'Type 2 diabetes mellitus without complications', isPrimary: false }
+          ],
+          clinicalSummary: 'Blood pressure improved on 20mg Lisinopril. Weight down 0.8 kg.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: ['Basic Metabolic Panel (BMP)'],
+          imagingOrders: [],
+          referrals: [],
+          patientInstructions: 'Continue current medications and aerobic walking routine.',
+          followUpIn: '4 months',
+          warningSigns: ['Dizziness', 'Chest discomfort']
+        },
+        status: 'signed',
+        signedAt: '2025-09-18T10:30:00Z',
+        billingCode: '99213'
+      },
+      {
+        id: 'enc-001-prior2',
+        patientId: 'pat-001',
+        date: '2025-05-12T14:15:00Z',
+        provider: 'Dr. Sarah Lin, MD',
+        type: 'routine_annual',
+        reasonForVisit: 'Annual comprehensive preventive exam.',
+        vitals: {
+          systolicBp: 142,
+          diastolicBp: 88,
+          heartRate: 78,
+          respiratoryRate: 18,
+          temperatureC: 36.9,
+          oxygenSaturation: 97,
+          heightCm: 178,
+          weightKg: 89.2,
+          bmi: 28.2,
+          painScore: 3
+        },
+        chiefComplaint: 'Annual physical and routine lab review.',
+        hpi: 'Blood pressure mildly elevated today. Diet has included higher sodium convenience foods recently.',
+        reviewOfSystems: { Musculoskeletal: 'Right knee crepitus and stiffness.' },
+        physicalExam: {
+          General: 'Well-nourished, conversational.',
+          Cardiovascular: 'S1/S2 heard, no murmurs. BP 142/88 mmHg.'
+        },
+        assessment: {
+          primaryDiagnosis: { code: 'I10', name: 'Essential (primary) hypertension', isPrimary: true },
+          secondaryDiagnoses: [
+            { code: 'E11.9', name: 'Type 2 diabetes mellitus without complications', isPrimary: false },
+            { code: 'E78.5', name: 'Hyperlipidemia, unspecified', isPrimary: false }
+          ],
+          clinicalSummary: 'Mildly elevated BP. Plan to up-titrate Lisinopril from 10mg to 20mg daily.'
+        },
+        plan: {
+          prescriptions: [],
+          labOrders: ['Lipid Panel', 'Hemoglobin A1c (HbA1c)'],
+          imagingOrders: [],
+          referrals: ['Nutrition / Dietitian Counseling'],
+          patientInstructions: 'Reduce dietary sodium. Begin home blood pressure log twice weekly.',
+          followUpIn: '3 months',
+          warningSigns: ['Severe headache', 'Vision changes']
+        },
+        status: 'signed',
+        signedAt: '2025-05-12T15:00:00Z',
+        billingCode: '99397'
       }
     ],
     labResults: [

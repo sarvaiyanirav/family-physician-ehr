@@ -21,6 +21,7 @@ import { Patient, Encounter, Vitals, PrescriptionOrder, DiagnosisEntry } from '.
 import { CLINICAL_TEMPLATES } from '../data/clinicalTemplates';
 import { COMMON_PRIMARY_CARE_ICD10, COMMON_LAB_ORDERS, COMMON_IMAGING_ORDERS, COMMON_SPECIALTY_REFERRALS } from '../data/icdCodes';
 import { calculateBmi } from '../services/storageService';
+import { EncounterVitalsDashboard } from './EncounterVitalsDashboard';
 
 interface EncounterCaptureProps {
   patient: Patient;
@@ -328,6 +329,17 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
     onSaveEncounter(finalEncounter, sign);
   };
 
+  const handleImportDiagnosis = (dx: DiagnosisEntry) => {
+    if (!primaryDiagnosis || !primaryDiagnosis.name) {
+      setPrimaryDiagnosis({ ...dx, isPrimary: true });
+    } else {
+      const exists = secondaryDiagnoses.some((s) => s.code === dx.code);
+      if (!exists && primaryDiagnosis.code !== dx.code) {
+        setSecondaryDiagnoses([...secondaryDiagnoses, { ...dx, isPrimary: false }]);
+      }
+    }
+  };
+
   // Allergy safety check: Alert if prescription matches any patient drug allergy!
   const allergyConflicts = prescriptions
     .filter((rx) => rx.drug.trim().length > 2)
@@ -505,6 +517,14 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
           </select>
         </div>
       </div>
+
+      {/* Longitudinal Clinical Context & Vitals Baseline Mini Dashboard */}
+      <EncounterVitalsDashboard
+        patient={patient}
+        currentVitals={vitals}
+        currentDate={encounterDate}
+        onImportDiagnosis={handleImportDiagnosis}
+      />
 
       {/* SECTION: Vitals Capture */}
       <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-xs space-y-3">
