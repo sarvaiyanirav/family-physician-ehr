@@ -6,6 +6,7 @@ import { EncounterCapture } from './components/EncounterCapture';
 import { ClinicalCalculators } from './components/ClinicalCalculators';
 import { TodaySchedule } from './components/TodaySchedule';
 import { NewPatientModal } from './components/NewPatientModal';
+import { PatientVisitSummary } from './components/PatientVisitSummary';
 import { Patient, Encounter } from './types/clinical';
 import { storageService } from './services/storageService';
 import { auth, googleProvider, testConnection } from './firebase';
@@ -18,6 +19,7 @@ export default function App() {
   const [activeView, setActiveView] = useState<'directory' | 'chart' | 'calculators' | 'schedule' | 'encounter'>('directory');
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
   const [editingEncounter, setEditingEncounter] = useState<Encounter | undefined>(undefined);
+  const [viewingSummaryEncounter, setViewingSummaryEncounter] = useState<Encounter | null>(null);
   const [isNewPatientModalOpen, setIsNewPatientModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -315,6 +317,7 @@ export default function App() {
             onStartEncounter={(enc) => handleStartEncounter(selectedPatient, enc)}
             onUpdatePatient={handleUpdatePatient}
             onOpenCalculators={() => setActiveView('calculators')}
+            onViewVisitSummary={(enc) => setViewingSummaryEncounter(enc)}
           />
         )}
 
@@ -324,10 +327,7 @@ export default function App() {
             existingEncounter={editingEncounter}
             onSaveEncounter={handleSaveEncounter}
             onClose={() => setActiveView('chart')}
-            onPrintAVS={(enc) => {
-              setActiveView('chart');
-              showToast('Navigate to "Printable Documents & AVS" to review and print.');
-            }}
+            onPrintAVS={(enc) => setViewingSummaryEncounter(enc)}
             onPrintNote={(enc) => {
               window.print();
             }}
@@ -338,6 +338,22 @@ export default function App() {
           <ClinicalCalculators initialPatient={selectedPatient} />
         )}
       </main>
+
+      {/* Patient Visit Summary (AVS) Full-Page Printer Modal */}
+      {viewingSummaryEncounter && selectedPatient && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-900/60 backdrop-blur-xs print:static print:bg-white print:overflow-visible">
+          <PatientVisitSummary
+            patient={selectedPatient}
+            encounter={viewingSummaryEncounter}
+            onClose={() => setViewingSummaryEncounter(null)}
+            onEditEncounter={() => {
+              const enc = viewingSummaryEncounter;
+              setViewingSummaryEncounter(null);
+              handleStartEncounter(selectedPatient, enc);
+            }}
+          />
+        </div>
+      )}
 
       {/* New Patient Intake Modal */}
       <NewPatientModal

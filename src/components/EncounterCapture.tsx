@@ -329,6 +329,41 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
     onSaveEncounter(finalEncounter, sign);
   };
 
+  const getCurrentEncounter = (): Encounter => ({
+    id: existingEncounter?.id || `enc-${Date.now()}`,
+    patientId: patient.id,
+    date: new Date(encounterDate).toISOString(),
+    provider,
+    type: visitType,
+    reasonForVisit: reasonForVisit.trim() || 'General follow-up visit',
+    vitals: {
+      ...vitals,
+      bmi: bmiCalc?.bmi,
+      takenAt: new Date().toISOString(),
+    },
+    chiefComplaint: chiefComplaint.trim() || reasonForVisit.trim(),
+    hpi: hpi.trim(),
+    reviewOfSystems: ros,
+    physicalExam,
+    assessment: {
+      primaryDiagnosis,
+      secondaryDiagnoses,
+      clinicalSummary: clinicalSummary.trim(),
+    },
+    plan: {
+      prescriptions,
+      labOrders,
+      imagingOrders,
+      referrals,
+      patientInstructions: patientInstructions.trim(),
+      followUpIn,
+      warningSigns,
+    },
+    status: isSigned ? 'signed' : 'draft',
+    signedAt: isSigned ? existingEncounter?.signedAt || new Date().toISOString() : undefined,
+    billingCode,
+  });
+
   const handleImportDiagnosis = (dx: DiagnosisEntry) => {
     if (!primaryDiagnosis || !primaryDiagnosis.name) {
       setPrimaryDiagnosis({ ...dx, isPrimary: true });
@@ -392,12 +427,12 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
             </button>
 
             <button
-              onClick={() => onPrintAVS(existingEncounter || ({} as any))}
-              disabled={!existingEncounter}
-              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 disabled:opacity-40 rounded-md transition-colors cursor-pointer"
+              onClick={() => onPrintAVS(getCurrentEncounter())}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md transition-colors cursor-pointer"
+              title="Preview and print clean PDF Patient Visit Summary (AVS)"
             >
               <FileCheck className="w-3.5 h-3.5 text-red-700" />
-              <span>Patient After-Visit Summary</span>
+              <span>Patient Visit Summary (AVS)</span>
             </button>
 
             <button
@@ -1064,6 +1099,16 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => onPrintAVS(getCurrentEncounter())}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded-md transition-colors cursor-pointer"
+            title="Preview Patient Visit Summary before or after signing"
+          >
+            <FileCheck className="w-4 h-4 text-red-700" />
+            <span>Patient Visit Summary</span>
+          </button>
+
           <button
             type="button"
             onClick={() => handleSave(false)}

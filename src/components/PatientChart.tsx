@@ -28,6 +28,7 @@ import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
 import { PediatricGrowthChart } from './PediatricGrowthChart';
 import { LabsManagement } from './LabsManagement';
 import { ClinicalTimeline } from './ClinicalTimeline';
+import { PatientVisitSummary } from './PatientVisitSummary';
 
 interface PatientChartProps {
   patient: Patient;
@@ -35,6 +36,7 @@ interface PatientChartProps {
   onStartEncounter: (encounter?: Encounter) => void;
   onUpdatePatient: (updated: Patient) => void;
   onOpenCalculators: () => void;
+  onViewVisitSummary?: (encounter: Encounter) => void;
 }
 
 export const PatientChart: React.FC<PatientChartProps> = ({
@@ -43,6 +45,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
   onStartEncounter,
   onUpdatePatient,
   onOpenCalculators,
+  onViewVisitSummary,
 }) => {
   const [activeTab, setActiveTab] = useState<'encounters' | 'meds_problems' | 'vitals' | 'growth_chart' | 'labs' | 'timeline' | 'history' | 'preventive' | 'print'>('encounters');
   const [selectedEncounterForView, setSelectedEncounterForView] = useState<Encounter | null>(
@@ -557,6 +560,16 @@ export const PatientChart: React.FC<PatientChartProps> = ({
                     </div>
 
                     <div className="flex items-center gap-2">
+                      {onViewVisitSummary && (
+                        <button
+                          onClick={() => onViewVisitSummary(selectedEncounterForView)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded cursor-pointer transition-colors"
+                          title="View and print official Patient After-Visit Summary (AVS)"
+                        >
+                          <FileCheck className="w-3.5 h-3.5 text-red-700" />
+                          <span>Visit Summary (AVS)</span>
+                        </button>
+                      )}
                       <button
                         onClick={() => onStartEncounter(selectedEncounterForView)}
                         className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer"
@@ -1380,143 +1393,57 @@ export const PatientChart: React.FC<PatientChartProps> = ({
 
       {/* TAB CONTENT 6: PRINTABLE DOCUMENTS & AFTER-VISIT SUMMARY */}
       {activeTab === 'print' && (
-        <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-gray-200 pb-3">
-            <div>
-              <h2 className="text-base font-bold text-gray-900">
-                Patient After-Visit Summary (AVS) & Clinical Dossier
-              </h2>
-              <p className="text-xs text-gray-500">
-                Print-ready official document formatted for patient handoff or physician chart transfer
-              </p>
-            </div>
-            <button
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md transition-colors cursor-pointer"
-            >
-              <Printer className="w-4 h-4" />
-              <span>Print Document / Save as PDF</span>
-            </button>
-          </div>
-
-          {/* Printable Container (styled for crisp printing) */}
-          <div className="p-8 border border-gray-200 rounded-lg max-w-4xl mx-auto space-y-6 bg-white text-gray-900 text-xs">
-            {/* Clinical Letterhead */}
-            <div className="flex items-start justify-between border-b-2 border-gray-900 pb-4">
-              <div>
-                <h1 className="text-lg font-bold uppercase tracking-tight text-gray-900">
-                  Cascade Family Health Centre
-                </h1>
-                <p className="text-gray-600 text-xs mt-0.5">
-                  Primary Care, Preventive Medicine & Chronic Disease Management
-                </p>
-                <p className="text-gray-500 font-mono text-[11px]">
-                  740 SW Horizon Blvd · Portland, OR 97201 · Ph: (503) 555-0190
-                </p>
-              </div>
-              <div className="text-right font-mono text-[11px] text-gray-600">
-                <div>Date: {new Date().toLocaleDateString()}</div>
-                <div>Attending: {patient.primaryPhysician}</div>
-              </div>
-            </div>
-
-            {/* Patient Header Block */}
-            <div className="grid grid-cols-2 gap-4 bg-gray-50 p-3 rounded border border-gray-200">
-              <div>
-                <span className="font-semibold">Patient: </span>
-                <span className="text-gray-900 font-bold">{patient.lastName}, {patient.firstName}</span>
-                <div className="text-gray-600 font-mono">DOB: {patient.dob} ({age} yrs) · {patient.sex}</div>
-                <div className="text-gray-600 font-mono">MRN: {patient.mrn} · HC: {patient.healthCardNumber}</div>
-              </div>
-              <div>
-                <span className="font-semibold text-rose-800">Drug Allergies: </span>
-                <span className="text-gray-900 font-medium">
-                  {patient.allergies.length > 0
-                    ? patient.allergies.map((a) => `${a.allergen} (${a.reaction})`).join('; ')
-                    : 'No Known Drug Allergies (NKDA)'}
-                </span>
-                <div className="text-gray-600 mt-1">
-                  Code Status: <span className="font-bold">{patient.codeStatus}</span>
+        <div className="space-y-4">
+          {patient.encounters.length > 0 ? (
+            <div className="space-y-4">
+              <div className="bg-white border border-gray-200 rounded-lg p-3.5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-red-700 shrink-0" />
+                  <span className="text-xs font-bold text-gray-900">
+                    Encounter Selection:
+                  </span>
+                  <select
+                    value={selectedEncounterForView?.id || patient.encounters[0]?.id}
+                    onChange={(e) => {
+                      const found = patient.encounters.find((enc) => enc.id === e.target.value);
+                      if (found) setSelectedEncounterForView(found);
+                    }}
+                    className="px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md focus:outline-none focus:border-red-600 bg-white"
+                  >
+                    {patient.encounters.map((enc) => (
+                      <option key={enc.id} value={enc.id}>
+                        {new Date(enc.date).toLocaleDateString()} — {enc.reasonForVisit || enc.chiefComplaint} ({enc.provider})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="text-xs text-gray-500 font-mono">
+                  Showing clean, patient-friendly AVS formatted for printing and PDF export
                 </div>
               </div>
+
+              <PatientVisitSummary
+                patient={patient}
+                encounter={selectedEncounterForView || patient.encounters[0]}
+                onEditEncounter={() => onStartEncounter(selectedEncounterForView || patient.encounters[0])}
+              />
             </div>
-
-            {/* Current Active Medications */}
-            <div>
-              <h3 className="font-bold uppercase tracking-wider text-gray-900 border-b border-gray-300 pb-1 mb-2">
-                Current Prescribed Medications
-              </h3>
-              <table className="w-full text-left text-xs font-mono">
-                <thead>
-                  <tr className="text-gray-600 border-b border-gray-200">
-                    <th className="py-1">Medication</th>
-                    <th className="py-1">Dosage & Route</th>
-                    <th className="py-1">Frequency / Instructions</th>
-                    <th className="py-1">Indication</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {patient.medications.filter((m) => m.status === 'active').map((med) => (
-                    <tr key={med.id}>
-                      <td className="py-1.5 font-bold font-sans">{med.name}</td>
-                      <td className="py-1.5">{med.dosage} ({med.route})</td>
-                      <td className="py-1.5">{med.frequency}</td>
-                      <td className="py-1.5 font-sans text-gray-600">{med.indication}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Active Diagnoses */}
-            <div>
-              <h3 className="font-bold uppercase tracking-wider text-gray-900 border-b border-gray-300 pb-1 mb-2">
-                Active Diagnoses & Chronic Problems
-              </h3>
-              <div className="grid grid-cols-2 gap-2">
-                {patient.activeProblems.filter((p) => p.status === 'active').map((p) => (
-                  <div key={p.id}>
-                    <span className="font-mono text-gray-500 mr-1">[{p.icdCode}]</span>
-                    <span className="font-medium text-gray-900">{p.description}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Latest Encounter Care Instructions */}
-            {patient.encounters[0] && (
-              <div className="space-y-2">
-                <h3 className="font-bold uppercase tracking-wider text-gray-900 border-b border-gray-300 pb-1 mb-2">
-                  Care Plan & Patient Instructions (Visit: {new Date(patient.encounters[0].date).toLocaleDateString()})
-                </h3>
-                <p className="leading-relaxed bg-gray-50 p-3 rounded border border-gray-200">
-                  {patient.encounters[0].plan.patientInstructions || 'Continue current healthy lifestyle and medication regimen.'}
-                </p>
-                <div className="font-semibold text-gray-800">
-                  Follow-Up Appointment: <span className="font-normal font-mono">{patient.encounters[0].plan.followUpIn}</span>
-                </div>
-              </div>
-            )}
-
-            {/* Red Flag Warning Box */}
-            <div className="p-3 border border-rose-300 bg-rose-50/50 rounded text-xs space-y-1">
-              <span className="font-bold text-rose-900">When to Seek Emergency Medical Attention:</span>
-              <p className="text-rose-800">
-                If you experience sudden chest pain or tightness, sudden shortness of breath, sudden facial drooping or weakness in your arms/legs, or severe acute symptoms, call 911 or go to the nearest emergency department immediately.
+          ) : (
+            <div className="bg-white border border-gray-200 rounded-lg p-10 text-center text-gray-500 space-y-3">
+              <FileText className="w-10 h-10 text-gray-300 mx-auto" />
+              <h3 className="font-bold text-sm text-gray-800">No Documented Encounters</h3>
+              <p className="text-xs text-gray-500 max-w-md mx-auto">
+                No clinical visits have been recorded for {patient.firstName} yet. Start an encounter to generate an official After-Visit Summary.
               </p>
+              <button
+                onClick={() => onStartEncounter()}
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Start New Clinical Encounter</span>
+              </button>
             </div>
-
-            {/* Signature Block */}
-            <div className="pt-8 flex justify-between items-end border-t border-gray-200 text-xs">
-              <div>
-                <div className="font-mono text-gray-500 text-[10px]">VERIFIED CLINICAL RECORD</div>
-                <div className="font-semibold text-gray-900">{patient.primaryPhysician}</div>
-              </div>
-              <div className="border-t border-gray-400 w-48 text-center pt-1 text-gray-600 font-mono text-[11px]">
-                Clinician Signature
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       )}
     </div>
