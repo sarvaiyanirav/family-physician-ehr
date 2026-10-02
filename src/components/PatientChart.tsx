@@ -29,6 +29,8 @@ import { PediatricGrowthChart } from './PediatricGrowthChart';
 import { LabsManagement } from './LabsManagement';
 import { ClinicalTimeline } from './ClinicalTimeline';
 import { PatientVisitSummary } from './PatientVisitSummary';
+import { PatientAvatar } from './PatientAvatar';
+import { PatientAvatarModal } from './PatientAvatarModal';
 
 interface PatientChartProps {
   patient: Patient;
@@ -51,6 +53,7 @@ export const PatientChart: React.FC<PatientChartProps> = ({
   const [selectedEncounterForView, setSelectedEncounterForView] = useState<Encounter | null>(
     patient.encounters[0] || null
   );
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
   // Quick modals for adding problem or medication
   const [isAddingProblem, setIsAddingProblem] = useState(false);
@@ -213,22 +216,30 @@ export const PatientChart: React.FC<PatientChartProps> = ({
       {/* Primary Patient Dossier Header Banner */}
       <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-                {patient.lastName}, {patient.firstName}
-                {patient.preferredName && (
-                  <span className="text-base font-normal text-gray-500 ml-2">
-                    &ldquo;{patient.preferredName}&rdquo;
-                  </span>
-                )}
-              </h1>
-              <span className="font-mono text-xs font-semibold text-gray-700 bg-gray-100 px-2.5 py-1 rounded">
-                MRN: {patient.mrn}
-              </span>
-              <span className="font-mono text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                HC: {patient.healthCardNumber}
-              </span>
+          <div className="flex items-start sm:items-center gap-4">
+            <PatientAvatar
+              patient={patient}
+              size="xl"
+              editable={true}
+              onEdit={() => setIsAvatarModalOpen(true)}
+              className="cursor-pointer"
+            />
+            <div>
+              <div className="flex items-center gap-3 flex-wrap">
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+                  {patient.lastName}, {patient.firstName}
+                  {patient.preferredName && (
+                    <span className="text-base font-normal text-gray-500 ml-2">
+                      &ldquo;{patient.preferredName}&rdquo;
+                    </span>
+                  )}
+                </h1>
+                <span className="font-mono text-xs font-semibold text-gray-700 bg-gray-100 px-2.5 py-1 rounded">
+                  MRN: {patient.mrn}
+                </span>
+                <span className="font-mono text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
+                  HC: {patient.healthCardNumber}
+                </span>
 
               {/* Triage Priority Badge & Selector */}
               <div className="flex items-center gap-1.5">
@@ -299,8 +310,9 @@ export const PatientChart: React.FC<PatientChartProps> = ({
               <span>Physician: {patient.primaryPhysician}</span>
             </div>
           </div>
+        </div>
 
-          {/* Recent Vitals Strip */}
+        {/* Recent Vitals Strip */}
           {latestVitals && (
             <div className="flex items-center gap-4 bg-gray-50 p-3 rounded-md border border-gray-200 text-xs">
               <div>
@@ -1445,6 +1457,22 @@ export const PatientChart: React.FC<PatientChartProps> = ({
             </div>
           )}
         </div>
+      )}
+
+      {/* Patient Avatar & Webcam Modal */}
+      {isAvatarModalOpen && (
+        <PatientAvatarModal
+          patient={patient}
+          isOpen={isAvatarModalOpen}
+          onClose={() => setIsAvatarModalOpen(false)}
+          onSaveAvatar={(photoUrl, avatarType) => {
+            onUpdatePatient({
+              ...patient,
+              photoUrl,
+              avatarType,
+            });
+          }}
+        />
       )}
     </div>
   );

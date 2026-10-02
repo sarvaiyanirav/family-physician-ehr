@@ -2,6 +2,7 @@ import React from 'react';
 import { Clock, User, ArrowRight, Activity, CheckCircle, AlertCircle } from 'lucide-react';
 import { Patient } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
+import { PatientAvatar } from './PatientAvatar';
 
 interface TodayScheduleProps {
   patients: Patient[];
@@ -68,14 +69,16 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
                   </span>
                 </div>
 
-                <div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => onSelectPatient(patient)}
-                      className="font-bold text-base text-gray-900 hover:text-red-700 transition-colors text-left cursor-pointer"
-                    >
-                      {patient.lastName}, {patient.firstName}
-                    </button>
+                <div className="flex items-start gap-3">
+                  <PatientAvatar patient={patient} size="md" />
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => onSelectPatient(patient)}
+                        className="font-bold text-base text-gray-900 hover:text-red-700 transition-colors text-left cursor-pointer"
+                      >
+                        {patient.lastName}, {patient.firstName}
+                      </button>
                     <span className="text-xs font-mono text-gray-500">[{patient.mrn}]</span>
                     {patient.visitStatus === 'in_exam' && (
                       <span className="text-[11px] font-semibold text-red-800 bg-red-50 px-2 py-0.5 rounded border border-red-200">
@@ -121,8 +124,9 @@ export const TodaySchedule: React.FC<TodayScheduleProps> = ({
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Actions */}
+            {/* Actions */}
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => onSelectPatient(patient)}

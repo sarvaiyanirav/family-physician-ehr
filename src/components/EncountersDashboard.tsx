@@ -34,6 +34,7 @@ import {
 } from 'recharts';
 import { Patient, Encounter, DiagnosisEntry } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
+import { PatientAvatar } from './PatientAvatar';
 
 interface EncountersDashboardProps {
   patients: Patient[];
@@ -745,14 +746,19 @@ export const EncountersDashboard: React.FC<EncountersDashboardProps> = ({
 
                       {/* Patient */}
                       <td className="py-3 px-4">
-                        <div
-                          onClick={() => onSelectPatient(item.patient)}
-                          className="font-bold text-gray-900 hover:text-red-700 transition-colors cursor-pointer flex items-center gap-1.5"
-                        >
-                          <span>{item.patient.lastName}, {item.patient.firstName}</span>
-                        </div>
-                        <div className="text-[11px] text-gray-500 font-mono">
-                          DOB: {item.patient.dob} ({calculateAge(item.patient.dob)}y) · MRN: {item.patient.mrn}
+                        <div className="flex items-center gap-2.5">
+                          <PatientAvatar patient={item.patient} size="sm" />
+                          <div>
+                            <div
+                              onClick={() => onSelectPatient(item.patient)}
+                              className="font-bold text-gray-900 hover:text-red-700 transition-colors cursor-pointer flex items-center gap-1.5"
+                            >
+                              <span>{item.patient.lastName}, {item.patient.firstName}</span>
+                            </div>
+                            <div className="text-[11px] text-gray-500 font-mono">
+                              DOB: {item.patient.dob} ({calculateAge(item.patient.dob)}y) · MRN: {item.patient.mrn}
+                            </div>
+                          </div>
                         </div>
                       </td>
 

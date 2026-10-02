@@ -180,6 +180,8 @@ export interface Patient {
   firstName: string;
   lastName: string;
   preferredName?: string;
+  photoUrl?: string; // Captured webcam photo, preset placeholder avatar, or uploaded image
+  avatarType?: 'webcam' | 'preset' | 'upload' | 'initials';
   dob: string; // YYYY-MM-DD
   sex: 'male' | 'female' | 'intersex';
   genderIdentity?: string;

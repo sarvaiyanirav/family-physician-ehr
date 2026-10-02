@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { X, Check, AlertTriangle, AlertOctagon, Activity } from 'lucide-react';
+import { X, Check, AlertTriangle, AlertOctagon, Activity, Camera } from 'lucide-react';
 import { Patient, Allergy, Problem, TriagePriority } from '../types/clinical';
 import { COMMON_PRIMARY_CARE_ICD10 } from '../data/icdCodes';
+import { PatientAvatarModal } from './PatientAvatarModal';
+import { PatientAvatar } from './PatientAvatar';
 
 interface NewPatientModalProps {
   isOpen: boolean;
@@ -17,6 +19,9 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [preferredName, setPreferredName] = useState('');
+  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  const [avatarType, setAvatarType] = useState<Patient['avatarType']>('initials');
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [dob, setDob] = useState('1985-06-15');
   const [sex, setSex] = useState<'male' | 'female' | 'intersex'>('female');
   const [genderIdentity, setGenderIdentity] = useState('');
@@ -113,6 +118,8 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
         phone: emergencyPhone.trim(),
       },
       healthCardNumber: healthCard.trim() || `HC-${Math.floor(100000 + Math.random() * 900000)}-OR`,
+      photoUrl,
+      avatarType,
       primaryLanguage: primaryLang,
       needsInterpreter,
       codeStatus,
@@ -179,9 +186,29 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Section 1: Demographics */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-red-800 mb-3">
-              1. Patient Identification & Demographics
-            </h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-red-800">
+                1. Patient Identification & Demographics
+              </h3>
+
+              <div className="flex items-center gap-2">
+                {photoUrl && (
+                  <img
+                    src={photoUrl}
+                    alt="Patient preview"
+                    className="w-7 h-7 rounded-full object-cover border border-red-700 shadow-2xs"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIsAvatarModalOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-md transition-colors cursor-pointer"
+                >
+                  <Camera className="w-3.5 h-3.5 text-red-700" />
+                  <span>{photoUrl ? 'Change Photo' : 'Webcam / Set Avatar'}</span>
+                </button>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1">
@@ -538,6 +565,27 @@ export const NewPatientModal: React.FC<NewPatientModalProps> = ({
           </div>
         </form>
       </div>
+
+      {/* Patient Avatar & Webcam Capture Modal */}
+      {isAvatarModalOpen && (
+        <PatientAvatarModal
+          patient={{
+            id: 'new-intake',
+            mrn: 'NEW',
+            firstName: firstName || 'New',
+            lastName: lastName || 'Patient',
+            sex,
+            dob,
+            photoUrl,
+          } as Patient}
+          isOpen={isAvatarModalOpen}
+          onClose={() => setIsAvatarModalOpen(false)}
+          onSaveAvatar={(url, type) => {
+            setPhotoUrl(url);
+            setAvatarType(type);
+          }}
+        />
+      )}
     </div>
   );
 };

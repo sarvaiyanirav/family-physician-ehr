@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Patient, TriagePriority } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
+import { PatientAvatar } from './PatientAvatar';
 
 interface PatientDirectoryProps {
   patients: Patient[];
@@ -427,27 +428,32 @@ export const PatientDirectory: React.FC<PatientDirectoryProps> = ({
                       onClick={() => onSelectPatient(patient)}
                     >
                       {/* Name & MRN */}
-                      <td className="py-3.5 px-4">
-                        <div className="font-semibold text-gray-900 text-sm group-hover:text-red-700 transition-colors flex items-center gap-1.5">
-                          {isEmergency && (
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-                            </span>
-                          )}
-                          <span>
-                            {patient.lastName}, {patient.firstName}
-                          </span>
-                          {patient.preferredName && (
-                            <span className="text-xs font-normal text-gray-500">
-                              &ldquo;{patient.preferredName}&rdquo;
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-1.5 text-gray-500 font-mono text-[11px] mt-0.5">
-                          <span>{patient.mrn}</span>
-                          <span aria-hidden="true">·</span>
-                          <span>{patient.healthCardNumber}</span>
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-3">
+                          <PatientAvatar patient={patient} size="md" />
+                          <div>
+                            <div className="font-semibold text-gray-900 text-sm group-hover:text-red-700 transition-colors flex items-center gap-1.5">
+                              {isEmergency && (
+                                <span className="relative flex h-2 w-2">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                                </span>
+                              )}
+                              <span>
+                                {patient.lastName}, {patient.firstName}
+                              </span>
+                              {patient.preferredName && (
+                                <span className="text-xs font-normal text-gray-500">
+                                  &ldquo;{patient.preferredName}&rdquo;
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1.5 text-gray-500 font-mono text-[11px] mt-0.5">
+                              <span>{patient.mrn}</span>
+                              <span aria-hidden="true">·</span>
+                              <span>{patient.healthCardNumber}</span>
+                            </div>
+                          </div>
                         </div>
                       </td>
 
