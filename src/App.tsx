@@ -8,6 +8,7 @@ import { TodaySchedule } from './components/TodaySchedule';
 import { NewPatientModal } from './components/NewPatientModal';
 import { PatientVisitSummary } from './components/PatientVisitSummary';
 import { MobileVisitSummary } from './components/MobileVisitSummary';
+import { EncountersDashboard } from './components/EncountersDashboard';
 import { Patient, Encounter } from './types/clinical';
 import { storageService } from './services/storageService';
 import { auth, googleProvider, testConnection } from './firebase';
@@ -17,7 +18,7 @@ import { Check, AlertCircle } from 'lucide-react';
 
 export default function App() {
   const [patients, setPatients] = useState<Patient[]>([]);
-  const [activeView, setActiveView] = useState<'directory' | 'chart' | 'calculators' | 'schedule' | 'encounter'>('directory');
+  const [activeView, setActiveView] = useState<'directory' | 'chart' | 'calculators' | 'schedule' | 'encounter' | 'encounters'>('directory');
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
   const [editingEncounter, setEditingEncounter] = useState<Encounter | undefined>(undefined);
   const [viewingSummaryEncounter, setViewingSummaryEncounter] = useState<Encounter | null>(null);
@@ -342,6 +343,19 @@ export default function App() {
             onNewPatient={() => setIsNewPatientModalOpen(true)}
             onStartEncounter={(p) => handleStartEncounter(p)}
             onUpdatePatient={handleUpdatePatient}
+          />
+        )}
+
+        {activeView === 'encounters' && (
+          <EncountersDashboard
+            patients={patients}
+            onSelectPatient={handleSelectPatient}
+            onStartEncounter={(p, enc) => handleStartEncounter(p, enc)}
+            onViewVisitSummary={(p, enc) => {
+              setSelectedPatientId(p.id);
+              setViewingSummaryEncounter(enc);
+            }}
+            onNewPatient={() => setIsNewPatientModalOpen(true)}
           />
         )}
 

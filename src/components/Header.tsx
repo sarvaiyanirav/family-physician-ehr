@@ -18,8 +18,8 @@ import { Patient } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
 
 interface HeaderProps {
-  activeView: 'directory' | 'chart' | 'calculators' | 'schedule';
-  onNavigate: (view: 'directory' | 'chart' | 'calculators' | 'schedule') => void;
+  activeView: 'directory' | 'chart' | 'calculators' | 'schedule' | 'encounters';
+  onNavigate: (view: 'directory' | 'chart' | 'calculators' | 'schedule' | 'encounters') => void;
   onNewPatient: () => void;
   onExportCSV: () => void;
   onExportJSON: () => void;
@@ -178,6 +178,16 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 Patient Registry
+              </button>
+              <button
+                onClick={() => onNavigate('encounters')}
+                className={`py-1 text-left transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 ${
+                  activeView === 'encounters'
+                    ? 'text-red-700 border-red-700 font-semibold'
+                    : 'text-gray-600 hover:text-gray-900 border-transparent'
+                }`}
+              >
+                <span>Encounters Dashboard</span>
               </button>
               <button
                 onClick={() => onNavigate('schedule')}
