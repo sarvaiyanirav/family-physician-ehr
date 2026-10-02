@@ -13,13 +13,16 @@ import {
   CloudOff,
   LogIn,
   LogOut,
+  Shield,
+  TestTube,
 } from 'lucide-react';
 import { Patient } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
+import { UserAccount } from '../types/auth';
 
 interface HeaderProps {
-  activeView: 'directory' | 'chart' | 'calculators' | 'schedule' | 'encounters';
-  onNavigate: (view: 'directory' | 'chart' | 'calculators' | 'schedule' | 'encounters') => void;
+  activeView: 'directory' | 'chart' | 'calculators' | 'schedule' | 'encounters' | 'users' | 'labs';
+  onNavigate: (view: 'directory' | 'chart' | 'calculators' | 'schedule' | 'encounters' | 'users' | 'labs') => void;
   onNewPatient: () => void;
   onExportCSV: () => void;
   onExportJSON: () => void;
@@ -32,6 +35,8 @@ interface HeaderProps {
   syncStatus?: 'connected' | 'syncing' | 'offline';
   onSignIn?: () => void;
   onSignOut?: () => void;
+  staffUser: UserAccount;
+  onOpenAuthModal: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -49,6 +54,8 @@ export const Header: React.FC<HeaderProps> = ({
   syncStatus = 'connected',
   onSignIn,
   onSignOut,
+  staffUser,
+  onOpenAuthModal,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -209,6 +216,37 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 Clinical Calculators
               </button>
+
+              {/* Super Admin User Management */}
+              {staffUser.role === 'admin' && (
+                <button
+                  onClick={() => onNavigate('users')}
+                  className={`py-1 text-left transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 ${
+                    activeView === 'users'
+                      ? 'text-purple-700 border-purple-700 font-semibold'
+                      : 'text-purple-900/80 hover:text-purple-900 border-transparent'
+                  }`}
+                  title="Super User: Manage Clinic Accounts and Staff Authorization"
+                >
+                  <Shield className="w-3.5 h-3.5 text-purple-700" />
+                  <span>User Management</span>
+                </button>
+              )}
+
+              {/* Lab Technician direct access */}
+              {staffUser.role === 'lab_technician' && (
+                <button
+                  onClick={() => onNavigate('labs')}
+                  className={`py-1 text-left transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 ${
+                    activeView === 'labs'
+                      ? 'text-emerald-700 border-emerald-700 font-semibold'
+                      : 'text-emerald-800 hover:text-emerald-950 border-transparent'
+                  }`}
+                >
+                  <TestTube className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Lab Results</span>
+                </button>
+              )}
             </nav>
           </div>
 
@@ -449,6 +487,48 @@ export const Header: React.FC<HeaderProps> = ({
                   <span>Sign In</span>
                 </button>
               ) : null}
+            </div>
+
+            {/* Staff Role Authorization Indicator & Switcher */}
+            <div
+              onClick={onOpenAuthModal}
+              className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 px-2.5 py-1 rounded-lg text-xs cursor-pointer transition-colors"
+              title="Click to switch staff role or authenticate (Super Admin, Doctor, Compounder, Lab Tech)"
+            >
+              <div
+                className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] text-white shrink-0 ${
+                  staffUser.role === 'admin'
+                    ? 'bg-purple-700'
+                    : staffUser.role === 'doctor'
+                    ? 'bg-blue-700'
+                    : staffUser.role === 'compounder'
+                    ? 'bg-amber-600'
+                    : 'bg-emerald-700'
+                }`}
+              >
+                {staffUser.displayName?.[0] || 'U'}
+              </div>
+              <div className="text-left hidden sm:block">
+                <div className="font-bold text-gray-900 text-[11px] leading-tight flex items-center gap-1">
+                  <span className="truncate max-w-[110px]">{staffUser.displayName}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span
+                    className={`text-[9px] font-mono uppercase font-bold px-1 rounded ${
+                      staffUser.role === 'admin'
+                        ? 'bg-purple-100 text-purple-900'
+                        : staffUser.role === 'doctor'
+                        ? 'bg-blue-100 text-blue-900'
+                        : staffUser.role === 'compounder'
+                        ? 'bg-amber-100 text-amber-900'
+                        : 'bg-emerald-100 text-emerald-900'
+                    }`}
+                  >
+                    {staffUser.role === 'admin' ? 'Super Admin' : staffUser.role}
+                  </span>
+                  <span className="text-[10px] text-gray-400">· Switch</span>
+                </div>
+              </div>
             </div>
 
             <button

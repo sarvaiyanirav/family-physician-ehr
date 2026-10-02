@@ -42,5 +42,12 @@ service cloud.firestore {
       allow update: if isSignedIn() && isValidId(patientId) && isValidPatient(incoming());
       allow delete: if isSignedIn() && isValidId(patientId);
     }
+
+    // Clinical Staff User Accounts Collection
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId);
+      allow list: if isSignedIn();
+      allow create, update, delete: if isSignedIn() && isValidId(userId);
+    }
   }
 }

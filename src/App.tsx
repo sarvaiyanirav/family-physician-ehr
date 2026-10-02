@@ -9,7 +9,12 @@ import { NewPatientModal } from './components/NewPatientModal';
 import { PatientVisitSummary } from './components/PatientVisitSummary';
 import { MobileVisitSummary } from './components/MobileVisitSummary';
 import { EncountersDashboard } from './components/EncountersDashboard';
+import { UserManagement } from './components/UserManagement';
+import { AuthModal } from './components/AuthModal';
+import { LabsManagement } from './components/LabsManagement';
 import { Patient, Encounter } from './types/clinical';
+import { UserAccount } from './types/auth';
+import { userService } from './services/userService';
 import { storageService } from './services/storageService';
 import { auth, googleProvider, testConnection } from './firebase';
 import { onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth';
@@ -18,7 +23,7 @@ import { Check, AlertCircle } from 'lucide-react';
 
 export default function App() {
   const [patients, setPatients] = useState<Patient[]>([]);
-  const [activeView, setActiveView] = useState<'directory' | 'chart' | 'calculators' | 'schedule' | 'encounter' | 'encounters'>('directory');
+  const [activeView, setActiveView] = useState<'directory' | 'chart' | 'calculators' | 'schedule' | 'encounter' | 'encounters' | 'users' | 'labs'>('directory');
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
   const [editingEncounter, setEditingEncounter] = useState<Encounter | undefined>(undefined);
   const [viewingSummaryEncounter, setViewingSummaryEncounter] = useState<Encounter | null>(null);
@@ -26,6 +31,10 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [syncStatus, setSyncStatus] = useState<'connected' | 'syncing' | 'offline'>('connected');
+
+  // Staff Authorization User & Modal
+  const [staffUser, setStaffUser] = useState<UserAccount>(() => userService.getCurrentUser());
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   // Support direct QR code scan URLs from mobile phones
   const [mobileDirectView, setMobileDirectView] = useState<{
@@ -324,6 +333,8 @@ export default function App() {
         syncStatus={syncStatus}
         onSignIn={handleSignIn}
         onSignOut={handleSignOut}
+        staffUser={staffUser}
+        onOpenAuthModal={() => setIsAuthModalOpen(true)}
       />
 
       {/* Toast Notification */}
@@ -388,11 +399,56 @@ export default function App() {
             onPrintNote={(enc) => {
               window.print();
             }}
+            staffUser={staffUser}
           />
         )}
 
         {activeView === 'calculators' && (
           <ClinicalCalculators initialPatient={selectedPatient} />
+        )}
+
+        {activeView === 'users' && (
+          <UserManagement
+            currentUser={staffUser}
+            onSwitchUser={(user) => {
+              setStaffUser(user);
+              showToast(`Active session switched to ${user.displayName} (${user.role})`);
+            }}
+          />
+        )}
+
+        {activeView === 'labs' && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+            <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h1 className="text-lg font-bold text-gray-900 tracking-tight">
+                  Clinical Laboratory & Diagnostic Results Workbench
+                </h1>
+                <p className="text-xs text-gray-500">
+                  Laboratory technician review, critical values verification, and test result entry
+                </p>
+              </div>
+              <span className="text-xs font-mono font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-md border border-emerald-200">
+                Staff: {staffUser.displayName} ({staffUser.role})
+              </span>
+            </div>
+
+            {selectedPatient ? (
+              <LabsManagement
+                patient={selectedPatient}
+                onUpdatePatient={handleUpdatePatient}
+              />
+            ) : patients.length > 0 ? (
+              <LabsManagement
+                patient={patients[0]}
+                onUpdatePatient={handleUpdatePatient}
+              />
+            ) : (
+              <div className="bg-white p-8 text-center text-xs text-gray-500">
+                No patients available for laboratory testing.
+              </div>
+            )}
+          </div>
         )}
       </main>
 
@@ -418,6 +474,19 @@ export default function App() {
         onClose={() => setIsNewPatientModalOpen(false)}
         onSave={handleNewPatientSaved}
       />
+
+      {/* Clinic Staff Authentication & Role Switcher Modal */}
+      {isAuthModalOpen && (
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          currentUser={staffUser}
+          onLoginSuccess={(user) => {
+            setStaffUser(user);
+            showToast(`Authenticated as ${user.displayName} (${user.role})`);
+          }}
+        />
+      )}
     </div>
   );
 }

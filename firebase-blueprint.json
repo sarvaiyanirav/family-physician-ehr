@@ -72,6 +72,54 @@
         }
       },
       "required": ["id", "mrn", "firstName", "lastName", "dob", "sex"]
+    },
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Clinical staff user account with role-based authorization",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique user account identifier",
+          "maxLength": 128
+        },
+        "username": {
+          "type": "string",
+          "description": "Unique username used for login",
+          "maxLength": 64
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Staff member full legal/professional name",
+          "maxLength": 128
+        },
+        "role": {
+          "type": "string",
+          "description": "Authorization level within clinic EHR",
+          "enum": ["admin", "doctor", "compounder", "lab_technician"]
+        },
+        "email": {
+          "type": "string",
+          "description": "Staff email contact",
+          "maxLength": 128
+        },
+        "department": {
+          "type": "string",
+          "description": "Assigned clinical or operational department",
+          "maxLength": 128
+        },
+        "status": {
+          "type": "string",
+          "description": "Account status",
+          "enum": ["active", "suspended"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account creation ISO timestamp",
+          "maxLength": 64
+        }
+      },
+      "required": ["id", "username", "displayName", "role", "status"]
     }
   },
   "firestore": {
@@ -80,6 +128,12 @@
         "$ref": "#/entities/Patient"
       },
       "description": "Collection of primary care patient charts"
+    },
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserAccount"
+      },
+      "description": "Collection of application staff users and authorization roles"
     }
   }
 }

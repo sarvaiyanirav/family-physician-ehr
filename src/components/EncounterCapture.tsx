@@ -18,6 +18,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { Patient, Encounter, Vitals, PrescriptionOrder, DiagnosisEntry } from '../types/clinical';
+import { UserAccount } from '../types/auth';
 import { CLINICAL_TEMPLATES } from '../data/clinicalTemplates';
 import { COMMON_PRIMARY_CARE_ICD10, COMMON_LAB_ORDERS, COMMON_IMAGING_ORDERS, COMMON_SPECIALTY_REFERRALS } from '../data/icdCodes';
 import { calculateBmi } from '../services/storageService';
@@ -30,6 +31,7 @@ interface EncounterCaptureProps {
   onClose: () => void;
   onPrintAVS: (encounter: Encounter) => void;
   onPrintNote: (encounter: Encounter) => void;
+  staffUser?: UserAccount;
 }
 
 export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
@@ -39,6 +41,7 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
   onClose,
   onPrintAVS,
   onPrintNote,
+  staffUser,
 }) => {
   // Provider and visit metadata
   const [provider, setProvider] = useState(existingEncounter?.provider || patient.primaryPhysician || 'Dr. Sarah Lin, MD');
@@ -1117,14 +1120,30 @@ export const EncounterCapture: React.FC<EncounterCaptureProps> = ({
             Save Draft
           </button>
 
-          <button
-            type="button"
-            onClick={() => handleSave(true)}
-            className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
-          >
-            <CheckCircle className="w-4 h-4" />
-            <span>Sign & Finalize Encounter</span>
-          </button>
+          {!staffUser || staffUser.role === 'doctor' || staffUser.role === 'admin' ? (
+            <button
+              type="button"
+              onClick={() => handleSave(true)}
+              className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-red-700 hover:bg-red-800 rounded-md shadow-xs transition-colors cursor-pointer"
+            >
+              <CheckCircle className="w-4 h-4" />
+              <span>Sign & Finalize Encounter</span>
+            </button>
+          ) : (
+            <div className="relative group">
+              <button
+                type="button"
+                disabled
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-gray-400 bg-gray-100 rounded-md cursor-not-allowed border border-gray-200"
+              >
+                <CheckCircle className="w-4 h-4 text-gray-400" />
+                <span>Sign (Doctor / Admin Only)</span>
+              </button>
+              <div className="absolute bottom-full right-0 mb-1.5 hidden group-hover:block bg-gray-900 text-white text-[11px] p-2 rounded shadow-lg whitespace-nowrap z-50">
+                Staff role: {staffUser.role}. Only attending physician or admin can sign and finalize notes.
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
