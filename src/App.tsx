@@ -7,6 +7,7 @@ import { ClinicalCalculators } from './components/ClinicalCalculators';
 import { TodaySchedule } from './components/TodaySchedule';
 import { NewPatientModal } from './components/NewPatientModal';
 import { PatientVisitSummary } from './components/PatientVisitSummary';
+import { MobileVisitSummary } from './components/MobileVisitSummary';
 import { Patient, Encounter } from './types/clinical';
 import { storageService } from './services/storageService';
 import { auth, googleProvider, testConnection } from './firebase';
@@ -24,6 +25,24 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [syncStatus, setSyncStatus] = useState<'connected' | 'syncing' | 'offline'>('connected');
+
+  // Support direct QR code scan URLs from mobile phones
+  const [mobileDirectView, setMobileDirectView] = useState<{
+    patientId: string | null;
+    encounterId: string | null;
+  } | null>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get('mode');
+      if (mode === 'mobile-avs' || mode === 'patient-avs') {
+        return {
+          patientId: params.get('patientId'),
+          encounterId: params.get('encounterId'),
+        };
+      }
+    }
+    return null;
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -252,6 +271,30 @@ export default function App() {
     reader.readAsText(file);
     e.target.value = '';
   };
+
+  // If accessed directly via mobile QR code scan, render the mobile patient instructions portal
+  if (mobileDirectView) {
+    const targetPatient =
+      patients.find((p) => p.id === mobileDirectView.patientId) || patients[0];
+    const targetEncounter =
+      targetPatient?.encounters.find((e) => e.id === mobileDirectView.encounterId) ||
+      targetPatient?.encounters[0];
+
+    if (targetPatient && targetEncounter) {
+      return (
+        <MobileVisitSummary
+          patient={targetPatient}
+          encounter={targetEncounter}
+          onBack={() => {
+            if (typeof window !== 'undefined') {
+              window.history.replaceState({}, '', window.location.pathname);
+            }
+            setMobileDirectView(null);
+          }}
+        />
+      );
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-col font-sans selection:bg-red-100 selection:text-red-900">

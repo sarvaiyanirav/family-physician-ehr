@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Printer,
   X,
@@ -16,9 +16,13 @@ import {
   CheckCircle2,
   HelpCircle,
   ExternalLink,
+  QrCode,
+  Smartphone,
 } from 'lucide-react';
 import { Patient, Encounter, PrescriptionOrder } from '../types/clinical';
 import { calculateAge, calculateBmi } from '../services/storageService';
+import { QRCodeDisplay } from './QRCodeDisplay';
+import { MobileVisitSummary } from './MobileVisitSummary';
 
 interface PatientVisitSummaryProps {
   patient: Patient;
@@ -33,9 +37,17 @@ export const PatientVisitSummary: React.FC<PatientVisitSummaryProps> = ({
   onClose,
   onEditEncounter,
 }) => {
+  const [showQRCode, setShowQRCode] = useState(true);
+  const [showMobileSimulator, setShowMobileSimulator] = useState(false);
+
   const age = calculateAge(patient.dob);
   const vitals = encounter.vitals;
   const bmiCalc = vitals ? calculateBmi(vitals.weightKg, vitals.heightCm) : null;
+
+  // Construct patient mobile URL for QR code
+  const mobileUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}${window.location.pathname}?mode=mobile-avs&patientId=${patient.id}&encounterId=${encounter.id}`
+    : `https://cascade-ehr.internal/mobile-avs?patientId=${patient.id}&encounterId=${encounter.id}`;
 
   // Format encounter visit date and time
   const visitDate = new Date(encounter.date);
@@ -82,7 +94,31 @@ export const PatientVisitSummary: React.FC<PatientVisitSummaryProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowMobileSimulator(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-md transition-colors cursor-pointer"
+            title="Preview how instructions look on patient's smartphone"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-red-700" />
+            <span>Test Mobile View</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowQRCode(!showQRCode)}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-colors cursor-pointer ${
+              showQRCode
+                ? 'bg-red-50 text-red-800 border-red-200 font-semibold'
+                : 'bg-gray-50 text-gray-600 border-gray-300'
+            }`}
+            title="Toggle QR code visibility on printed document"
+          >
+            <QrCode className="w-3.5 h-3.5" />
+            <span>QR Code: {showQRCode ? 'On' : 'Off'}</span>
+          </button>
+
           {onEditEncounter && (
             <button
               onClick={onEditEncounter}
@@ -498,6 +534,19 @@ export const PatientVisitSummary: React.FC<PatientVisitSummaryProps> = ({
           </div>
         </div>
 
+        {/* Mobile Care Access QR Code */}
+        {showQRCode && (
+          <div className="page-break-avoid">
+            <QRCodeDisplay
+              value={mobileUrl}
+              size={105}
+              label="Patient Mobile Care Access (Scan with Phone Camera)"
+              sublabel={`Point your camera at this QR code to view your visit instructions, medication schedule, and follow-up plan directly on your phone.`}
+              onPreviewMobile={() => setShowMobileSimulator(true)}
+            />
+          </div>
+        )}
+
         {/* Follow-up & Return Schedule */}
         <div className="p-4 bg-red-50/70 border border-red-200 rounded-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 page-break-avoid">
           <div className="flex items-center gap-3">
@@ -580,6 +629,34 @@ export const PatientVisitSummary: React.FC<PatientVisitSummaryProps> = ({
           This Patient Visit Summary is part of the confidential medical record for {patient.lastName}, {patient.firstName} (MRN: {patient.mrn}). Produced by Cascade Family Health Centre EHR.
         </div>
       </div>
+
+      {/* Mobile Smartphone Simulator Modal */}
+      {showMobileSimulator && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-950/85 backdrop-blur-xs flex items-center justify-center p-4 no-print animate-fade-in">
+          <div className="relative w-full max-w-sm my-6">
+            <div className="flex items-center justify-between mb-3 px-2 text-white">
+              <div className="flex items-center gap-2 text-xs font-mono">
+                <Smartphone className="w-4 h-4 text-red-400" />
+                <span className="font-semibold">Patient Mobile Screen Preview</span>
+              </div>
+              <button
+                onClick={() => setShowMobileSimulator(false)}
+                className="p-1 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                title="Close simulator"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <MobileVisitSummary
+              patient={patient}
+              encounter={encounter}
+              onBack={() => setShowMobileSimulator(false)}
+              isSimulatorModal={true}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
