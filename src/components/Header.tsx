@@ -15,6 +15,7 @@ import {
   LogOut,
   Shield,
   TestTube,
+  Film,
 } from 'lucide-react';
 import { Patient } from '../types/clinical';
 import { calculateAge } from '../services/storageService';
@@ -37,6 +38,7 @@ interface HeaderProps {
   onSignOut?: () => void;
   staffUser: UserAccount;
   onOpenAuthModal: () => void;
+  onOpenDemoVideo: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -56,6 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
   onSignOut,
   staffUser,
   onOpenAuthModal,
+  onOpenDemoVideo,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -530,6 +533,20 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* Professional Demo Video Button with Male Voice */}
+            <button
+              type="button"
+              onClick={onOpenDemoVideo}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-red-700 via-rose-700 to-red-800 hover:from-red-800 hover:to-rose-900 text-white rounded-md text-xs font-bold shadow-xs transition-all cursor-pointer border border-red-500/40 shrink-0"
+              title="Watch full clinical walkthrough video with professional male voice-over"
+            >
+              <Film className="w-3.5 h-3.5 text-white" />
+              <span className="hidden sm:inline">Demo Video</span>
+              <span className="text-[9px] font-mono bg-white/20 px-1 py-0.2 rounded uppercase">
+                Voice Over
+              </span>
+            </button>
 
             <button
               onClick={onNewPatient}

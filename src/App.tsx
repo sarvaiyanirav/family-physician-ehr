@@ -12,6 +12,7 @@ import { EncountersDashboard } from './components/EncountersDashboard';
 import { UserManagement } from './components/UserManagement';
 import { AuthModal } from './components/AuthModal';
 import { LabsManagement } from './components/LabsManagement';
+import { DemoVideoModal } from './components/DemoVideoModal';
 import { Patient, Encounter } from './types/clinical';
 import { UserAccount } from './types/auth';
 import { userService } from './services/userService';
@@ -28,6 +29,7 @@ export default function App() {
   const [editingEncounter, setEditingEncounter] = useState<Encounter | undefined>(undefined);
   const [viewingSummaryEncounter, setViewingSummaryEncounter] = useState<Encounter | null>(null);
   const [isNewPatientModalOpen, setIsNewPatientModalOpen] = useState(false);
+  const [isDemoVideoOpen, setIsDemoVideoOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [syncStatus, setSyncStatus] = useState<'connected' | 'syncing' | 'offline'>('connected');
@@ -335,6 +337,7 @@ export default function App() {
         onSignOut={handleSignOut}
         staffUser={staffUser}
         onOpenAuthModal={() => setIsAuthModalOpen(true)}
+        onOpenDemoVideo={() => setIsDemoVideoOpen(true)}
       />
 
       {/* Toast Notification */}
@@ -485,6 +488,14 @@ export default function App() {
             setStaffUser(user);
             showToast(`Authenticated as ${user.displayName} (${user.role})`);
           }}
+        />
+      )}
+
+      {/* Professional Demo Video Modal with Male Voice Over */}
+      {isDemoVideoOpen && (
+        <DemoVideoModal
+          isOpen={isDemoVideoOpen}
+          onClose={() => setIsDemoVideoOpen(false)}
         />
       )}
     </div>
